@@ -1,10 +1,20 @@
+import styled from "styled-components";
+
+const StyledLabel = styled.label`
+  font-family: "Kanit", sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  width: 100%;
+  height: 35px;
+`;
+
 type LabelProps = {
   label: string;
   htmlFor: string;
 };
 
 function Label({ label, htmlFor }: LabelProps) {
-  return <label htmlFor={htmlFor}>{label}</label>;
+  return <StyledLabel htmlFor={htmlFor}>{label}</StyledLabel>;
 }
 
 export default Label;

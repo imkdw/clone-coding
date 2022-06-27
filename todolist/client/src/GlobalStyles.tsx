@@ -28,6 +28,16 @@ const GlobalStyle = createGlobalStyle`
   button {
     cursor: pointer;
   }
+
+  input {
+    outline: none;
+
+    &::placeholder {
+      opacity: .4;
+      font-size: 18px;
+    }
+  }
+
 `;
 
 export default GlobalStyle;
