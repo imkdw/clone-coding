@@ -1,7 +1,6 @@
 import { ChangeEvent } from "react";
 import styled from "styled-components";
 import AuthInput from "../common/AuthInput";
-import Label from "../common/Label";
 import { useState } from "react";
 
 const StyledForm = styled.form`
@@ -32,7 +31,11 @@ const StyledButton = styled.button`
 `;
 
 function LoginForm() {
-  const [account, setAccount] = useState({
+  type objectKeyType = {
+    [key: string]: string;
+  };
+
+  const [account, setAccount] = useState<objectKeyType>({
     id: "",
     password: "",
   });
@@ -54,13 +57,13 @@ function LoginForm() {
     <StyledForm>
       {textData.map(({ type, placeholder, id }) => (
         <StyleInputWrapper key={id}>
-          <Label label={placeholder} htmlFor={id} />
           <AuthInput
             type={type}
             placeholder={placeholder}
             id={id}
             onChange={onChange}
             name={id}
+            value={account[id]}
           />
         </StyleInputWrapper>
       ))}

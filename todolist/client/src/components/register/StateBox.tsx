@@ -6,6 +6,7 @@ const StyledStateBox = styled.div`
   font-family: "Kanit", sans-serif;
   color: red;
   opacity: 0.5;
+  font-weight: bold;
 `;
 
 type StateBoxProps = {

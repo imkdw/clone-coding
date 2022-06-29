@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, memo } from "react";
 import styled from "styled-components";
 
 type AuthInputProps = {
@@ -7,6 +7,7 @@ type AuthInputProps = {
   id: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   name: string;
+  value?: string;
 };
 
 const StyledInput = styled.input`
@@ -20,7 +21,14 @@ const StyledInput = styled.input`
   border-bottom: 2px solid #b6abab;
 `;
 
-function AuthInput({ type, placeholder, id, onChange, name }: AuthInputProps) {
+function AuthInput({
+  type,
+  placeholder,
+  id,
+  onChange,
+  name,
+  value,
+}: AuthInputProps) {
   return (
     <StyledInput
       type={type}
@@ -28,8 +36,9 @@ function AuthInput({ type, placeholder, id, onChange, name }: AuthInputProps) {
       id={id}
       onChange={onChange}
       name={name}
+      value={value}
     />
   );
 }
 
-export default AuthInput;
+export default memo(AuthInput);

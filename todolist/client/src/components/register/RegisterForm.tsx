@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import AuthInput from "../common/AuthInput";
 import Label from "../common/Label";
@@ -31,7 +31,11 @@ const StyledButton = styled.button`
 `;
 
 function RegisterForm() {
-  const [account, setAccount] = useState({
+  type objectKeyType = {
+    [key: string]: string;
+  };
+
+  const [account, setAccount] = useState<objectKeyType>({
     id: "",
     password: "",
     rePassword: "",
@@ -39,7 +43,7 @@ function RegisterForm() {
     email: "",
   });
 
-  const [stateMessage, setStateMessage] = useState({
+  const [stateMessage, setStateMessage] = useState<objectKeyType>({
     id: "",
     password: "",
     rePassword: "",
@@ -93,80 +97,78 @@ function RegisterForm() {
   };
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.currentTarget;
-    console.log(name, value);
+    const changeValidState = (key: string, msg: string, valid: boolean) => {
+      setStateMessage({
+        ...stateMessage,
+        [key]: msg,
+      });
+      setIsValid({
+        ...isValid,
+        [name]: valid,
+      });
+    };
 
+    const { name, value } = event.currentTarget;
     setAccount({
       ...account,
       [name]: value,
     });
 
     switch (name) {
+      case "id":
+        /**
+         * 형식 : 영어 소문자 + 숫자
+         * 길이 : 5 ~ 12자리
+         */
+        const lowerCaseRegex = /[a-z]/g;
+        const lowerCaseCondition = value.match(lowerCaseRegex);
+        const lenghtCondition = value.length >= 5 && value.length <= 12;
+
+        if (lowerCaseCondition && lenghtCondition) {
+          const msg = "올바른 형식입니다.";
+          changeValidState(name, msg, true);
+        } else if (value.length === 0) {
+          changeValidState(name, "", false);
+        } else {
+          const msg = "올바르지 않은 형식입니다. 다시 입력해주세요.";
+          changeValidState(name, msg, false);
+        }
+
+        break;
+
+      case "password":
+        /**
+         * 형식 : 영어 대/소문자 + 숫자 + 특수문자
+         * 길이 : 10 ~ 20 자리
+         */
+        const koreanRegex = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
+        const koreanCondition = value.match(koreanRegex); // 한국어가 포함되면 true 반환
+
+        const specialCharRegex =
+          /[!?@#$%^&*():;+-=~{}<>\_\[\]\|\\\"\'\,\.\/\`\₩]/g;
+        const specialCharCondition = value.match(specialCharRegex); // 특수문자 포함되면 true 반환
+
+        const passwordLenghtCondition =
+          value.length >= 10 && value.length <= 20;
+
       /**
-       * [ 아이디 ]
-       * 1. 영어 및 소문자로만 구성되있는지 체크
-       * 2. 입력한 길이가 12자리 이하인지 체크
-       *
-       * [ 비밀번호 ]
-       * 1. 영어 대문자 및 소문자인지 체크
-       * 2. 특수문자가 포함되어있는지 체크
-       * 3. 최소 10자리인지 체크
-       *
-       * [ 비밀번호 확인 ]
+       ** [ 비밀번호 확인 ]
        * 1. 비밀번호 칸과 동일한지 확인
-       *
-       * [ 닉네임 ]
+       */
+      // case "rePassword":
+
+      /**
+       ** [ 닉네임 ]
        * 1. 특수문자가 포함되있는지 확인
        * 2. 최소 2자리 ~ 최대 6자리 확인
        *
-       * [ 이메일 ]
+       */
+      // case "nickname":
+      /**
+       ** [ 이메일 ]
        * 1. 이메일형식에 올바른지 확인
        */
-      case "id":
-        const regex = /[a-z]/g;
-        const lowerCaseCondition = account.id.match(regex);
-        const lenghtCondition = account.id.length < 13;
-
-        if (!lowerCaseCondition) {
-          setStateMessage({
-            ...stateMessage,
-            [name]: "아이디는 소문자만 입력이 가능합니다.",
-          });
-          setIsValid({
-            ...isValid,
-            [name]: false,
-          });
-        }
-
-        if (!lenghtCondition) {
-          setStateMessage({
-            ...stateMessage,
-            [name]: "아이디는 최대 12자리 입니다.",
-          });
-          setIsValid({
-            ...isValid,
-            [name]: false,
-          });
-        }
-
-        if (lowerCaseCondition && lenghtCondition) {
-          setStateMessage({
-            ...stateMessage,
-            [name]: "올바른 형식입니다.",
-          });
-          setIsValid({
-            ...isValid,
-            [name]: true,
-          });
-        }
-
-        break;
-      // case "password":
-      // case "rePassword":
-      // case "nickname":
       // case "email":
-      default:
-        break;
     }
   };
 
@@ -181,8 +183,9 @@ function RegisterForm() {
             id={id}
             onChange={onChange}
             name={id}
+            value={account[id]}
           />
-          <StateBox message={stateMessage["id"]} />
+          <StateBox message={stateMessage[id]} />
         </StyleInputWrapper>
       ))}
       <StyledButton type="submit">Register</StyledButton>
