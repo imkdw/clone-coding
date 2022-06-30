@@ -41,7 +41,6 @@ function LoginForm() {
   });
 
   console.log(account);
-  
 
   const textData = [
     { type: "text", placeholder: "ID", id: "userId" },

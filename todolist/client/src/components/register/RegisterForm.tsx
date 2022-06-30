@@ -1,8 +1,10 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
 import AuthInput from "../common/AuthInput";
 import Label from "../common/Label";
 import StateBox from "./StateBox";
+import { accessTokenState } from "../../recoil/TodoState";
+import { useRecoilState } from "recoil";
 
 const StyledForm = styled.form`
   width: 800px;
@@ -59,6 +61,8 @@ function RegisterForm() {
     email: false,
   });
 
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+
   const textData = [
     {
       type: "text",
@@ -94,6 +98,9 @@ function RegisterForm() {
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log(setAccessToken);
+    setAccessToken("temp accessToken");
+    console.log(accessToken);
   };
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -114,6 +121,13 @@ function RegisterForm() {
       [name]: value,
     });
 
+    const specialCharRegex = /[`\\~!@#$%^&*|\'\";:\/?]/g;
+    const specialCharCondition = value.match(specialCharRegex); // 특수문자 포함되면 true 반환
+
+    const trueMsg = "올바른 형식입니다.";
+    const falseMsg = "올바르지 않은 형식입니다. 다시 입력해주세요.";
+
+    // 입력값 유효성 체크 로직
     switch (name) {
       case "id":
         /**
@@ -122,16 +136,14 @@ function RegisterForm() {
          */
         const lowerCaseRegex = /[a-z]/g;
         const lowerCaseCondition = value.match(lowerCaseRegex);
-        const lenghtCondition = value.length >= 5 && value.length <= 12;
+        const idLenghtCondition = value.length >= 5 && value.length <= 12;
 
-        if (lowerCaseCondition && lenghtCondition) {
-          const msg = "올바른 형식입니다.";
-          changeValidState(name, msg, true);
+        if (lowerCaseCondition && idLenghtCondition) {
+          changeValidState(name, trueMsg, true);
         } else if (value.length === 0) {
           changeValidState(name, "", false);
         } else {
-          const msg = "올바르지 않은 형식입니다. 다시 입력해주세요.";
-          changeValidState(name, msg, false);
+          changeValidState(name, falseMsg, false);
         }
 
         break;
@@ -144,31 +156,61 @@ function RegisterForm() {
         const koreanRegex = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
         const koreanCondition = value.match(koreanRegex); // 한국어가 포함되면 true 반환
 
-        const specialCharRegex =
-          /[!?@#$%^&*():;+-=~{}<>\_\[\]\|\\\"\'\,\.\/\`\₩]/g;
-        const specialCharCondition = value.match(specialCharRegex); // 특수문자 포함되면 true 반환
-
         const passwordLenghtCondition =
           value.length >= 10 && value.length <= 20;
 
-      /**
-       ** [ 비밀번호 확인 ]
-       * 1. 비밀번호 칸과 동일한지 확인
-       */
-      // case "rePassword":
+        if (
+          !koreanCondition &&
+          specialCharCondition &&
+          passwordLenghtCondition
+        ) {
+          changeValidState(name, trueMsg, true);
+        } else if (value.length === 0) {
+          changeValidState(name, "", false);
+        } else {
+          changeValidState(name, falseMsg, false);
+        }
 
-      /**
-       ** [ 닉네임 ]
-       * 1. 특수문자가 포함되있는지 확인
-       * 2. 최소 2자리 ~ 최대 6자리 확인
-       *
-       */
-      // case "nickname":
-      /**
-       ** [ 이메일 ]
-       * 1. 이메일형식에 올바른지 확인
-       */
-      // case "email":
+        break;
+
+      case "rePassword":
+        /**
+         * 형식 : 비밀번호가 일치한지 확인
+         */
+        if (account.password !== value) {
+          changeValidState(name, "비밀번호가 일치하지 않습니다.", false);
+        } else {
+          changeValidState(name, "비밀번호가 일치합니다.", true);
+        }
+
+        break;
+
+      case "nickname":
+        /**
+         * 형식 : 특수문자를 제외한 문자
+         * 길이 : 2 ~ 6자리
+         */
+        const nicknameLengthCondition = value.length >= 2 && value.length <= 6;
+        if (nicknameLengthCondition && !specialCharCondition) {
+          changeValidState(name, trueMsg, true);
+        } else {
+          changeValidState(name, falseMsg, false);
+        }
+
+        break;
+
+      case "email":
+        const emailCheckRegex =
+          /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+        const emailCheckCondition = value.match(emailCheckRegex);
+
+        if (emailCheckCondition) {
+          changeValidState(name, trueMsg, true);
+        } else {
+          changeValidState(name, falseMsg, false);
+        }
+
+        break;
     }
   };
 
