@@ -33,7 +33,7 @@ const GlobalStyle = createGlobalStyle`
     outline: none;
 
     &::placeholder {
-      opacity: .4;
+      opacity: .6;
       font-size: 18px;
     }
   }
