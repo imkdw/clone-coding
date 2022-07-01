@@ -5,6 +5,7 @@ import Label from "../common/Label";
 import StateBox from "./StateBox";
 import { accessTokenState } from "../../recoil/TodoState";
 import { useRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
 
 const StyledForm = styled.form`
   width: 800px;
@@ -33,6 +34,7 @@ const StyledButton = styled.button`
 `;
 
 function RegisterForm() {
+  const navigate = useNavigate();
   type objectKeyType = {
     [key: string]: string;
   };
@@ -98,9 +100,8 @@ function RegisterForm() {
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(setAccessToken);
     setAccessToken("temp accessToken");
-    console.log(accessToken);
+    navigate("/");
   };
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {

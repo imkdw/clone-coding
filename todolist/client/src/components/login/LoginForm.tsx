@@ -40,8 +40,6 @@ function LoginForm() {
     password: "",
   });
 
-  console.log(account);
-
   const textData = [
     { type: "text", placeholder: "ID", id: "userId" },
     { type: "password", placeholder: "Password", id: "password" },

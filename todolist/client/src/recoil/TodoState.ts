@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const accessTokenState = atom<string>({
+export const accessTokenState = atom<string | null>({
   key: "accessToken",
-  default: "",
+  default: null,
 });

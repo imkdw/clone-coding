@@ -8,6 +8,7 @@ const StyledNavigation = styled.div`
   display: flex;
   justify-content: center;
   background-color: #a9c5b9;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 `;
 
 const NavigationWrapper = styled.div`

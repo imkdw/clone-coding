@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { accessTokenState } from "../../recoil/TodoState";
 
 const StyledPageLink = styled.div`
   width: 20%;
@@ -18,10 +20,25 @@ const StyledLink = styled(Link)`
 `;
 
 function PageLink() {
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+
+  const onLogout = () => {
+    setAccessToken("");
+    console.log(accessToken);
+  };
+
   return (
     <StyledPageLink>
-      <StyledLink to="login">Login</StyledLink>
-      <StyledLink to="register">Register</StyledLink>
+      {accessToken ? (
+        <StyledLink to="/" onClick={onLogout}>
+          Logout
+        </StyledLink>
+      ) : (
+        <>
+          <StyledLink to="login">Login</StyledLink>
+          <StyledLink to="register">Register</StyledLink>
+        </>
+      )}
     </StyledPageLink>
   );
 }
