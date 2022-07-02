@@ -1,4 +1,4 @@
-import TodoBox from "./TodoBox";
+import TodoBox from "../todo/TodoBox";
 import styled from "styled-components";
 
 const StyledTodoBoxWrapper = styled.div`
@@ -11,9 +11,9 @@ const StyledTodoBoxWrapper = styled.div`
 function MainPage() {
   return (
     <StyledTodoBoxWrapper>
-      <TodoBox bgColor="#C5DCD5" header="Todo" />
-      <TodoBox bgColor="#A9C5B9" header="Doing..." />
-      <TodoBox bgColor="#B6ABAB" header="Done!" />
+      <TodoBox bgColor="#C5DCD5" header="Todo" nowState="todo" />
+      <TodoBox bgColor="#A9C5B9" header="Doing..." nowState="doing" />
+      <TodoBox bgColor="#B6ABAB" header="Done!" nowState="done" />
     </StyledTodoBoxWrapper>
   );
 }
