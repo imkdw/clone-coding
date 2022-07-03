@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { todoListState } from "../../recoil/TodoState";
 import TodoItem from "./TodoItem";
+import { v4 as uuid } from "uuid";
 
 const StyledTodoWrapper = styled.ul`
   width: 320px;
@@ -10,6 +11,7 @@ const StyledTodoWrapper = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
 `;
 
 type todoListProps = {
@@ -19,7 +21,7 @@ type todoListProps = {
 function TodoList({ nowState }: todoListProps) {
   const todos = [
     {
-      id: 1,
+      id: uuid(),
       subject: "리액트 공부",
       content:
         "doing!!doing!!doing!!doing!!doing!!doing!!doing!!doing!!doing!!doing!!doing!!doing!!doing!!doing!!",
@@ -27,7 +29,7 @@ function TodoList({ nowState }: todoListProps) {
       state: "doing",
     },
     {
-      id: 2,
+      id: uuid(),
       subject: "운동",
       content:
         "todo!!todo!!todo!!todo!!todo!!todo!!todo!!todo!!todo!!todo!!todo!!todo!!todo!!todo!!todo!!todo!!todo!!",
@@ -35,7 +37,7 @@ function TodoList({ nowState }: todoListProps) {
       state: "todo",
     },
     {
-      id: 3,
+      id: uuid(),
       subject: "백엔드 프레임워크 공부",
       content:
         "done!!done!!done!!done!!done!!done!!done!!done!!done!!done!!done!!done!!done!!done!!done!!done!!done!!",
@@ -50,8 +52,30 @@ function TodoList({ nowState }: todoListProps) {
     setTodoLists(todos);
   }, []);
 
+  console.log(todoLists);
+
+  const onDragOver = (event: any) => {
+    event.preventDefault();
+  };
+
+  const onDrop = (event: any) => {
+    event.preventDefault();
+    const todoId = event.dataTransfer.getData("todoId");
+    const boxState = event.target.dataset.nowstate;
+
+    const todoIndex = todoLists.findIndex((todo) => todo.id === todoId);
+    const copyTodoLists: any = [...todoLists];
+    copyTodoLists[todoIndex] = { ...copyTodoLists[todoIndex], state: boxState };
+
+    setTodoLists(copyTodoLists);
+  };
+
   return (
-    <StyledTodoWrapper>
+    <StyledTodoWrapper
+      onDragOver={onDragOver}
+      onDrop={onDrop}
+      data-nowstate={nowState}
+    >
       {todoLists.map((todo) => {
         if (nowState === todo.state) {
           return <TodoItem todo={todo} key={todo.id} />;

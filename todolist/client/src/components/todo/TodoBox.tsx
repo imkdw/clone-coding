@@ -24,19 +24,9 @@ type TodoBoxProps = {
   nowState: string;
 };
 
-const onDragOver = (event: any) => {
-  event.preventDefault();
-};
-
-const onDrop = (event: any) => {
-  event.preventDefault();
-  const data = event.dataTransfer.getData("data");
-  alert(data);
-};
-
 function TodoBox({ bgColor, header, nowState }: TodoBoxProps) {
   return (
-    <StyledTodoBox bgColor={bgColor} onDragOver={onDragOver} onDrop={onDrop}>
+    <StyledTodoBox bgColor={bgColor}>
       <TodoBoxHeader text={header} />
       <TodoList nowState={nowState} />
     </StyledTodoBox>

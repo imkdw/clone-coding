@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
 type todoListStateType = {
-  id: number;
+  id: string;
   subject: string;
   state: string;
   content: string;

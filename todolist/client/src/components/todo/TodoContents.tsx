@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 type TodoContentsProps = {
   todo: {
-    id: number;
+    id: string;
     subject: string;
     state: string;
     content: string;

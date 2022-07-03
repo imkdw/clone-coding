@@ -6,6 +6,8 @@ import StateBox from "./StateBox";
 import { accessTokenState } from "../../recoil/TodoState";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
+import { register } from "../../api/AuthAPI";
+import { accountType } from "../../type/auth.interface";
 
 const StyledForm = styled.form`
   width: 800px;
@@ -39,7 +41,7 @@ function RegisterForm() {
     [key: string]: string;
   };
 
-  const [account, setAccount] = useState<objectKeyType>({
+  const [account, setAccount] = useState<objectKeyType & accountType>({
     id: "",
     password: "",
     rePassword: "",
@@ -98,10 +100,9 @@ function RegisterForm() {
     },
   ];
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setAccessToken("temp accessToken");
-    navigate("/");
+    const registerRecord = await register(account);
   };
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {

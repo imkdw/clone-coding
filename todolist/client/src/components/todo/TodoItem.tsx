@@ -1,10 +1,12 @@
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import { todoListState } from "../../recoil/TodoState";
 import TodoButtons from "./TodoButtons";
 import TodoContents from "./TodoContents";
 
 type TodoItemProps = {
   todo: {
-    id: number;
+    id: string;
     subject: string;
     state: string;
     content: string;
@@ -22,13 +24,30 @@ const StyledTodo = styled.li`
   align-items: center;
 `;
 
-const onDragStart = (event: any) => {
-  event.dataTransfer.setData("data", "data");
-};
-
 function TodoItem({ todo }: TodoItemProps) {
+  const [todoLists, setTodoLists] = useRecoilState(todoListState);
+
+  const onDragStart = (event: any) => {
+    const todoId = event.target.dataset.id;
+    event.dataTransfer.setData("todoId", todoId);
+  };
+
+  const onDragOver = (event: any) => {
+    event.preventDefault();
+  };
+
+  const onDrop = (event: any) => {
+    event.preventDefault();
+  };
+
   return (
-    <StyledTodo draggable onDragStart={onDragStart}>
+    <StyledTodo
+      draggable
+      onDragStart={onDragStart}
+      data-id={todo.id}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
+    >
       <TodoContents todo={todo} />
       <TodoButtons />
     </StyledTodo>
