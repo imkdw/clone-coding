@@ -11,19 +11,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const authService_1 = __importDefault(require("../service/authService"));
-const authRouter = express_1.default.Router();
-/** 회원가입 라우터 - /auth/register */
-authRouter.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const userDTO = req.body;
-    const userRecord = yield authService_1.default.register(userDTO);
-    if (userRecord.code) {
-        res.status(400).json({ msg: userRecord.code });
-        return;
+const authModel_1 = __importDefault(require("../models/authModel"));
+const authValidate_1 = __importDefault(require("../validation/authValidate"));
+class AuthService {
+}
+_a = AuthService;
+AuthService.register = (userDTO) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!authValidate_1.default.userId(userDTO.id)) {
+        return { code: "INVALID_USERID" };
     }
-    res.status(200).json(userDTO);
-}));
-exports.default = authRouter;
-//# sourceMappingURL=authRouter.js.map
+    try {
+        const userRecord = yield authModel_1.default.insertUser(userDTO);
+        return userRecord;
+    }
+    catch (err) {
+        return err;
+    }
+});
+exports.default = AuthService;
+//# sourceMappingURL=authService.js.map

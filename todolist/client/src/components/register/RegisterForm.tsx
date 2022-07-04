@@ -55,6 +55,7 @@ function RegisterForm() {
     rePassword: "",
     nickname: "",
     email: "",
+    all: "",
   });
 
   const [isValid, setIsValid] = useState({
@@ -102,7 +103,21 @@ function RegisterForm() {
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const registerRecord = await register(account);
+
+    // 계정 양식이 모두 올바을 경우 API 호출
+    if (
+      isValid.id &&
+      isValid.password &&
+      isValid.rePassword &&
+      isValid.nickname &&
+      isValid.email
+    ) {
+      const registerRecord = await register(account);
+      console.log(registerRecord);
+    } else {
+      alert("올바르지 않은 항목이 있습니다. 다시 확인해주세요.");
+      return;
+    }
   };
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {

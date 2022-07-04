@@ -14,12 +14,12 @@ const todoRouter_1 = __importDefault(require("./routes/todoRouter"));
 const app = (0, express_1.default)();
 app.set("port", process.env.PORT || "5000");
 /** 미들웨어 정의 */
+app.use(express_1.default.json());
+app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cors_1.default)());
 app.use((0, morgan_1.default)("dev"));
 app.use("/auth", authRouter_1.default);
 app.use("/todo", todoRouter_1.default);
-app.use(express_1.default.json());
-app.use(express_1.default.urlencoded({ extended: false }));
 app.listen(app.get("port"), () => {
     console.log(`SERVER PORT : ${app.get("port")}`);
 });

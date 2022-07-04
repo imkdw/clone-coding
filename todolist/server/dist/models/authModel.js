@@ -8,22 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const authService_1 = __importDefault(require("../service/authService"));
-const authRouter = express_1.default.Router();
-/** 회원가입 라우터 - /auth/register */
-authRouter.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const userDTO = req.body;
-    const userRecord = yield authService_1.default.register(userDTO);
-    if (userRecord.code) {
-        res.status(400).json({ msg: userRecord.code });
-        return;
+const db_1 = require("../db/db");
+class authModel {
+    static insertUser(userDTO) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const userRecord = yield (0, db_1.insert)(userDTO);
+                return userRecord;
+            }
+            catch (err) {
+                return err;
+            }
+        });
     }
-    res.status(200).json(userDTO);
-}));
-exports.default = authRouter;
-//# sourceMappingURL=authRouter.js.map
+}
+exports.default = authModel;
+//# sourceMappingURL=authModel.js.map
