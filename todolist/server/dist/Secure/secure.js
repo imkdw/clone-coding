@@ -12,21 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const authService_1 = __importDefault(require("../service/authService"));
-const authRouter = express_1.default.Router();
-function responseError(status, res, errCode) {
-    res.status(400).json({ errCode });
-}
-/** 회원가입 라우터 - /auth/register */
-authRouter.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const userDTO = req.body;
-    const userRecord = yield authService_1.default.register(userDTO);
-    if (userRecord.code) {
-        responseError(400, res, userRecord.code);
-        return;
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const config_1 = __importDefault(require("../config/config"));
+class Secure {
+    static hash(password) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const hashedPassword = yield bcrypt_1.default.hash(password, config_1.default.secure.saltCount);
+            return hashedPassword;
+        });
     }
-    res.status(200).json({ id: userDTO.id });
-}));
-exports.default = authRouter;
-//# sourceMappingURL=authRouter.js.map
+}
+exports.default = Secure;
+//# sourceMappingURL=secure.js.map

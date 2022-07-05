@@ -14,14 +14,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 const authModel_1 = __importDefault(require("../models/authModel"));
+const secure_1 = __importDefault(require("../Secure/secure"));
 const authValidate_1 = __importDefault(require("../validation/authValidate"));
 class AuthService {
 }
 _a = AuthService;
 AuthService.register = (userDTO) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!authValidate_1.default.userId(userDTO.id)) {
-        return { code: "INVALID_USERID" };
+    // 데이터 검증 로직
+    const validUserId = authValidate_1.default.userId(userDTO.id);
+    const validPassword = authValidate_1.default.password(userDTO.password);
+    const validRePassword = authValidate_1.default.rePassword(userDTO.password, userDTO.rePassword);
+    const validNickname = authValidate_1.default.nickname(userDTO.nickname);
+    const validEmail = authValidate_1.default.email(userDTO.email);
+    if (!validUserId ||
+        !validPassword ||
+        !validRePassword ||
+        !validNickname ||
+        !validEmail) {
+        return { code: "INVALID_ACCOUNT" };
     }
+    // 비밀번호 암호화 로직
+    userDTO.password = yield secure_1.default.hash(userDTO.password);
     try {
         const userRecord = yield authModel_1.default.insertUser(userDTO);
         return userRecord;

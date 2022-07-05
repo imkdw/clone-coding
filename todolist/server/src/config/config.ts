@@ -9,6 +9,9 @@ const config = {
     port: process.env.DATABASE_PORT,
     dbName: process.env.DATABASE_DBNAME,
   },
+  secure: {
+    saltCount: 10,
+  },
 };
 
 export default config;

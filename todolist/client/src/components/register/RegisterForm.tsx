@@ -103,20 +103,26 @@ function RegisterForm() {
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const { id, password, rePassword, nickname, email } = isValid;
 
     // 계정 양식이 모두 올바을 경우 API 호출
-    if (
-      isValid.id &&
-      isValid.password &&
-      isValid.rePassword &&
-      isValid.nickname &&
-      isValid.email
-    ) {
-      const registerRecord = await register(account);
-      console.log(registerRecord);
-    } else {
+    if (!(id && password && rePassword && nickname && email)) {
       alert("올바르지 않은 항목이 있습니다. 다시 확인해주세요.");
       return;
+    }
+
+    const response = await register(account);
+    if (response.data.errCode) {
+      const errCode = response.data.errCode;
+      if (errCode === "ER_DUP_ENTRY") {
+        alert("중복된 계정");
+        return;
+      }
+
+      if (errCode === "INVALID_ACCOUNT") {
+        alert("형식에 안맞는 계정");
+        return;
+      }
     }
   };
 

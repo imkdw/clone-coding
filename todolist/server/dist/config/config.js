@@ -13,6 +13,9 @@ const config = {
         port: process.env.DATABASE_PORT,
         dbName: process.env.DATABASE_DBNAME,
     },
+    secure: {
+        saltCount: 10,
+    },
 };
 exports.default = config;
 //# sourceMappingURL=config.js.map
