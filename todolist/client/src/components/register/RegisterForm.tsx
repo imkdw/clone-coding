@@ -123,6 +123,8 @@ function RegisterForm() {
         alert("형식에 안맞는 계정");
         return;
       }
+
+      console.log("error");
     }
   };
 
