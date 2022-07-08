@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 const authModel_1 = __importDefault(require("../models/authModel"));
+const jwt_1 = __importDefault(require("../Secure/jwt"));
 const secure_1 = __importDefault(require("../Secure/secure"));
 const authValidate_1 = __importDefault(require("../validation/authValidate"));
 class AuthService {
@@ -37,6 +38,8 @@ AuthService.register = (userDTO) => __awaiter(void 0, void 0, void 0, function* 
     userDTO.password = yield secure_1.default.hash(userDTO.password);
     try {
         const userRecord = yield authModel_1.default.insertUser(userDTO);
+        const accessToken = jwt_1.default.createToken(userDTO.id);
+        console.log(accessToken);
         return userRecord;
     }
     catch (err) {

@@ -1,4 +1,5 @@
 import authModel from "../models/authModel";
+import Jwt from "../Secure/jwt";
 import Secure from "../Secure/secure";
 import { registerType } from "../types/auth.interface";
 import AuthValidate from "../validation/authValidate";
@@ -30,6 +31,9 @@ class AuthService {
 
     try {
       const userRecord = await authModel.insertUser(userDTO);
+      const accessToken = Jwt.createToken(userDTO.id);
+      console.log(accessToken);
+
       return userRecord;
     } catch (err: any) {
       return err;
