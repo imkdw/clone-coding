@@ -18,17 +18,18 @@ function App() {
       <Container>
         <Routes>
           {accessToken ? (
-            <Route path="/" element={<MainPage />} />
+            <>
+              <Route path="/" element={<MainPage />} />
+              <Route path="/login" element={<Navigate to="/" replace />} />
+              <Route path="/register" element={<MainPage />} />
+            </>
           ) : (
-            <Route path="/" element={<LoginForm />} />
+            <>
+              <Route path="/" element={<LoginForm />} />
+              <Route path="/login" element={<LoginForm />} />
+              <Route path="register" element={<RegisterForm />} />
+            </>
           )}
-
-          {accessToken ? (
-            <Route path="/login" element={<Navigate to="/" replace />} />
-          ) : (
-            <Route path="/login" element={<LoginForm />} />
-          )}
-          <Route path="register" element={<RegisterForm />} />
         </Routes>
       </Container>
     </>

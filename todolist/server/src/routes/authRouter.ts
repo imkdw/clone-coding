@@ -22,7 +22,15 @@ authRouter.post("/register", async (req: Request, res: Response) => {
     return;
   }
 
-  res.status(200).json({ id: userDTO.id });
+  res.status(200).json({ accessToken: userRecord });
+});
+
+authRouter.post("/dup-check/:attr", async (req, res) => {
+  const attr = req.params.attr;
+  const userDTO = req.body;
+  const userRecord = await AuthService.checkExistAccount(userDTO, attr);
+
+  return userRecord;
 });
 
 export default authRouter;

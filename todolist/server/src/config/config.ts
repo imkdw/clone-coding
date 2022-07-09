@@ -11,10 +11,11 @@ const config = {
   },
   secure: {
     saltCount: 10,
-    jwtSecretKey: "imkdw",
-    jwtAlgorithm: process.env.JWT_ALGORITHM,
-    jwtExpiresIn: process.env.JWT_EXPIRES_IN,
-    jwtIssuer: process.env.JWT_ISSUER,
+  },
+  jwt: {
+    secretKey: String(process.env.JWT_SECRET_KEY),
+    expiresIn: process.env.JWT_EXPIRES_IN,
+    issuer: process.env.JWT_ISSUER,
   },
 };
 

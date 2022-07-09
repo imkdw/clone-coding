@@ -2,10 +2,14 @@ class AuthValidate {
   static userId(userId: string) {
     const lowerCaseRegex = /[a-z]/g;
     const lowerCaseCondition = userId.match(lowerCaseRegex);
+
     const idLenghtCondition = userId.length >= 5 && userId.length <= 12;
 
+    const specialCharRegex = /[`\\~!@#$%^&*|\'\";:\/?]/g;
+    const specialCharCondition = userId.match(specialCharRegex); // 특수문자 포함되면 true 반환
+
     // userId의 길이가 0일 경우
-    if (userId.length === 0 || !lowerCaseCondition || !idLenghtCondition) {
+    if (userId.length === 0 || !lowerCaseCondition || !idLenghtCondition || specialCharCondition) {
       return;
     }
 

@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_1 = require("../db/db");
-class authModel {
+class AuthModel {
     static insertUser(userDTO) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -22,6 +22,17 @@ class authModel {
             }
         });
     }
+    static searchAccount(userDTO, attr) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const userRecord = yield (0, db_1.select)(userDTO, attr);
+                return userRecord;
+            }
+            catch (err) {
+                return err;
+            }
+        });
+    }
 }
-exports.default = authModel;
+exports.default = AuthModel;
 //# sourceMappingURL=authModel.js.map

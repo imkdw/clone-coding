@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.insert = void 0;
+exports.select = exports.insert = void 0;
 const mysql_1 = __importDefault(require("mysql"));
 const config_1 = __importDefault(require("../config/config"));
 const connection = mysql_1.default.createConnection({
@@ -37,4 +37,18 @@ function insert(userDTO) {
     });
 }
 exports.insert = insert;
+function select(userDTO, attr) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const selectQuery = `SELECT FROM users WHERE ${attr}="${userDTO}"`;
+        return new Promise((res, rej) => {
+            connection.query(selectQuery, (err, results) => {
+                if (err) {
+                    rej(err);
+                }
+                res(results);
+            });
+        });
+    });
+}
+exports.select = select;
 //# sourceMappingURL=db.js.map

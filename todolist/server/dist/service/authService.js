@@ -38,13 +38,19 @@ AuthService.register = (userDTO) => __awaiter(void 0, void 0, void 0, function* 
     userDTO.password = yield secure_1.default.hash(userDTO.password);
     try {
         const userRecord = yield authModel_1.default.insertUser(userDTO);
-        const accessToken = jwt_1.default.createToken(userDTO.id);
-        console.log(accessToken);
-        return userRecord;
+        const accessToken = jwt_1.default.createToken(userRecord.id);
+        return accessToken;
     }
     catch (err) {
         return err;
     }
+});
+AuthService.checkExistAccount = (userDTO, attr) => __awaiter(void 0, void 0, void 0, function* () {
+    const userRecord = yield authModel_1.default.searchAccount(userDTO, attr);
+    if (userRecord) {
+        return true;
+    }
+    return false;
 });
 exports.default = AuthService;
 //# sourceMappingURL=authService.js.map

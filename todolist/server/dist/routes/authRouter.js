@@ -26,7 +26,13 @@ authRouter.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, fun
         responseError(400, res, userRecord.code);
         return;
     }
-    res.status(200).json({ id: userDTO.id });
+    res.status(200).json({ accessToken: userRecord });
+}));
+authRouter.post("/dup-check/:attr", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const attr = req.params.attr;
+    const userDTO = req.body;
+    const userRecord = yield authService_1.default.checkExistAccount(userDTO, attr);
+    return userRecord;
 }));
 exports.default = authRouter;
 //# sourceMappingURL=authRouter.js.map

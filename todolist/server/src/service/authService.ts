@@ -1,4 +1,4 @@
-import authModel from "../models/authModel";
+import AuthModel from "../models/authModel";
 import Jwt from "../Secure/jwt";
 import Secure from "../Secure/secure";
 import { registerType } from "../types/auth.interface";
@@ -30,14 +30,22 @@ class AuthService {
     userDTO.password = await Secure.hash(userDTO.password);
 
     try {
-      const userRecord = await authModel.insertUser(userDTO);
-      const accessToken = Jwt.createToken(userDTO.id);
-      console.log(accessToken);
-
-      return userRecord;
+      const userRecord = await AuthModel.insertUser(userDTO);
+      const accessToken = Jwt.createToken(userRecord.id);
+      return accessToken;
     } catch (err: any) {
       return err;
     }
+  };
+
+  static checkExistAccount = async (userDTO: string, attr: string) => {
+    const userRecord = await AuthModel.searchAccount(userDTO, attr);
+
+    if (userRecord) {
+      return true;
+    }
+
+    return false;
   };
 }
 

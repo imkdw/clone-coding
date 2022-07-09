@@ -4,7 +4,6 @@ const StyledLabel = styled.label`
   font-family: "Kanit", sans-serif;
   font-weight: bold;
   font-size: 20px;
-  width: 100%;
   height: 35px;
 `;
 

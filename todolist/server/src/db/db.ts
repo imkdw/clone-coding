@@ -24,3 +24,17 @@ export async function insert(userDTO: registerType) {
     });
   });
 }
+
+export async function select(userDTO: string, attr: string) {
+  const selectQuery = `SELECT FROM users WHERE ${attr}="${userDTO}"`;
+
+  return new Promise((res, rej) => {
+    connection.query(selectQuery, (err: any, results) => {
+      if (err) {
+        rej(err);
+      }
+
+      res(results);
+    });
+  });
+}

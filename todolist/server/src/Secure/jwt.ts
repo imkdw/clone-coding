@@ -1,19 +1,18 @@
 import jwt from "jsonwebtoken";
 import config from "../config/config";
+import { SignOptions } from "jsonwebtoken";
 
 class Jwt {
   static createToken(userId: string) {
     const payload = { userId };
-    const secretKey = config.secure.jwtSecretKey;
+    const secretKey = config.jwt.secretKey;
     const options = {
-      algorithm: config.secure.jwtAlgorithm,
-      expiresIn: config.secure.jwtExpiresIn,
-      issuer: config.secure.jwtIssuer,
+      expiresIn: config.jwt.expiresIn,
+      issuer: config.jwt.issuer,
     };
-    console.log(payload, secretKey, options);
-    return "access Token";
 
-    jwt.sign(payload, secretKey, options);
+    const accessToken = jwt.sign(payload, secretKey, options);
+    return accessToken;
   }
 }
 

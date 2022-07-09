@@ -35,6 +35,11 @@ const StyledButton = styled.button`
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 `;
 
+const StyledLabelWrapper = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
 function RegisterForm() {
   const navigate = useNavigate();
   type objectKeyType = {
@@ -120,12 +125,13 @@ function RegisterForm() {
       }
 
       if (errCode === "INVALID_ACCOUNT") {
-        alert("형식에 안맞는 계정");
+        alert("올바르지 않는 형식의 계정입니다.");
         return;
       }
-
-      console.log("error");
     }
+
+    alert("회원가입이 완료되었습니다.");
+    setAccessToken(response.data.accessToken);
   };
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -163,7 +169,7 @@ function RegisterForm() {
         const lowerCaseCondition = value.match(lowerCaseRegex);
         const idLenghtCondition = value.length >= 5 && value.length <= 12;
 
-        if (lowerCaseCondition && idLenghtCondition) {
+        if (lowerCaseCondition && idLenghtCondition && !specialCharCondition) {
           changeValidState(name, trueMsg, true);
         } else if (value.length === 0) {
           changeValidState(name, "", false);
@@ -237,13 +243,18 @@ function RegisterForm() {
 
         break;
     }
+
+    // 중복체크 검사 로직
   };
 
   return (
     <StyledForm onSubmit={onSubmit}>
       {textData.map(({ type, label, placeholder, id }) => (
         <StyleInputWrapper key={id}>
-          <Label label={label} htmlFor={id} />
+          <StyledLabelWrapper>
+            <Label label={label} htmlFor={id} />
+            <div>message</div>
+          </StyledLabelWrapper>
           <AuthInput
             type={type}
             placeholder={placeholder}
