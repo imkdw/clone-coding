@@ -84,6 +84,7 @@ const StyledContour = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
+  /* text-align: center; */
 `;
 
 const StyledContourText = styled.div`
