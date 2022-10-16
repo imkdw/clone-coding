@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
-import { RecoilRoot, useRecoilState } from "recoil";
-import Login from "./components/Login/Login";
+import { useRecoilState } from "recoil";
+import Login from "./components/auth/Login/Login";
+import Register from "./components/auth/Register/Register";
 import Main from "./components/Main/Main";
 import { accessTokenState } from "./recoil/recoil";
 
@@ -15,6 +16,7 @@ const App = () => {
     <Routes>
       {accessToken && <Route path="/" element={<Main />} />}
       {!accessToken && <Route path="/" element={<Login />} />}
+      <Route path="/register" element={<Register />} />
     </Routes>
   );
 };

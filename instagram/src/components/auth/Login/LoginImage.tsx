@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import phone from "../../assets/phone.png";
-import phoneImage1 from "../../assets/phone-image1.png";
+import phone from "../../../assets/phone.png";
+import phoneImage1 from "../../../assets/phone-image1.png";
 
 const StyledLoginImage = styled.div`
   width: 350px;

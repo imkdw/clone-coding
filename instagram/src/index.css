@@ -4,6 +4,15 @@
   font-family: sans-serif;
 }
 
+a {
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
+
 body {
   background-color: #fafafa;
 }

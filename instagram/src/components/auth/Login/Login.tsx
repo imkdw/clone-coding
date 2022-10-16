@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import LoginBox from "./LoginBox";
-import LoginFooter from "./LoginFooter";
 import LoginImage from "./LoginImage";
 
 const StyledLogin = styled.div`
@@ -28,7 +27,6 @@ const Login = () => {
         <LoginImage />
         <LoginBox />
       </StyledLoginWrapper>
-      <LoginFooter />
     </StyledLogin>
   );
 };
