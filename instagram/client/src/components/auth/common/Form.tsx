@@ -1,3 +1,4 @@
+import { FormEvent } from "react";
 import styled from "styled-components";
 
 interface IStyledForm {
@@ -16,11 +17,15 @@ const StyledForm = styled.form<IStyledForm>`
 interface IFormProps {
   children: React.ReactNode;
   height: string;
+  onSubmit?(event: FormEvent<HTMLFormElement>): any;
 }
 
-const Form = ({ children, height }: IFormProps) => {
-  console.log(children);
-  return <StyledForm height={height}>{children}</StyledForm>;
+const Form = ({ children, height, onSubmit }: IFormProps) => {
+  return (
+    <StyledForm height={height} onSubmit={onSubmit}>
+      {children}
+    </StyledForm>
+  );
 };
 
 export default Form;

@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
-const StyledContour = styled.div`
+interface IStyledContourProps {
+  height: string;
+}
+
+const StyledContour = styled.div<IStyledContourProps>`
   width: 268px;
-  height: 45px;
+  height: ${(props) => props.height};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,9 +25,13 @@ const StyledContourLine = styled.div`
   background-color: #dbdbdb;
 `;
 
-const ContourLine = () => {
+interface IContourLineProps {
+  height: string;
+}
+
+const ContourLine = ({ height }: IContourLineProps) => {
   return (
-    <StyledContour>
+    <StyledContour height={height}>
       <StyledContourLine />
       <StyledContourText>또는</StyledContourText>
       <StyledContourLine />

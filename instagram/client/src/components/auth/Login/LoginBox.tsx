@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { SquareFacebook } from "../../../icon/FontAwesome";
 import { Link } from "react-router-dom";
-
-import appStore from "../../../assets/appstore.png";
-import playStore from "../../../assets/playstore.png";
 import Input from "../common/Input";
 import ContourLine from "../common/ContourLine";
 import Logo from "../common/Logo";
 import Form from "../common/Form";
+import StoreButton from "../common/StoreButton";
+import { FormEvent } from "react";
+import axios from "axios";
 
 const StyledLoginBox = styled.div`
   width: 350px;
@@ -33,6 +33,8 @@ const StyledLoginBoxMiddle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: white;
+  border: 1px solid #dbdbdb;
 `;
 
 const StyledLoginBoxBottom = styled.div`
@@ -53,12 +55,6 @@ const StyledButton = styled.button`
   border-radius: 4px;
   font-size: 14px;
   margin-top: 10px;
-`;
-
-const StyledContourText = styled.div`
-  font-size: 13px;
-  color: #8e8e8e;
-  font-weight: bold;
 `;
 
 const StyledLinks1 = styled.div`
@@ -105,37 +101,28 @@ const StyledRegisterLink = styled(Link)`
   }
 `;
 
-const StyledBottomText = styled.div`
-  color: #262626;
-  font-size: 14px;
-`;
+const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
 
-const StyledDonwloadLists = styled.div`
-  display: flex;
-  gap: 10px;
-`;
+  const response = await axios.post("http://localhost:5000/auth/login", {
+    id: "testid",
+    password: "testPassword",
+  });
 
-const StyledDownloadButton = styled.button`
-  width: 136px;
-  height: 40px;
-`;
-
-const StyledDownloadButtonImage = styled.img`
-  width: 136px;
-  height: 40px; ;
-`;
+  console.log(response);
+};
 
 const LoginBox = () => {
   return (
     <StyledLoginBox>
       <StyledLoginBoxTop>
         <Logo height="130px" />
-        <Form height="145px">
+        <Form height="145px" onSubmit={submitHandler}>
           <Input type="text" placeholder="전화번호, 사용자 이름 또는 이메일" height="38px" />
           <Input type="password" placeholder="비밀번호" height="38px" />
           <StyledButton type="submit">로그인</StyledButton>
         </Form>
-        <ContourLine />
+        <ContourLine height="45px" />
         <StyledLinks1>
           <StyledLink>
             <SquareFacebook width="18px" height="18px" color="#385185" />
@@ -152,15 +139,7 @@ const LoginBox = () => {
         </StyledMiddleText>
       </StyledLoginBoxMiddle>
       <StyledLoginBoxBottom>
-        <StyledBottomText>앱을 다운로드하세요.</StyledBottomText>
-        <StyledDonwloadLists>
-          <StyledDownloadButton>
-            <StyledDownloadButtonImage src={appStore} />
-          </StyledDownloadButton>
-          <StyledDownloadButton>
-            <StyledDownloadButtonImage src={playStore} />
-          </StyledDownloadButton>
-        </StyledDonwloadLists>
+        <StoreButton />
       </StyledLoginBoxBottom>
     </StyledLoginBox>
   );

@@ -6,11 +6,14 @@ import ContourLine from "../common/ContourLine";
 import Form from "../common/Form";
 import Input from "../common/Input";
 import Logo from "../common/Logo";
+import StoreButton from "../common/StoreButton";
 
 const StyledRegister = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 10px;
 `;
 
 const RegisterText = styled.p`
@@ -62,6 +65,13 @@ const StyledRegisterButton = styled.button`
   border-radius: 4px;
 `;
 
+const StyledLoginLinkWrapper = styled.p`
+  font-size: 14px;
+`;
+const StyledLoginLink = styled(Link)`
+  color: #0095f6;
+`;
+
 const Register = () => {
   return (
     <StyledRegister>
@@ -72,7 +82,7 @@ const Register = () => {
           <SquareFacebook width="18px" height="18px" color="white" />
           <p>Facebook으로 로그인</p>
         </StyledFacebookLoginButton>
-        <ContourLine />
+        <ContourLine height="20px" />
         <Form height="360px">
           <Input type="text" placeholder="휴대폰 번호 또는 이메일 주소" height="36px" />
           <Input type="text" placeholder="성명" height="36px" />
@@ -91,6 +101,12 @@ const Register = () => {
           <StyledRegisterButton>가입</StyledRegisterButton>
         </Form>
       </Box>
+      <Box height="70px">
+        <StyledLoginLinkWrapper>
+          계정이 있으신가요? <StyledLoginLink to="">로그인</StyledLoginLink>
+        </StyledLoginLinkWrapper>
+      </Box>
+      <StoreButton />
     </StyledRegister>
   );
 };
