@@ -18,11 +18,12 @@ interface IFormProps {
   children: React.ReactNode;
   height: string;
   onSubmit?(event: FormEvent<HTMLFormElement>): any;
+  method?: string;
 }
 
-const Form = ({ children, height, onSubmit }: IFormProps) => {
+const Form = ({ children, height, onSubmit, method }: IFormProps) => {
   return (
-    <StyledForm height={height} onSubmit={onSubmit}>
+    <StyledForm height={height} onSubmit={onSubmit} method="POST">
       {children}
     </StyledForm>
   );

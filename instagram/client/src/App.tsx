@@ -14,8 +14,8 @@ const App = () => {
    */
   return (
     <Routes>
-      {accessToken && <Route path="/" element={<Main />} />}
-      {!accessToken && <Route path="/" element={<Login />} />}
+      {accessToken ? <Route path="/" element={<Main />} /> : <Route path="/" element={<Login />} />}
+      <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
     </Routes>
   );

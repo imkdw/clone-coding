@@ -1,13 +1,10 @@
 import styled from "styled-components";
 import { SquareFacebook } from "../../../icon/FontAwesome";
 import { Link } from "react-router-dom";
-import Input from "../common/Input";
 import ContourLine from "../common/ContourLine";
 import Logo from "../common/Logo";
-import Form from "../common/Form";
 import StoreButton from "../common/StoreButton";
-import { FormEvent } from "react";
-import axios from "axios";
+import LoginForm from "./LoginForm";
 
 const StyledLoginBox = styled.div`
   width: 350px;
@@ -44,17 +41,6 @@ const StyledLoginBoxBottom = styled.div`
   align-items: center;
   gap: 30px;
   flex-direction: column;
-`;
-
-const StyledButton = styled.button`
-  width: 268px;
-  height: 30px;
-  border: none;
-  background-color: #b2dffc;
-  color: white;
-  border-radius: 4px;
-  font-size: 14px;
-  margin-top: 10px;
 `;
 
 const StyledLinks1 = styled.div`
@@ -101,27 +87,12 @@ const StyledRegisterLink = styled(Link)`
   }
 `;
 
-const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-
-  const response = await axios.post("http://localhost:5000/auth/login", {
-    id: "testid",
-    password: "testPassword",
-  });
-
-  console.log(response);
-};
-
 const LoginBox = () => {
   return (
     <StyledLoginBox>
       <StyledLoginBoxTop>
         <Logo height="130px" />
-        <Form height="145px" onSubmit={submitHandler}>
-          <Input type="text" placeholder="전화번호, 사용자 이름 또는 이메일" height="38px" />
-          <Input type="password" placeholder="비밀번호" height="38px" />
-          <StyledButton type="submit">로그인</StyledButton>
-        </Form>
+        <LoginForm />
         <ContourLine height="45px" />
         <StyledLinks1>
           <StyledLink>

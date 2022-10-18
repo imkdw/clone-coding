@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ChangeEvent, FocusEvent } from "react";
 
 interface IStyledInputProps {
   height: string;
@@ -19,10 +20,24 @@ interface IInputProps {
   type: string;
   placeholder: string;
   height: string;
+  value: string;
+  onChange(event: ChangeEvent<HTMLInputElement>): void;
+  name: string;
+  onBlur?(event: FocusEvent<HTMLInputElement>): void;
 }
 
-const Input = ({ type, placeholder, height }: IInputProps) => {
-  return <StyledInput type={type} placeholder={placeholder} height={height} />;
+const Input = ({ type, placeholder, height, value, onChange, name, onBlur }: IInputProps) => {
+  return (
+    <StyledInput
+      type={type}
+      placeholder={placeholder}
+      height={height}
+      value={value}
+      onChange={onChange}
+      name={name}
+      onBlur={onBlur}
+    />
+  );
 };
 
 export default Input;
