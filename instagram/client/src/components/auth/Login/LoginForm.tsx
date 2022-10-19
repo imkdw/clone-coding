@@ -4,6 +4,9 @@ import { useState, FormEvent, ChangeEvent, FocusEvent } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import config from "./../../../config/config";
+import { useRecoilState } from "recoil";
+import { accessTokenState } from "../../../recoil/recoil";
+import { useNavigate } from "react-router-dom";
 
 interface ILoginButtonProps {
   backgroundColor: string;
@@ -28,6 +31,8 @@ const LoginForm = () => {
 
   const { email, password } = account;
   const [isAccountValid, setIsAccountValid] = useState(false);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const navigate = useNavigate();
 
   const accountChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
@@ -42,7 +47,11 @@ const LoginForm = () => {
     event.preventDefault();
 
     const response = await axios.post(config.url.loginUrl, { email, password });
-    console.log(response);
+    if (response.status === 200) {
+      const accessToken = response.data.accessToken;
+      setAccessToken(accessToken);
+      navigate("/");
+    }
   };
 
   const accountCheckHanlder = (event: FocusEvent<HTMLInputElement>) => {

@@ -3,11 +3,12 @@ import styled from "styled-components";
 import logo from "../../../assets/logo.png";
 
 interface IStyledLogoProps {
+  width: string;
   height: string;
 }
 
 const StyledLogo = styled.div<IStyledLogoProps>`
-  width: 100%;
+  width: ${(props) => props.width || "100%"};
   height: ${(props) => props.height};
   display: flex;
   align-items: center;
@@ -20,12 +21,13 @@ const StyledLogoImage = styled.img`
 `;
 
 interface ILogoProps {
+  width: string;
   height: string;
 }
 
-const Logo = ({ height }: ILogoProps) => {
+const Logo = ({ width, height }: ILogoProps) => {
   return (
-    <StyledLogo height={height}>
+    <StyledLogo width={width} height={height}>
       <StyledLogoImage src={logo} alt="" />
     </StyledLogo>
   );

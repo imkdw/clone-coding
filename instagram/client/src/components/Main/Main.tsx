@@ -1,18 +1,10 @@
-import { accessTokenState } from "../../recoil/recoil";
-import { useRecoilState } from "recoil";
+import styled from "styled-components";
+import Header from "./Header/Header";
 
 const Main = () => {
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
-
-  const tokenChangeHandler = () => {
-    const token = new Date().toISOString();
-    setAccessToken(token);
-  };
-
   return (
     <div>
-      <div>Token : {accessToken}</div>
-      <button onClick={tokenChangeHandler}>Change Token!</button>
+      <Header />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import Form from "../common/Form";
 import Input from "../common/Input";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, FocusEvent, FormEvent } from "react";
 import { ChangeEvent } from "react";
 import axios from "axios";
@@ -38,6 +38,7 @@ const RegisterButton = styled.button<IRegisterButtonProps>`
 `;
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
   const [account, setAccount] = useState({
     email: "",
     name: "",
@@ -45,6 +46,8 @@ const RegisterForm = () => {
     password: "",
   });
   const [isAccountValid, setIsAccountValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const { email, name, nickname, password } = account;
 
@@ -67,9 +70,15 @@ const RegisterForm = () => {
 
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    setIsLoading(true);
     const response = await axios.post(config.url.registerUrl, { email, name, nickname, password });
-    console.log(response);
+    setIsLoading(false);
+
+    /** 회원가입 API 요청이 완료되면 */
+    if (!isLoading) {
+      alert("회원가입이 완료되었습니다.");
+      navigate("/login");
+    }
   };
 
   return (

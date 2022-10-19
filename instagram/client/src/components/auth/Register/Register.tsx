@@ -49,7 +49,7 @@ const Register = () => {
   return (
     <StyledRegister>
       <Box height="620px">
-        <Logo height="60px" />
+        <Logo width="100%" height="60px" />
         <RegisterText>친구들의 사진과 동영상을 보려면 가입하세요.</RegisterText>
         <StyledFacebookLoginButton>
           <SquareFacebook width="18px" height="18px" color="white" />
