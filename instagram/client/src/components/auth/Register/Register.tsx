@@ -45,11 +45,21 @@ const StyledLoginLink = styled(Link)`
   color: #0095f6;
 `;
 
+const LogoBox = styled.div`
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const Register = () => {
   return (
     <StyledRegister>
       <Box height="620px">
-        <Logo width="100%" height="60px" />
+        <LogoBox>
+          <Logo width="175" height="51" />
+        </LogoBox>
         <RegisterText>친구들의 사진과 동영상을 보려면 가입하세요.</RegisterText>
         <StyledFacebookLoginButton>
           <SquareFacebook width="18px" height="18px" color="white" />

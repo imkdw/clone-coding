@@ -17,9 +17,10 @@ const RegisterDesc = styled.p`
 
 const DescInfoLink = styled(Link)`
   font-weight: bold;
+  color: #828282;
 
   &:visited {
-    color: #828282;
+    color: #8e8e8e;
   }
 `;
 

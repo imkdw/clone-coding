@@ -87,11 +87,21 @@ const StyledRegisterLink = styled(Link)`
   }
 `;
 
+const LogoBox = styled.div`
+  width: 100%;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const LoginBox = () => {
   return (
     <StyledLoginBox>
       <StyledLoginBoxTop>
-        <Logo width="100%" height="130px" />
+        <LogoBox>
+          <Logo width="175" height="51" />
+        </LogoBox>
         <LoginForm />
         <ContourLine height="45px" />
         <StyledLinks1>
