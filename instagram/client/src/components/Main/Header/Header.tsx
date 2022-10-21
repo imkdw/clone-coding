@@ -19,9 +19,13 @@ const StyledHeaderWrapper = styled.div`
   width: 80%;
   max-width: 950px;
   height: 100%;
-  border: 1px solid;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const LogoBox = styled.div`
