@@ -20,7 +20,7 @@ class AuthController {
 
     const hashPassword = await Secure.hashPassword(userDTO.password);
     userDTO.password = hashPassword;
-    const registerRecord = await AuthModel.insertUser(userDTO);
+    await AuthModel.insertUser(userDTO);
     res.json({ message: "Insert User Complete" });
   };
 }

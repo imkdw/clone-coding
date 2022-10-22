@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 import profile from "../../../assets/profile.jpg";
+import { useRecoilState } from "recoil";
+import { modalEnableState } from "../../../recoil/recoil";
 
 const StyledHeaderButtons = styled.div`
   width: 260px;
@@ -132,6 +134,13 @@ const ActivityLog = () => {
 };
 
 const HeaderButtons = () => {
+  const [isModalEnable, setIsModalEnable] = useRecoilState(modalEnableState);
+
+  const openModalHandler = () => {
+    setIsModalEnable(true);
+    document.body.style.overflowY = "hidden";
+  };
+
   return (
     <StyledHeaderButtons>
       <HeaderButton>
@@ -140,7 +149,7 @@ const HeaderButtons = () => {
       <HeaderButton>
         <DirectMessage />
       </HeaderButton>
-      <HeaderButton>
+      <HeaderButton onClick={openModalHandler}>
         <AddStory />
       </HeaderButton>
       <HeaderButton>

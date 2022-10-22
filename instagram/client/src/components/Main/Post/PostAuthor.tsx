@@ -5,11 +5,11 @@ import profile from "../../../assets/profile.jpg";
 const StyledPostAuthor = styled.div`
   display: flex;
   width: 100%;
-  height: 60px;
+  height: 56px;
 `;
 
 const AuthorInfo = styled.div`
-  width: 420px;
+  width: 90%;
   height: 100%;
   display: flex;
 `;
@@ -38,7 +38,7 @@ const AuthorName = styled.div`
 `;
 
 const Menu = styled.div`
-  width: 50px;
+  width: 10%;
   height: 100%;
   display: flex;
   align-items: center;
