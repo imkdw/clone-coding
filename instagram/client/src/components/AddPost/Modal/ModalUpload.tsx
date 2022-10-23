@@ -5,6 +5,7 @@ import { isImageUploadedState } from "./../../../recoil/recoil";
 import ImagePreview from "./ImagePreview";
 
 const StyledModalUpload = styled.div`
+  width: 100%;
   height: 92%;
   display: flex;
   flex-direction: column;
@@ -14,7 +15,7 @@ const StyledModalUpload = styled.div`
   position: relative;
 
   @media screen and (max-width: 768px) {
-    height: 88%;
+    height: 90%;
   }
 `;
 
@@ -49,7 +50,7 @@ const UploadHeader = styled.div`
   color: #262626;
   font-size: 22px;
   @media screen and (max-width: 768px) {
-    font-size: 15px;
+    font-size: 14px;
   }
 `;
 
@@ -75,19 +76,17 @@ const ImageUploadInput = styled.input`
 `;
 
 const ModalUpload = () => {
-  const [uploadImages, setUploadImages] = useState<File[] | never[]>([]);
   const imageUploadRef = useRef<null | HTMLInputElement>(null);
   const [isImageUploaded, setIsImageUploaded] = useRecoilState(isImageUploadedState);
-  const [uploadFileLength, setUploadFileLength] = useState(0);
   const [blobImages, setBlobImages] = useState<Blob[] | never[]>([]);
+  const [uploadFilesLength, setUploadFilesLength] = useState(0);
 
   /** useState 동기처리 */
   useEffect(() => {
-    if (uploadImages.length !== 0 && blobImages.length !== 0) {
-      console.log("끝!");
+    if (blobImages.length === uploadFilesLength && blobImages.length !== 0) {
       setIsImageUploaded(true);
     }
-  }, [uploadImages, blobImages]);
+  }, [blobImages]);
 
   /** 버튼 클릭시 input 태그에 click 이벤트 발생 */
   const clickInputHanlder = () => {
@@ -97,8 +96,7 @@ const ModalUpload = () => {
   /** input[type="file"]에 파일이 업로드될때 이벤트를 처리 */
   const imageUploadHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files as FileList;
-    const uploadFiles = [];
-    setUploadFileLength(files.length);
+    setUploadFilesLength(files.length);
 
     /** 이미지(파일) 업로드는 최대 10장까지 가능 */
     if ([files].length > 11) {
@@ -106,27 +104,19 @@ const ModalUpload = () => {
       return;
     }
 
-    /** 업로드된 파일이 모두 이미지인지 확인하고 상태에 추가 */
+    /** 업로드된 파일이 모두 이미지인지 확인하고 blob 형식으로 변환 */
     for (let i = 0; i < files.length; i++) {
       if (!files[i].type.match("image/*")) {
         alert("이미지파일만 업로드가 가능합니다.");
         return;
       }
 
-      uploadFiles.push(files[i]);
-    }
-    setUploadImages(uploadFiles);
-
-    /** 업로드된 이미지를 blob 형식으로 변경하고 상태에 추가 */
-    const blobImages: Blob[] = [];
-    uploadFiles.forEach((file) => {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        blobImages.push(e.target.result);
+        setBlobImages((blobImages) => [...blobImages, e.target.result]);
       };
-      reader.readAsDataURL(file);
-    });
-    setBlobImages(blobImages);
+      reader.readAsDataURL(files[i]);
+    }
   };
 
   return (

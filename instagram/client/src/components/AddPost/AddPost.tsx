@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import PostModal from "./Modal/PostModal";
 import { useRecoilState } from "recoil";
-import { modalEnableState } from "../../recoil/recoil";
+import { isWritingContentState, modalEnableState } from "../../recoil/recoil";
 import { useRouteError } from "react-router-dom";
 import { isImageUploadedState } from "./../../recoil/recoil";
+import { FormEvent } from "react";
 
-const StyledAddPost = styled.div`
+const StyledAddPost = styled.form`
   width: 100%;
   height: 100%;
   position: fixed;
@@ -63,15 +64,22 @@ const PostCloseButton = styled.button`
 const AddPost = () => {
   const [isModalEnable, setIsModalEnable] = useRecoilState(modalEnableState);
   const [isImageUploaded, setIsImageUploaded] = useRecoilState(isImageUploadedState);
+  const [isWritingContent, setIsWritingContent] = useRecoilState(isWritingContentState);
 
   const closeModalHandler = () => {
     setIsModalEnable(false);
     document.body.style.overflowY = "scroll";
     setIsImageUploaded(false);
+    setIsWritingContent(false);
+  };
+
+  const submitHandler = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log("Writing Post!");
   };
 
   return (
-    <StyledAddPost>
+    <StyledAddPost onSubmit={submitHandler}>
       <PostModal />
       <PostCloseButton onClick={closeModalHandler}>
         <CloseButton />

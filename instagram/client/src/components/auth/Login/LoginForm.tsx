@@ -1,11 +1,11 @@
 import Form from "../common/Form";
 import Input from "../common/Input";
-import { useState, FormEvent, ChangeEvent, FocusEvent } from "react";
+import { useState, FormEvent, ChangeEvent, FocusEvent, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import config from "./../../../config/config";
 import { useRecoilState } from "recoil";
-import { accessTokenState } from "../../../recoil/recoil";
+import { accessTokenState, loggedInUserState } from "../../../recoil/recoil";
 import { useNavigate } from "react-router-dom";
 
 interface ILoginButtonProps {
@@ -32,7 +32,12 @@ const LoginForm = () => {
   const { email, password } = account;
   const [isAccountValid, setIsAccountValid] = useState(false);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const [loggedInUser, setLoggedInUser] = useRecoilState(loggedInUserState);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(loggedInUser);
+  }, [loggedInUser]);
 
   const accountChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
@@ -47,10 +52,20 @@ const LoginForm = () => {
     event.preventDefault();
 
     const response = await axios.post(config.url.loginUrl, { email, password });
+
     if (response.status === 200) {
-      const accessToken = response.data.accessToken;
+      const { accessToken, userInfo } = response.data;
+      const { email, name, nickname } = userInfo;
+
       setAccessToken(accessToken);
-      navigate("/");
+      setLoggedInUser({
+        ...loggedInUser,
+        email,
+        name,
+        nickname,
+      });
+      localStorage.setItem("accessToken", accessToken);
+      navigate("/main");
     }
   };
 

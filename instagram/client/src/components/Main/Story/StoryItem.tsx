@@ -22,11 +22,11 @@ const StoryItemWrapper = styled.div`
 `;
 
 const UserProfile = styled.img`
-  width: 58px;
-  height: 58px;
+  width: 62px;
+  height: 62px;
   border-radius: 50%;
   background-color: black;
-  border: 2px solid white;
+  border: 3px solid white;
 `;
 
 const UserNickname = styled.div`

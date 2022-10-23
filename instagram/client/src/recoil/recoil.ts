@@ -15,3 +15,17 @@ export const isImageUploadedState = atom({
   key: v4(),
   default: false,
 });
+
+export const isWritingContentState = atom({
+  key: v4(),
+  default: false,
+});
+
+export const loggedInUserState = atom({
+  key: v4(),
+  default: {
+    email: "",
+    name: "",
+    nickname: "",
+  },
+});

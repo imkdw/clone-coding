@@ -37,6 +37,19 @@ class AuthModel {
       });
     });
   };
+
+  static getUser = async (email: string) => {
+    return new Promise((res, rej) => {
+      const query = `SELECT * FROM users WHERE email=?`;
+      connection.query(query, [email], (err, result) => {
+        if (err) {
+          rej(err);
+        }
+
+        res(result);
+      });
+    });
+  };
 }
 
 export default AuthModel;

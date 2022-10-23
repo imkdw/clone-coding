@@ -14,17 +14,9 @@ const App = () => {
    */
   return (
     <Routes>
-      {accessToken ? (
-        <>
-          <Route path="/" element={<Main />} />
-          <Route path="/login" element={<Main />} />
-        </>
-      ) : (
-        <>
-          <Route path="/" element={<Login />} />
-          <Route path="/login" element={<Login />} />
-        </>
-      )}
+      <Route path="/" element={<Login />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/main" element={<Main />} />
       <Route path="/register" element={<Register />} />
     </Routes>
   );

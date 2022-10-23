@@ -9,6 +9,11 @@ class Jwt {
     const { secretKey, expiresIn } = config.jwt;
     return jwt.sign({ email }, secretKey, { expiresIn });
   };
+
+  static verifyToken = (accessToken: string): string => {
+    const { secretKey } = config.jwt;
+    return jwt.verify(accessToken, secretKey);
+  };
 }
 
 export default Jwt;
