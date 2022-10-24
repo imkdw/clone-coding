@@ -35,7 +35,7 @@ const Login = () => {
       const accessToken = localStorage.getItem("accessToken");
 
       if (accessToken) {
-        const response = await axios.post(config.url.checkLoginedUrl, { accessToken });
+        const response = await axios.post(config.url.auth.checkLoginedUrl, { accessToken });
 
         /** 로그인 값이 유효할 경우 */
         if (response.status === 200) {

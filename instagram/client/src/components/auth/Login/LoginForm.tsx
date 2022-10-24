@@ -51,7 +51,7 @@ const LoginForm = () => {
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const response = await axios.post(config.url.loginUrl, { email, password });
+    const response = await axios.post(config.url.auth.loginUrl, { email, password });
 
     if (response.status === 200) {
       const { accessToken, userInfo } = response.data;

@@ -72,7 +72,12 @@ const RegisterForm = () => {
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-    const response = await axios.post(config.url.registerUrl, { email, name, nickname, password });
+    const response = await axios.post(config.url.auth.registerUrl, {
+      email,
+      name,
+      nickname,
+      password,
+    });
     setIsLoading(false);
 
     /** 회원가입 API 요청이 완료되면 */

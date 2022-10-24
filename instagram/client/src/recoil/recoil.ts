@@ -29,3 +29,13 @@ export const loggedInUserState = atom({
     nickname: "",
   },
 });
+
+export const blobImagesState = atom<Blob[] | never[]>({
+  key: v4(),
+  default: [],
+});
+
+export const uploadFilesState = atom<File[] | never[]>({
+  key: v4(),
+  default: [],
+});

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useRef, ChangeEvent, useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { isImageUploadedState } from "./../../../recoil/recoil";
+import { blobImagesState, isImageUploadedState, uploadFilesState } from "./../../../recoil/recoil";
 import ImagePreview from "./ImagePreview";
 
 const StyledModalUpload = styled.div`
@@ -79,6 +79,7 @@ const ModalUpload = () => {
   const imageUploadRef = useRef<null | HTMLInputElement>(null);
   const [isImageUploaded, setIsImageUploaded] = useRecoilState(isImageUploadedState);
   const [blobImages, setBlobImages] = useState<Blob[] | never[]>([]);
+  const [uploadFiles, setUploadFiles] = useRecoilState(uploadFilesState);
   const [uploadFilesLength, setUploadFilesLength] = useState(0);
 
   /** useState 동기처리 */
@@ -111,6 +112,9 @@ const ModalUpload = () => {
         return;
       }
 
+      /** 업로드된 파일을 formData에 추가하기위해 전역으로 상태관리 */
+      setUploadFiles((uploadFiles) => [...uploadFiles, files[i]]);
+
       const reader = new FileReader();
       reader.onload = (e: any) => {
         setBlobImages((blobImages) => [...blobImages, e.target.result]);
@@ -132,6 +136,7 @@ const ModalUpload = () => {
         multiple
         ref={imageUploadRef}
         onChange={imageUploadHandler}
+        name="image"
       />
     </StyledModalUpload>
   );

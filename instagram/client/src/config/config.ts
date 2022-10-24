@@ -1,8 +1,17 @@
+function makeUrl(url: string) {
+  return `http://localhost:5000${url}`;
+}
+
 const config = {
   url: {
-    loginUrl: "http://localhost:5000/auth/login",
-    registerUrl: "http://localhost:5000/auth/register",
-    checkLoginedUrl: "http://localhost:5000/auth/logged-in",
+    auth: {
+      loginUrl: makeUrl("/auth/login"),
+      registerUrl: makeUrl("/auth/register"),
+      checkLoginedUrl: makeUrl("/auth/logged-in"),
+    },
+    post: {
+      addPost: makeUrl("/post/add-post"),
+    },
   },
 };
 
