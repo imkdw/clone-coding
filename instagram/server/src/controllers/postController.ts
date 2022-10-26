@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 
 class PostController {
   static addPost = (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.file, req.files);
+    const [files, content] = [req.files, req.body.content];
     res.json("addPost");
   };
 }

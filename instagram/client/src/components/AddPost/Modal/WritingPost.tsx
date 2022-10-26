@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { loggedInUserState } from "../../../recoil/recoil";
+import { loggedInUserState, postContentState } from "../../../recoil/recoil";
 import storyProfile from "../../../assets/story_profile.png";
 import { ChangeEvent, FormEvent } from "react";
 
@@ -46,12 +46,18 @@ const PostTextarea = styled.textarea`
 `;
 
 const WritingPost = () => {
+  const [postContent, setPostContent] = useRecoilState(postContentState);
+
   const autoResizeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const textarea = event.currentTarget;
 
     textarea.style.height = "auto";
     let height = textarea.scrollHeight;
     textarea.style.height = `${height + 8}px`;
+  };
+
+  const postContentChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setPostContent(event.target.value);
   };
 
   const [loggedInUser, setLoggedInUser] = useRecoilState(loggedInUserState);
@@ -62,7 +68,16 @@ const WritingPost = () => {
         <AuthorName>{loggedInUser.nickname}</AuthorName>
       </AuthorProfile>
       <PostForm>
-        <PostTextarea placeholder="문구 입력..." onChange={autoResizeHandler} maxLength={600} />
+        <PostTextarea
+          placeholder="문구 입력..."
+          onChange={(e) => {
+            autoResizeHandler(e);
+            postContentChangeHandler(e);
+          }}
+          maxLength={600}
+          value={postContent}
+          name="content"
+        />
       </PostForm>
     </StyledWritingPost>
   );

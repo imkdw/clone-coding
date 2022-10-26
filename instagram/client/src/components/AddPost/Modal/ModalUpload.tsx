@@ -136,7 +136,7 @@ const ModalUpload = () => {
         multiple
         ref={imageUploadRef}
         onChange={imageUploadHandler}
-        name="image"
+        name="images"
       />
     </StyledModalUpload>
   );

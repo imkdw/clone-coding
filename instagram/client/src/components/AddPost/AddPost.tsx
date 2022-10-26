@@ -5,6 +5,7 @@ import {
   blobImagesState,
   isWritingContentState,
   modalEnableState,
+  postContentState,
   uploadFilesState,
 } from "../../recoil/recoil";
 import { useRouteError } from "react-router-dom";
@@ -73,6 +74,7 @@ const AddPost = () => {
   const [isImageUploaded, setIsImageUploaded] = useRecoilState(isImageUploadedState);
   const [isWritingContent, setIsWritingContent] = useRecoilState(isWritingContentState);
   const [uploadFiles, setUploadFiles] = useRecoilState(uploadFilesState);
+  const [postContent, setPostContent] = useRecoilState(postContentState);
 
   const closeModalHandler = () => {
     setIsModalEnable(false);
@@ -85,18 +87,30 @@ const AddPost = () => {
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const formData = new FormData();
-    uploadFiles.forEach((file) => {
-      formData.append("file", file);
+    const formData = new FormData(event.currentTarget);
+    console.log(uploadFiles);
+
+    for (let i = 0; i < uploadFiles.length; i++) {
+      formData.append("file", uploadFiles[i]);
+    }
+
+    // formData.append("content", postContent);
+
+    const res = await axios.post("http://localhost:5000/post/add-post", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     });
 
-    const response = await axios.post(config.url.post.addPost, formData, {
-      headers: { "content-type": "multipart/form-data" },
-    });
+    console.log(res);
   };
 
   return (
-    <StyledAddPost onSubmit={submitHandler} encType="multipart/form-data">
+    <StyledAddPost
+      onSubmit={submitHandler}
+      encType="multipart/form-data"
+      action="http://localhost:5000/post/add-post"
+    >
       <PostModal />
       <PostCloseButton onClick={closeModalHandler}>
         <CloseButton />
