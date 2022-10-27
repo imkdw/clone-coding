@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import config from "../../../config/config";
 import { useNavigate } from "react-router-dom";
+import useIsLoggedIn from "../../../hooks/useIsLoggedIn";
 
 const StyledLogin = styled.div`
   width: 100%;
@@ -31,24 +32,20 @@ const Login = () => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
 
   useEffect(() => {
-    const checkLogined = async () => {
-      const accessToken = localStorage.getItem("accessToken");
+    const UseCheckLogined = async () => {
+      const isLoggedIn = await useIsLoggedIn();
 
-      if (accessToken) {
-        const response = await axios.post(config.url.auth.checkLoginedUrl, { accessToken });
-
-        /** 로그인 값이 유효할 경우 */
-        if (response.status === 200) {
-          navigator("/main");
-        } else {
-          localStorage.removeItem("accessToken");
-          setAccessToken("");
-          navigator("/login");
-        }
+      /** 로그인 값이 유효할 경우 */
+      if (isLoggedIn) {
+        navigator("/main");
+      } else {
+        localStorage.removeItem("accessToken");
+        setAccessToken("");
+        navigator("/login");
       }
     };
 
-    checkLogined();
+    UseCheckLogined();
   }, []);
 
   return (

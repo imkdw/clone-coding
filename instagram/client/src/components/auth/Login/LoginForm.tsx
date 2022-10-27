@@ -64,7 +64,6 @@ const LoginForm = () => {
         name,
         nickname,
       });
-      console.log(loggedInUser);
       localStorage.setItem("accessToken", accessToken);
       navigate("/main");
     }

@@ -88,7 +88,6 @@ const AddPost = () => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    console.log(uploadFiles);
 
     for (let i = 0; i < uploadFiles.length; i++) {
       formData.append("file", uploadFiles[i]);

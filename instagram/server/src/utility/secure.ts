@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import { v4 } from "uuid";
 
 class Secure {
   static hashPassword = async (plainPassword: string): Promise<string> => {
@@ -10,6 +11,10 @@ class Secure {
     hashedPassword: string
   ): Promise<boolean> => {
     return await bcrypt.compare(plainPassword, hashedPassword);
+  };
+
+  static getUUID = (): string => {
+    return v4();
   };
 }
 
