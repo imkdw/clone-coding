@@ -14,6 +14,11 @@ class Jwt {
     const { secretKey } = config.jwt;
     return jwt.verify(accessToken, secretKey);
   };
+
+  static decodeToken = (accessToken: string) => {
+    const { secretKey } = config.jwt;
+    return jwt.decode(accessToken, secretKey);
+  };
 }
 
 export default Jwt;

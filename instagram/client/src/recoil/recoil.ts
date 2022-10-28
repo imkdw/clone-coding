@@ -39,8 +39,3 @@ export const uploadFilesState = atom<File[] | never[]>({
   key: v4(),
   default: [],
 });
-
-export const postContentState = atom({
-  key: v4(),
-  default: "",
-});

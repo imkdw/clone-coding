@@ -1,5 +1,4 @@
 import { faSquareFacebook } from "@fortawesome/free-brands-svg-icons";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface IconProps {

@@ -1,6 +1,6 @@
 import Form from "../common/Form";
 import Input from "../common/Input";
-import { useState, FormEvent, ChangeEvent, FocusEvent, useEffect } from "react";
+import { useState, FormEvent, ChangeEvent, FocusEvent } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import config from "./../../../config/config";
@@ -35,10 +35,6 @@ const LoginForm = () => {
   const [loggedInUser, setLoggedInUser] = useRecoilState(loggedInUserState);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(loggedInUser);
-  }, [loggedInUser]);
-
   const accountChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
 
@@ -66,6 +62,9 @@ const LoginForm = () => {
       });
       localStorage.setItem("accessToken", accessToken);
       navigate("/main");
+    } else {
+      alert("계정이 올바르지 않습니다.");
+      return;
     }
   };
 

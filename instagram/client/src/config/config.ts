@@ -11,6 +11,7 @@ const config = {
     },
     post: {
       addPost: makeUrl("/post/add-post"),
+      getPost: makeUrl("/post/posts"),
     },
   },
 };

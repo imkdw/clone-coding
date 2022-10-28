@@ -1,8 +1,8 @@
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { loggedInUserState, postContentState } from "../../../recoil/recoil";
+import { loggedInUserState } from "../../../recoil/recoil";
 import storyProfile from "../../../assets/story_profile.png";
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 const StyledWritingPost = styled.div`
   width: 100%;
@@ -46,7 +46,7 @@ const PostTextarea = styled.textarea`
 `;
 
 const WritingPost = () => {
-  const [postContent, setPostContent] = useRecoilState(postContentState);
+  const [postContent, setPostContent] = useState("");
 
   const autoResizeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const textarea = event.currentTarget;

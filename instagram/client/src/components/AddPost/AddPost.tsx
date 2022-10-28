@@ -2,17 +2,15 @@ import styled from "styled-components";
 import PostModal from "./Modal/PostModal";
 import { useRecoilState } from "recoil";
 import {
-  blobImagesState,
+  accessTokenState,
   isWritingContentState,
   modalEnableState,
-  postContentState,
   uploadFilesState,
 } from "../../recoil/recoil";
-import { useRouteError } from "react-router-dom";
 import { isImageUploadedState } from "./../../recoil/recoil";
 import { FormEvent } from "react";
 import axios from "axios";
-import config from "../../config/config";
+import { useNavigate } from "react-router-dom";
 
 const StyledAddPost = styled.form`
   width: 100%;
@@ -74,7 +72,8 @@ const AddPost = () => {
   const [isImageUploaded, setIsImageUploaded] = useRecoilState(isImageUploadedState);
   const [isWritingContent, setIsWritingContent] = useRecoilState(isWritingContentState);
   const [uploadFiles, setUploadFiles] = useRecoilState(uploadFilesState);
-  const [postContent, setPostContent] = useRecoilState(postContentState);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const navigator = useNavigate();
 
   const closeModalHandler = () => {
     setIsModalEnable(false);
@@ -93,15 +92,20 @@ const AddPost = () => {
       formData.append("file", uploadFiles[i]);
     }
 
-    // formData.append("content", postContent);
-
     const res = await axios.post("http://localhost:5000/post/add-post", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
+        Authorization: accessToken,
       },
     });
 
-    console.log(res);
+    if (res.status === 200) {
+      setIsModalEnable(false);
+      document.body.style.overflowY = "scroll";
+      setIsImageUploaded(false);
+      setIsWritingContent(false);
+      setUploadFiles([]);
+    }
   };
 
   return (

@@ -3,11 +3,7 @@ import styled from "styled-components";
 import { accessTokenState } from "../../../recoil/recoil";
 import LoginBox from "./LoginBox";
 import LoginImage from "./LoginImage";
-import { useEffect } from "react";
-import axios from "axios";
-import config from "../../../config/config";
 import { useNavigate } from "react-router-dom";
-import useIsLoggedIn from "../../../hooks/useIsLoggedIn";
 
 const StyledLogin = styled.div`
   width: 100%;
@@ -30,23 +26,6 @@ const StyledLoginWrapper = styled.div`
 const Login = () => {
   const navigator = useNavigate();
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
-
-  useEffect(() => {
-    const UseCheckLogined = async () => {
-      const isLoggedIn = await useIsLoggedIn();
-
-      /** 로그인 값이 유효할 경우 */
-      if (isLoggedIn) {
-        navigator("/main");
-      } else {
-        localStorage.removeItem("accessToken");
-        setAccessToken("");
-        navigator("/login");
-      }
-    };
-
-    UseCheckLogined();
-  }, []);
 
   return (
     <StyledLogin>
