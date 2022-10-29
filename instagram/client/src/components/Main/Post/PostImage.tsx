@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import girlModel from "../../../assets/girl_model.jpg";
-
 const StyledPostImage = styled.img`
   width: 100%;
   height: 587px;
@@ -11,8 +9,8 @@ const StyledPostImage = styled.img`
   }
 `;
 
-const PostImage = () => {
-  return <StyledPostImage src={girlModel} />;
+const PostImage = ({ images }: { images: string[] }) => {
+  return <StyledPostImage src={images[0]} />;
 };
 
 export default PostImage;

@@ -1,6 +1,9 @@
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { profileMenuEnableState } from "../../../recoil/recoil";
 import Logo from "../../auth/common/Logo";
 import HeaderButtons from "./HeaderButtons";
+import ProfileMenu from "./ProfileMenu";
 import SearchBar from "./SearchBar";
 
 const StyledHeader = styled.div`
@@ -17,13 +20,20 @@ const StyledHeader = styled.div`
 `;
 
 const StyledHeaderWrapper = styled.div`
-  width: 100%;
+  width: 50%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 
-  @media screen and (max-width: 768px) {
+  /* 태블릿 */
+  @media screen and (max-width: 1023px) {
+    width: 100%;
+  }
+
+  /* 모바일 */
+  @media screen and (max-width: 767px) {
     width: 100%;
   }
 `;
@@ -38,6 +48,7 @@ const LogoBox = styled.div`
 `;
 
 const Header = () => {
+  const [profileMenuEnable, setProfileMenuEnable] = useRecoilState(profileMenuEnableState);
   return (
     <StyledHeader>
       <StyledHeaderWrapper>
@@ -46,6 +57,7 @@ const Header = () => {
         </LogoBox>
         <SearchBar />
         <HeaderButtons />
+        {profileMenuEnable && <ProfileMenu />}
       </StyledHeaderWrapper>
     </StyledHeader>
   );

@@ -38,10 +38,23 @@ class PostModel {
     });
   };
 
-  static getPosts = async () => {
+  static getPosts = async (): Promise<any[]> => {
     return new Promise((res, rej) => {
-      const query = `SELECT * FROM posts`;
+      const query = `select profile, author, like_count, content, post_id, created_at, nickname from posts p left join users u on p.author = u.email order by created_at desc`;
       connection.query(query, (err, result) => {
+        if (err) {
+          rej(err);
+        }
+
+        res(result);
+      });
+    });
+  };
+
+  static getPostImages = async (postId: string): Promise<any[]> => {
+    return new Promise((res, rej) => {
+      const query = "SELECT file_path from post_images where post_id = ?";
+      connection.query(query, [postId], (err, result) => {
         if (err) {
           rej(err);
         }

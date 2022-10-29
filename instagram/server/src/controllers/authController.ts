@@ -19,10 +19,13 @@ class AuthController {
       const userQuery = await AuthModel.getUser(userDTO.email);
 
       if (userQuery) {
+        const { email, name, nickname, profile, introduce } = userQuery[0];
         const userInfo = {
-          email: userQuery[0].email,
-          name: userQuery[0].name,
-          nickname: userQuery[0].nickname,
+          email,
+          name,
+          nickname,
+          profile,
+          introduce,
         };
 
         res.json({ accessToken, userInfo });
@@ -46,10 +49,13 @@ class AuthController {
       const userQuery = await AuthModel.getUser(decodedToken.email);
 
       if (userQuery) {
+        const { email, name, nickname, profile, introduce } = userQuery[0];
         const userInfo = {
-          email: userQuery[0].email,
-          name: userQuery[0].name,
-          nickname: userQuery[0].nickname,
+          email,
+          name,
+          nickname,
+          profile,
+          introduce,
         };
 
         res.json(userInfo);

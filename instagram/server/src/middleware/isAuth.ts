@@ -5,7 +5,7 @@ export function isAuth(req: Request, res: Response, next: NextFunction) {
   const accessToken = req.headers.authorization;
 
   if (!accessToken) {
-    res.status(401).json({ message: "Unauthorized" });
+    res.status(401).json({ message: "Invalid AccessToken" });
     return;
   }
 
@@ -15,14 +15,11 @@ export function isAuth(req: Request, res: Response, next: NextFunction) {
       const decodedToken = Jwt.decodeToken(accessToken);
       req.app.set("userInfo", decodedToken);
       next();
-      return;
     } else {
-      res.status(401).json({ message: "UnAuthorization" });
-      return;
+      res.status(401).json({ message: "Verify Token Failed" });
     }
   } catch (err: any) {
     console.error(err);
     res.status(401).json({ message: "Expired Token" });
-    return;
   }
 }

@@ -27,6 +27,8 @@ export const loggedInUserState = atom({
     email: "",
     name: "",
     nickname: "",
+    profile: "",
+    introduce: "",
   },
 });
 
@@ -38,4 +40,9 @@ export const blobImagesState = atom<Blob[] | never[]>({
 export const uploadFilesState = atom<File[] | never[]>({
   key: v4(),
   default: [],
+});
+
+export const profileMenuEnableState = atom({
+  key: v4(),
+  default: false,
 });

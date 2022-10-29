@@ -63,14 +63,14 @@ const MenuIcon = () => {
   );
 };
 
-const PostAuthor = () => {
+const PostAuthor = ({ author, profile }: { author: string; profile: string }) => {
   return (
     <StyledPostAuthor>
       <AuthorInfo>
         <Profile>
           <ProfileImage src={profile} />
         </Profile>
-        <AuthorName>GunBungE</AuthorName>
+        <AuthorName>{author}</AuthorName>
       </AuthorInfo>
       <Menu>
         <MenuIcon />

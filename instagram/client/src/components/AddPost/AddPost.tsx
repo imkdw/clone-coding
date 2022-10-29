@@ -7,7 +7,7 @@ import {
   modalEnableState,
   uploadFilesState,
 } from "../../recoil/recoil";
-import { isImageUploadedState } from "./../../recoil/recoil";
+import { isImageUploadedState } from "../../recoil/recoil";
 import { FormEvent } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";

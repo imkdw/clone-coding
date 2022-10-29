@@ -28,11 +28,11 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
-
-  const { email, password } = account;
   const [isAccountValid, setIsAccountValid] = useState(false);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [loggedInUser, setLoggedInUser] = useRecoilState(loggedInUserState);
+  const { email, password } = account;
+
   const navigate = useNavigate();
 
   const accountChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -46,12 +46,21 @@ const LoginForm = () => {
 
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!email.includes("@")) {
+      alert("이메일 형식이 올바르지 않습니다.");
+      return;
+    }
+
+    if (password.length < 6) {
+      alert("비밀번호는 최소 6자리 이상 입력해주세요.");
+      return;
+    }
 
     const response = await axios.post(config.url.auth.loginUrl, { email, password });
 
     if (response.status === 200) {
       const { accessToken, userInfo } = response.data;
-      const { email, name, nickname } = userInfo;
+      const { email, name, nickname, profile, introduce } = userInfo;
 
       setAccessToken(accessToken);
       setLoggedInUser({
@@ -59,6 +68,8 @@ const LoginForm = () => {
         email,
         name,
         nickname,
+        profile,
+        introduce,
       });
       localStorage.setItem("accessToken", accessToken);
       navigate("/main");

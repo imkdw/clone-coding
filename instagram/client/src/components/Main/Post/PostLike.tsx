@@ -8,8 +8,8 @@ const StyledPostLike = styled.div`
   color: #262626;
 `;
 
-const PostLike = () => {
-  return <StyledPostLike>좋아요 9,999개</StyledPostLike>;
+const PostLike = ({ likeCount }: { likeCount: number }) => {
+  return <StyledPostLike>좋아요 {likeCount}개</StyledPostLike>;
 };
 
 export default PostLike;

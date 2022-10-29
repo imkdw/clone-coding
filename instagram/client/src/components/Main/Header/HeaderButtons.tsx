@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 import profile from "../../../assets/profile.jpg";
 import { useRecoilState } from "recoil";
-import { modalEnableState } from "../../../recoil/recoil";
+import { modalEnableState, profileMenuEnableState } from "../../../recoil/recoil";
+import { useState, MouseEvent } from "react";
+import ProfileMenu from "./ProfileMenu";
 
 const StyledHeaderButtons = styled.div`
   width: 260px;
@@ -10,7 +12,7 @@ const StyledHeaderButtons = styled.div`
   display: flex;
 `;
 
-const HeaderButton = styled.div`
+const HeaderButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,9 +21,11 @@ const HeaderButton = styled.div`
   cursor: pointer;
 `;
 
-const ProfileImage = styled.img`
+const ProfileImage = styled.img<{ border?: string }>`
   width: 24px;
   height: 24px;
+  border-radius: 50%;
+  border: ${(props) => props.border || "none"};
 `;
 
 const Home = () => {
@@ -135,10 +139,20 @@ const ActivityLog = () => {
 
 const HeaderButtons = () => {
   const [isModalEnable, setIsModalEnable] = useRecoilState(modalEnableState);
+  const [profileMenuEnable, setProfileMenuEnable] = useRecoilState(profileMenuEnableState);
 
   const openModalHandler = () => {
     setIsModalEnable(true);
     document.body.style.overflowY = "hidden";
+  };
+
+  const profileClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    if (profileMenuEnable) {
+      setProfileMenuEnable(false);
+    } else {
+      setProfileMenuEnable(true);
+    }
   };
 
   return (
@@ -155,8 +169,14 @@ const HeaderButtons = () => {
       <HeaderButton>
         <ActivityLog />
       </HeaderButton>
-      <HeaderButton>
-        <ProfileImage src={profile} alt="" />
+      <HeaderButton onClick={profileClickHandler}>
+        {profileMenuEnable ? (
+          <>
+            <ProfileImage src={profile} alt="" border="1px solid" />
+          </>
+        ) : (
+          <ProfileImage src={profile} alt="" />
+        )}
       </HeaderButton>
     </StyledHeaderButtons>
   );

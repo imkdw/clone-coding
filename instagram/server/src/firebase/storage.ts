@@ -8,7 +8,7 @@ class FirebaseStorage {
     const imageUrls = await Promise.all(
       files.map(async (file) => {
         /** 신규 이미지에 대한 참조 생성 */
-        const imageRef = ref(storage, `${postId}/${file.originalname}`);
+        const imageRef = ref(storage, `posts/${postId}/${file.originalname}`);
 
         /** 메타데이터 정의 */
         const metadata = { contentType: "image/jpeg" };
@@ -17,7 +17,7 @@ class FirebaseStorage {
         await uploadBytes(imageRef, file.buffer, metadata);
 
         /** 업로드된 파일에 대한 참조를 가져와서 다운로드링크 반환 */
-        const url = await getDownloadURL(ref(storage, `${postId}/${file.originalname}`));
+        const url = await getDownloadURL(ref(storage, `posts/${postId}/${file.originalname}`));
 
         return url;
       })

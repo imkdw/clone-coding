@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useRef, ChangeEvent, useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { blobImagesState, isImageUploadedState, uploadFilesState } from "./../../../recoil/recoil";
+import { blobImagesState, isImageUploadedState, uploadFilesState } from "../../../recoil/recoil";
 import ImagePreview from "./ImagePreview";
 
 const StyledModalUpload = styled.div`

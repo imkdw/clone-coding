@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { isDoStatement } from "typescript";
 
 const StyledPostData = styled.div`
   width: 100%;
@@ -22,18 +23,49 @@ const Author = styled.div`
 
 const Contents = styled.div``;
 const CreatedAt = styled.div`
-  font-size: 10px;
+  font-size: 11px;
   color: #828282;
 `;
 
-const PostData = () => {
+const PostData = ({
+  author,
+  content,
+  createdAt,
+}: {
+  author: string;
+  content: string;
+  createdAt: string;
+}) => {
+  const beforeUploadDate = (createdAt: string) => {
+    const date = new Date(createdAt);
+    const today = new Date();
+
+    const diffDate = today.getDate() - date.getDate();
+    const diffHours = today.getHours() - date.getHours();
+    const diffMin = today.getMinutes() - date.getMinutes();
+
+    if (diffDate === 0) {
+      if (diffHours === 0) {
+        if (diffMin === 0) {
+          return 1 + "분 ";
+        } else {
+          return diffMin + "분 ";
+        }
+      } else {
+        return diffHours + "시간 ";
+      }
+    } else {
+      return diffDate + "일 ";
+    }
+  };
+
   return (
     <StyledPostData>
       <AuthorAndContents>
-        <Author>GunbungE</Author>
-        <Contents>군붕이의 게시물 입니다.</Contents>
+        <Author>{author}</Author>
+        <Contents>{content}</Contents>
       </AuthorAndContents>
-      <CreatedAt>1일 전</CreatedAt>
+      <CreatedAt>{beforeUploadDate(createdAt)}전</CreatedAt>
     </StyledPostData>
   );
 };

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { IPost } from "../../../types/post";
 import AddComment from "./AddComment";
 import PostAuthor from "./PostAuthor";
 import PostButton from "./PostButton";
@@ -28,15 +29,15 @@ const PostItemWrapper = styled.div`
   height: 183px;
 `;
 
-const PostItem = () => {
+const PostItem = ({ author, content, images, likeCount, profile, createdAt, nickname }: IPost) => {
   return (
     <StyledPostItem>
-      <PostAuthor />
-      <PostImage />
+      <PostAuthor author={nickname} profile={profile} />
+      <PostImage images={images} />
       <PostItemWrapper>
         <PostButton />
-        <PostLike />
-        <PostData />
+        <PostLike likeCount={likeCount} />
+        <PostData author={nickname} content={content} createdAt={createdAt} />
       </PostItemWrapper>
       <AddComment />
     </StyledPostItem>

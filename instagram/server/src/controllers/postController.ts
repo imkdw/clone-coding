@@ -12,11 +12,6 @@ class PostController {
     /** 업로드된 이미지들을 Firebase Storage에 업로드 및 다운로드 링크 반환 */
     const imageUrls = await FirebaseStorage.uploadImageAndGetUrl(postId, files);
 
-    /**
-     * 데이터베이스에 포스트 정보를 저장
-     * 1. posts 테이블에 포스트 정보 저장
-     * 2. post_images 테이블에 포스트 이미지 저장
-     */
     const { email } = req.app.get("userInfo");
     await PostModel.savePost(postId, content, email);
 
@@ -29,7 +24,34 @@ class PostController {
 
   static getPosts = async (req: Request, res: Response, next: NextFunction) => {
     const postsQuery = await PostModel.getPosts();
-    console.log(postsQuery);
+
+    if (postsQuery) {
+      const posts = await Promise.all(
+        postsQuery.map(async (post) => {
+          const postId = post.post_id;
+          const imageQuery = await PostModel.getPostImages(postId);
+
+          const images = imageQuery.map((image) => {
+            return image.file_path;
+          });
+
+          const { profile, author, like_count, content, created_at, nickname } = post;
+          return {
+            profile,
+            author,
+            likeCount: like_count,
+            content,
+            postId,
+            images,
+            createdAt: created_at,
+            nickname,
+          };
+        })
+      );
+      res.json(posts);
+    } else {
+      res.json({ message: "No Posts" });
+    }
   };
 }
 
