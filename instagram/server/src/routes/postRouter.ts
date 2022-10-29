@@ -1,6 +1,6 @@
 import express from "express";
 import PostController from "../controllers/postController";
-import { isAuth } from "../middleware/isAuth";
+import isAuth from "../middleware/isAuth";
 
 const postRouter = express.Router();
 

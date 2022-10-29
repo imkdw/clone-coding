@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import Jwt from "../utility/jwt";
 
-export function isAuth(req: Request, res: Response, next: NextFunction) {
+function isAuth(req: Request, res: Response, next: NextFunction) {
   const accessToken = req.headers.authorization;
 
   if (!accessToken) {
@@ -23,3 +23,5 @@ export function isAuth(req: Request, res: Response, next: NextFunction) {
     res.status(401).json({ message: "Expired Token" });
   }
 }
+
+export default isAuth;

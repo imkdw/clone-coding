@@ -2,9 +2,16 @@ import styled from "styled-components";
 import ProfileInfo from "./ProfileInfo";
 
 const StyledProfileBox = styled.div`
-  width: 100%;
+  width: 50%;
   height: 100%;
-  background-color: antiquewhite;
+
+  @media screen and (max-width: 1023px) {
+    width: 90%;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
 `;
 
 const ProfileBox = () => {

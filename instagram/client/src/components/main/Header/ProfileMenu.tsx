@@ -72,7 +72,7 @@ const ProfileIcon = () => {
         r="10.5"
         stroke="currentColor"
         strokeLinecap="round"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         strokeWidth="2"
       ></circle>
       <path
@@ -80,7 +80,7 @@ const ProfileIcon = () => {
         fill="none"
         stroke="currentColor"
         strokeLinecap="round"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         strokeWidth="2"
       ></path>
       <circle
@@ -90,7 +90,7 @@ const ProfileIcon = () => {
         r="4.109"
         stroke="currentColor"
         strokeLinecap="round"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
         strokeWidth="2"
       ></circle>
     </svg>

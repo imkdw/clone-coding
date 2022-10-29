@@ -7,6 +7,7 @@ import morgan from "morgan";
 
 import authRouter from "./routes/authRouter";
 import postRouter from "./routes/postRouter";
+import userRouter from "./routes/userRouter";
 import Jwt from "./utility/jwt";
 
 dotenv.config();
@@ -29,6 +30,7 @@ app.use(
 
 app.use("/auth", authRouter);
 app.use("/post", postRouter);
+app.use("/user", userRouter);
 
 app.post("/test", (req, res) => {
   const { accessToken } = req.body;

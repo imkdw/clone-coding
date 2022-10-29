@@ -1,28 +1,27 @@
 import { atom } from "recoil";
-import { v4 } from "uuid";
 
 export const accessTokenState = atom({
-  key: v4(),
+  key: "accessTokenState",
   default: "",
 });
 
 export const modalEnableState = atom({
-  key: v4(),
+  key: "modalEnableState",
   default: false,
 });
 
 export const isImageUploadedState = atom({
-  key: v4(),
+  key: "isImageUploadedState",
   default: false,
 });
 
 export const isWritingContentState = atom({
-  key: v4(),
+  key: "isWritingContentState",
   default: false,
 });
 
 export const loggedInUserState = atom({
-  key: v4(),
+  key: "loggedInUserState",
   default: {
     email: "",
     name: "",
@@ -33,16 +32,16 @@ export const loggedInUserState = atom({
 });
 
 export const blobImagesState = atom<Blob[] | never[]>({
-  key: v4(),
+  key: "blobImagesState",
   default: [],
 });
 
 export const uploadFilesState = atom<File[] | never[]>({
-  key: v4(),
+  key: "uploadFilesState",
   default: [],
 });
 
 export const profileMenuEnableState = atom({
-  key: v4(),
+  key: "profileMenuEnableState",
   default: false,
 });
