@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Header from "../../main/Header/Header";
 import ProfileBox from "./ProfileBox";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { accessTokenState, loggedInUserState } from "../../../recoil/recoil";
@@ -21,6 +21,7 @@ const Profile = () => {
   const localStorageAccessToken = localStorage.getItem("accessToken");
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [loggedInUser, setLoggedInUser] = useRecoilState(loggedInUserState);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -35,27 +36,36 @@ const Profile = () => {
         },
       };
 
-      const res = await axios.get(config.url.user.getProfile, axiosConfig);
-
-      if (res.status === 200) {
-        const { email, name, nickname, profile, introduce } = res.data;
-        setLoggedInUser({
-          ...loggedInUser,
-          email,
-          name,
-          nickname,
-          profile,
-          introduce,
-        });
+      try {
+        const res = await axios.get(config.url.user.getProfile, axiosConfig);
+        if (res.status === 200) {
+          const { email, name, nickname, profile, introduce, postData } = res.data;
+          setLoggedInUser({
+            ...loggedInUser,
+            email,
+            name,
+            nickname,
+            profile,
+            introduce,
+          });
+          setPosts(postData);
+        }
+      } catch (err: any) {
+        if (err.response.status === 401) {
+          alert("세션이 만료되었습니다. 다시 로그인 해주세요");
+          navigator("/login");
+        }
       }
     };
 
-    loadProfile();
-  }, [accessToken]);
+    if (localStorageAccessToken) {
+      loadProfile();
+    }
+  }, [localStorageAccessToken]);
   return (
     <StyledProfile>
       <Header />
-      <ProfileBox />
+      <ProfileBox posts={posts} />
     </StyledProfile>
   );
 };

@@ -19,8 +19,13 @@ function isAuth(req: Request, res: Response, next: NextFunction) {
       res.status(401).json({ message: "Verify Token Failed" });
     }
   } catch (err: any) {
-    console.error(err);
-    res.status(401).json({ message: "Expired Token" });
+    console.log(err.message);
+    if (err.message === "jwt expired") {
+      res.status(401).json({ message: "Expired Token" });
+      return;
+    }
+
+    res.status(500).json({ message: "Internal Server Error" });
   }
 }
 

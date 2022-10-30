@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import ProfileInfo from "./ProfileInfo";
+import ProfileNav from "./ProfileNav";
+import ProfilePosts from "./ProfilePosts";
 
 const StyledProfileBox = styled.div`
   width: 50%;
@@ -14,10 +16,12 @@ const StyledProfileBox = styled.div`
   }
 `;
 
-const ProfileBox = () => {
+const ProfileBox = ({ posts }: { posts: any[] }) => {
   return (
     <StyledProfileBox>
       <ProfileInfo />
+      <ProfileNav />
+      <ProfilePosts posts={posts} />
     </StyledProfileBox>
   );
 };

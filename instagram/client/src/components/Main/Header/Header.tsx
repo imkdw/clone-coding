@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { profileMenuEnableState } from "../../../recoil/recoil";
@@ -38,7 +39,7 @@ const StyledHeaderWrapper = styled.div`
   }
 `;
 
-const LogoBox = styled.div`
+const LogoBox = styled(Link)`
   width: 150px;
   height: 100%;
   display: flex;
@@ -52,7 +53,7 @@ const Header = () => {
   return (
     <StyledHeader>
       <StyledHeaderWrapper>
-        <LogoBox>
+        <LogoBox to="/main">
           <Logo width="103" height="29" />
         </LogoBox>
         <SearchBar />

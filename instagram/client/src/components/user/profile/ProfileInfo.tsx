@@ -17,6 +17,10 @@ const ProfileImageBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media screen and (max-width: 767px) {
+    width: 33%;
+  }
 `;
 
 const ProfileImage = styled.img`
@@ -24,6 +28,16 @@ const ProfileImage = styled.img`
   height: 150px;
   border-radius: 50%;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+
+  @media screen and (max-width: 1023px) {
+    width: 120px;
+    height: 120px;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 90px;
+    height: 90px;
+  }
 `;
 
 const ProfileTextBox = styled.div`
@@ -33,6 +47,14 @@ const ProfileTextBox = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 25px;
+
+  @media screen and (max-width: 1023px) {
+    height: 100px;
+  }
+
+  @media screen and (max-width: 767px) {
+    height: 100px;
+  }
 `;
 
 const NicknameAndButton = styled.div`
@@ -62,7 +84,12 @@ const ProfileCounter = styled.div`
   width: 100%;
   height: 20px;
   display: flex;
-  gap: 20px;
+
+  @media screen and (max-width: 1023px) {
+  }
+
+  @media screen and (max-width: 767px) {
+  }
 `;
 
 const CounterItem = styled.div`
@@ -74,6 +101,14 @@ const CounterItem = styled.div`
 const ItemSubject = styled.div`
   font-size: 16px;
   color: #262626;
+
+  @media screen and (max-width: 1023px) {
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 767px) {
+    font-size: 14px;
+  }
 `;
 
 const ItemCount = styled.div`
@@ -81,6 +116,14 @@ const ItemCount = styled.div`
   color: #262626;
   font-weight: bold;
   margin-left: 7px;
+  @media screen and (max-width: 1023px) {
+    margin-left: 5px;
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 767px) {
+    font-size: 14px;
+  }
 `;
 
 const NameAndIntroduce = styled.div`
