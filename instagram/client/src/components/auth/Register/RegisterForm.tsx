@@ -91,7 +91,7 @@ const RegisterForm = () => {
     <Form height="360px" onSubmit={submitHandler}>
       <Input
         type="text"
-        placeholder="휴대폰 번호 또는 이메일 주소"
+        placeholder="이메일 주소"
         height="36px"
         onChange={accountChangeHandler}
         name="email"

@@ -23,6 +23,8 @@ class UserController {
           );
           return {
             postId: post.post_id,
+            likeCount: post.like_count,
+            commentsCount: post.comments_count,
             images,
           };
         })

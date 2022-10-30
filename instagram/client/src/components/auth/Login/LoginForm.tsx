@@ -91,7 +91,7 @@ const LoginForm = () => {
     <Form height="145px" onSubmit={submitHandler}>
       <Input
         type="text"
-        placeholder="전화번호, 사용자 이름 또는 이메일"
+        placeholder="이메일"
         height="38px"
         value={email}
         onChange={accountChangeHandler}
