@@ -1,5 +1,8 @@
 import styled from "styled-components";
-import { FocusEvent, useState } from "react";
+import { ChangeEvent, FocusEvent, useState } from "react";
+
+import spinner from "../../../assets/spinner.svg";
+import background from "../../../assets/background.png";
 
 const StyledSearchBar = styled.div`
   width: 268px;
@@ -82,15 +85,61 @@ const GlassIcon = () => {
   );
 };
 
+const RemoveButton = styled.button<{ backgroundImage: string }>`
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-image: url(${(props) => props.backgroundImage});
+  background-position: -318px -333px;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
+const Spinner = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+`;
+
+const SearchResult = styled.ul`
+  width: 380px;
+  height: 360px;
+  background-color: black;
+  border-radius: 6px;
+  position: absolute;
+  top: 130%;
+  left: -25%;
+`;
+
 const SearchBar = () => {
   const [isInputFocus, setIsInputFocus] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showResult, setShowResult] = useState(false);
 
   const focusHandler = (event: FocusEvent<HTMLInputElement>) => {
     setIsInputFocus(true);
+    setShowResult(true);
   };
 
   const blurHandler = (event: FocusEvent<HTMLInputElement>) => {
     setIsInputFocus(false);
+    event.target.value = "";
+    setIsLoading(false);
+    setShowResult(false);
+  };
+
+  const searchUserHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.currentTarget;
+    setIsLoading(true);
+    setShowResult(true);
   };
 
   return (
@@ -111,11 +160,17 @@ const SearchBar = () => {
             width="calc(100%-15px)"
             paddingLeft="15px"
             onBlur={blurHandler}
+            onChange={searchUserHandler}
           />
+          {isLoading ? <Spinner src={spinner} /> : <RemoveButton backgroundImage={background} />}
+          {showResult && <SearchResult />}
         </>
       )}
     </StyledSearchBar>
   );
 };
+/**
+ * 검색결과 : 380 / 362
+ */
 
 export default SearchBar;

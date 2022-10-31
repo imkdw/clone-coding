@@ -16,6 +16,19 @@ class UserModel {
       });
     });
   };
+
+  static searchUserWithNickname = async (nickname: string): Promise<any[]> => {
+    return new Promise((res, rej) => {
+      const query = `select nickname, profile, introduce from users where nickname like '%${nickname}%' or introduce like '%${nickname}%'`;
+      connection.query(query, (err, result) => {
+        if (err) {
+          rej(err);
+        }
+
+        res(result);
+      });
+    });
+  };
 }
 
 export default UserModel;
