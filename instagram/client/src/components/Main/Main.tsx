@@ -9,10 +9,13 @@ import {
   loggedInUserState,
   modalEnableState,
   profileMenuEnableState,
+  searchResultState,
+  showSearchResultState,
 } from "../../recoil/recoil";
 import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import SearchResult from "./Header/SearchResult";
 
 const StyledMain = styled.div`
   width: 100%;
@@ -22,6 +25,7 @@ const StyledMain = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
 
   &::-webkit-scrollbar {
     display: none;
@@ -33,6 +37,8 @@ const Main = () => {
   const [loggedInUser, setLoggedInUser] = useRecoilState(loggedInUserState);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [profileMenuEnable, setProfileMenuEnable] = useRecoilState(profileMenuEnableState);
+  const [searchResult, setSearchResult] = useRecoilState(searchResultState);
+  const [showSearchResult, setShowSearchResult] = useRecoilState(showSearchResultState);
   const navigator = useNavigate();
 
   useEffect(() => {
@@ -81,6 +87,7 @@ const Main = () => {
         <Header />
         <Storys />
         <Posts />
+        {showSearchResult && <SearchResult result={searchResult} />}
       </StyledMain>
       {isModalEnable && <AddPost />}
     </>

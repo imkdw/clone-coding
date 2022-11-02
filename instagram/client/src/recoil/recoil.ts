@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import { SearchUserResult } from "../types/user";
 
 export const accessTokenState = atom({
   key: "accessTokenState",
@@ -43,5 +44,15 @@ export const uploadFilesState = atom<File[] | never[]>({
 
 export const profileMenuEnableState = atom({
   key: "profileMenuEnableState",
+  default: false,
+});
+
+export const searchResultState = atom<SearchUserResult[] | never[]>({
+  key: "searchResultState",
+  default: [],
+});
+
+export const showSearchResultState = atom({
+  key: "isShowSearchResultState",
   default: false,
 });
