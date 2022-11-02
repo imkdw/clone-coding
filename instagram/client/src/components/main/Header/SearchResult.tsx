@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { SearchUserResult } from "../../../types/user";
 
-const StyledSearchResult = styled.ul`
+const StyledSearchResult = styled.div`
   width: 380px;
   height: 360px;
   border-radius: 6px;
@@ -15,9 +16,10 @@ const StyledSearchResult = styled.ul`
   flex-direction: column;
   gap: 10px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  z-index: 999;
 `;
 
-const ResultItem = styled.li`
+const ResultItem = styled(Link)`
   width: 100%;
   height: 60px;
   display: flex;
@@ -65,7 +67,7 @@ const SearchResult = ({ result }: { result: SearchUserResult[] | never[] }) => {
       {result && (
         <>
           {result.map((user) => (
-            <ResultItem key={user.nickname}>
+            <ResultItem key={user.nickname} to="#">
               <ProfileImage src={user.profile} />
               <UserInfo>
                 <Nickname>{user.nickname}</Nickname>

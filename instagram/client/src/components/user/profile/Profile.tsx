@@ -9,8 +9,6 @@ import axios from "axios";
 import config from "../../../config/config";
 
 const StyledProfile = styled.div`
-  width: 100%;
-  height: 100vh;
   background-color: #fafafa;
   display: flex;
   justify-content: center;
@@ -64,7 +62,6 @@ const Profile = () => {
   }, [localStorageAccessToken]);
   return (
     <StyledProfile>
-      <Header />
       <ProfileBox posts={posts} />
     </StyledProfile>
   );

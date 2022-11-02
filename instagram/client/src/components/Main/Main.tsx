@@ -33,12 +33,9 @@ const StyledMain = styled.div`
 `;
 
 const Main = () => {
-  const [isModalEnable, setIsModalEnable] = useRecoilState(modalEnableState);
   const [loggedInUser, setLoggedInUser] = useRecoilState(loggedInUserState);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [profileMenuEnable, setProfileMenuEnable] = useRecoilState(profileMenuEnableState);
-  const [searchResult, setSearchResult] = useRecoilState(searchResultState);
-  const [showSearchResult, setShowSearchResult] = useRecoilState(showSearchResultState);
   const navigator = useNavigate();
 
   useEffect(() => {
@@ -84,12 +81,9 @@ const Main = () => {
   return (
     <>
       <StyledMain>
-        <Header />
         <Storys />
         <Posts />
-        {showSearchResult && <SearchResult result={searchResult} />}
       </StyledMain>
-      {isModalEnable && <AddPost />}
     </>
   );
 };

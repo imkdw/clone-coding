@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { accessTokenState, profileMenuEnableState } from "../../../recoil/recoil";
+import {
+  accessTokenState,
+  loggedInUserState,
+  profileMenuEnableState,
+} from "../../../recoil/recoil";
 
 const StyledProfileMenu = styled.ul`
   width: 220px;
@@ -158,11 +162,21 @@ const ProfileMenu = () => {
   const navigator = useNavigate();
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [profileMenuEnable, setProfileMenuEnable] = useRecoilState(profileMenuEnableState);
+  const [loggedInUser, setLoggedInUser] = useRecoilState(loggedInUserState);
 
   const logoutHandler = () => {
     setAccessToken("");
     localStorage.removeItem("accessToken");
     navigator("/login");
+    setLoggedInUser({
+      ...loggedInUser,
+      name: "",
+      nickname: "",
+      profile: "",
+      email: "",
+      introduce: "",
+    });
+    setProfileMenuEnable(false);
   };
 
   const changePageHandler = () => {

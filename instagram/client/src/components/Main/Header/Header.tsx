@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { profileMenuEnableState } from "../../../recoil/recoil";
+import {
+  profileMenuEnableState,
+  searchResultState,
+  showSearchResultState,
+} from "../../../recoil/recoil";
 import Logo from "../../auth/common/Logo";
 import HeaderButtons from "./HeaderButtons";
 import ProfileMenu from "./ProfileMenu";
 import SearchBar from "./SearchBar";
+import SearchResult from "./SearchResult";
 
 const StyledHeader = styled.div`
   width: 100%;
@@ -50,6 +55,9 @@ const LogoBox = styled(Link)`
 
 const Header = () => {
   const [profileMenuEnable, setProfileMenuEnable] = useRecoilState(profileMenuEnableState);
+  const [searchResult, setSearchResult] = useRecoilState(searchResultState);
+  const [showSearchResult, setShowSearchResult] = useRecoilState(showSearchResultState);
+
   return (
     <StyledHeader>
       <StyledHeaderWrapper>
@@ -59,6 +67,7 @@ const Header = () => {
         <SearchBar />
         <HeaderButtons />
         {profileMenuEnable && <ProfileMenu />}
+        {showSearchResult && <SearchResult result={searchResult} />}
       </StyledHeaderWrapper>
     </StyledHeader>
   );
