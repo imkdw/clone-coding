@@ -189,7 +189,7 @@ const ProfileMenu = () => {
         <MenuIcon>
           <ProfileIcon />
         </MenuIcon>
-        <MenuText to="/profile" onClick={changePageHandler}>
+        <MenuText to="/my-profile" onClick={changePageHandler}>
           프로필
         </MenuText>
       </MenuItem>

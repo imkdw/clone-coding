@@ -67,7 +67,6 @@ const Header = () => {
         <SearchBar />
         <HeaderButtons />
         {profileMenuEnable && <ProfileMenu />}
-        {showSearchResult && <SearchResult result={searchResult} />}
       </StyledHeaderWrapper>
     </StyledHeader>
   );

@@ -2,7 +2,11 @@ import styled from "styled-components";
 
 import profile from "../../../assets/profile.jpg";
 import { useRecoilState } from "recoil";
-import { modalEnableState, profileMenuEnableState } from "../../../recoil/recoil";
+import {
+  loggedInUserState,
+  modalEnableState,
+  profileMenuEnableState,
+} from "../../../recoil/recoil";
 import { useState, MouseEvent } from "react";
 
 const StyledHeaderButtons = styled.div`
@@ -161,6 +165,7 @@ const ActivityLog = () => {
 const HeaderButtons = () => {
   const [isModalEnable, setIsModalEnable] = useRecoilState(modalEnableState);
   const [profileMenuEnable, setProfileMenuEnable] = useRecoilState(profileMenuEnableState);
+  const [loggedInUser, setLoggedInUser] = useRecoilState(loggedInUserState);
 
   const openModalHandler = () => {
     setIsModalEnable(true);
@@ -168,7 +173,6 @@ const HeaderButtons = () => {
   };
 
   const profileClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
     if (profileMenuEnable) {
       setProfileMenuEnable(false);
     } else {
@@ -193,10 +197,10 @@ const HeaderButtons = () => {
       <HeaderButton onClick={profileClickHandler}>
         {profileMenuEnable ? (
           <>
-            <ProfileImage src={profile} alt="" border="1px solid" />
+            <ProfileImage src={loggedInUser.profile} alt="" border="1px solid" />
           </>
         ) : (
-          <ProfileImage src={profile} alt="" />
+          <ProfileImage src={loggedInUser.profile} alt="" />
         )}
       </HeaderButton>
     </StyledHeaderButtons>

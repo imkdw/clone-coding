@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import ProfileInfo from "./ProfileInfo";
-import ProfileNav from "./ProfileNav";
-import ProfilePosts from "./ProfilePosts";
+import ProfileInfo from "./UserProfileInfo";
+import ProfileNav from "./UserProfileNav";
+import ProfilePosts from "./UserProfilePosts";
 
 const StyledProfileBox = styled.div`
   width: 50%;

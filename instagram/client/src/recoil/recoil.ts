@@ -66,3 +66,8 @@ export const showSearchResultState = atom({
   key: "isShowSearchResultState",
   default: false,
 });
+
+export const isSearchInputFocusState = atom({
+  key: "isSearchInputFocusState",
+  default: false,
+});

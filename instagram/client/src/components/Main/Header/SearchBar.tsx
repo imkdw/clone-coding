@@ -1,10 +1,15 @@
 import styled from "styled-components";
-import { ChangeEvent, FocusEvent, useState } from "react";
+import { ChangeEvent, FocusEvent, useState, MouseEvent } from "react";
 
 import spinner from "../../../assets/spinner.svg";
 import background from "../../../assets/background.png";
 import axios from "axios";
-import { accessTokenState, searchResultState, showSearchResultState } from "../../../recoil/recoil";
+import {
+  accessTokenState,
+  isSearchInputFocusState,
+  searchResultState,
+  showSearchResultState,
+} from "../../../recoil/recoil";
 import { useRecoilState } from "recoil";
 import SearchResult from "./SearchResult";
 import { SearchUserResult } from "../../../types/user";
@@ -115,31 +120,35 @@ const Spinner = styled.img`
 `;
 
 const SearchBar = () => {
-  const [isInputFocus, setIsInputFocus] = useState(false);
+  const [isSearchInputFocus, setIsSearchInputFocus] = useRecoilState(isSearchInputFocusState);
   const [isLoading, setIsLoading] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [searchResult, setSearchResult] = useRecoilState(searchResultState);
   const [showSearchResult, setShowSearchResult] = useRecoilState(showSearchResultState);
+  const [searchText, setSearchText] = useState("");
 
-  const focusHandler = (event: FocusEvent<HTMLInputElement>) => {
-    setIsInputFocus(true);
+  const focusHandler = () => {
+    setIsSearchInputFocus(true);
     setShowResult(true);
-    setShowSearchResult(true);
   };
 
   const blurHandler = (event: FocusEvent<HTMLInputElement>) => {
-    setIsInputFocus(false);
-    event.target.value = "";
+    setIsSearchInputFocus(false);
     setIsLoading(false);
+    setSearchText("");
     setSearchResult([]);
-    setShowSearchResult(false);
+  };
+
+  const clickHandler = () => {
+    setShowSearchResult(true);
   };
 
   const searchUserHandler = async (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
+    setSearchText((searchText) => value);
 
-    if (value === "") {
+    if (searchText === "") {
       setSearchResult([]);
       setIsLoading(false);
       return;
@@ -149,7 +158,7 @@ const SearchBar = () => {
     setShowResult(true);
     const res = await axios.post(
       "http://localhost:5000/user/search",
-      { nickname: value },
+      { nickname: searchText },
       {
         headers: {
           Authorization: accessToken,
@@ -161,9 +170,14 @@ const SearchBar = () => {
     setIsLoading(false);
   };
 
+  const clearSearchTextHandler = (event: MouseEvent<HTMLButtonElement>) => {
+    setSearchText("");
+    setSearchResult([]);
+  };
+
   return (
     <StyledSearchBar>
-      {!isInputFocus ? (
+      {!isSearchInputFocus ? (
         <>
           <Input type="text" onFocus={focusHandler} />
           <IconBox>
@@ -180,8 +194,14 @@ const SearchBar = () => {
             paddingLeft="15px"
             onBlur={blurHandler}
             onChange={searchUserHandler}
+            value={searchText}
+            onClick={clickHandler}
           />
-          {isLoading ? <Spinner src={spinner} /> : <RemoveButton backgroundImage={background} />}
+          {isLoading ? (
+            <Spinner src={spinner} />
+          ) : (
+            <RemoveButton backgroundImage={background} onClick={clearSearchTextHandler} />
+          )}
         </>
       )}
     </StyledSearchBar>

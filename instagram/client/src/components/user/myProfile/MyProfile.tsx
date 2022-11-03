@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import Header from "../../main/Header/Header";
-import ProfileBox from "./ProfileBox";
+import ProfileBox from "./MyProfileBox";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
@@ -14,7 +13,7 @@ const StyledProfile = styled.div`
   justify-content: center;
 `;
 
-const Profile = () => {
+const MyProfile = () => {
   const navigator = useNavigate();
   const localStorageAccessToken = localStorage.getItem("accessToken");
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
@@ -47,6 +46,10 @@ const Profile = () => {
             introduce,
           });
           setPosts(postData);
+
+          if (localStorageAccessToken) {
+            setAccessToken(localStorageAccessToken);
+          }
         }
       } catch (err: any) {
         if (err.response.status === 401) {
@@ -67,4 +70,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default MyProfile;

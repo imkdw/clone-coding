@@ -67,7 +67,7 @@ const SearchResult = ({ result }: { result: SearchUserResult[] | never[] }) => {
       {result && (
         <>
           {result.map((user) => (
-            <ResultItem key={user.nickname} to="#">
+            <ResultItem key={user.nickname} to={`/user-profile/${user.nickname}`}>
               <ProfileImage src={user.profile} />
               <UserInfo>
                 <Nickname>{user.nickname}</Nickname>
