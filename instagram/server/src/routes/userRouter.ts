@@ -6,5 +6,6 @@ const userRouter = express.Router();
 
 userRouter.get("/profile", isAuth, UserController.getProfile);
 userRouter.post("/search", isAuth, UserController.searchUser);
+// userRouter.post("/search", isAuth, UserController.searchUser);
 
 export default userRouter;
