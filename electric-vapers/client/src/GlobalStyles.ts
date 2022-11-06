@@ -49,6 +49,28 @@ const GlobalStyle = createGlobalStyle`
     border-collapse: collapse;
     border-spacing: 0;
   }
+
+  /* Custom Styles */
+  body {
+    color: #262626;
+  }
+
+  a, a:visited {
+    color: #262626;
+    text-decoration: none;
+  }
+
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
 `;
 
 export default GlobalStyle;
