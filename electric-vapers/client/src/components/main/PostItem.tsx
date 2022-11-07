@@ -42,7 +42,7 @@ const CreatedAt = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: end;
   font-size: 13px;
   color: #828282;
 `;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import SideMenu from "../header/SideMenu";
 import Banner from "./Banner";
 import RecentPost from "./RecentPost";
 

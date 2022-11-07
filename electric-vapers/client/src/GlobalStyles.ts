@@ -53,6 +53,8 @@ const GlobalStyle = createGlobalStyle`
   /* Custom Styles */
   body {
     color: #262626;
+    height: 100%;
+    /* overflow: hidden; */
   }
 
   a, a:visited {

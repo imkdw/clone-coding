@@ -8,17 +8,6 @@ const StyledContainer = styled.div`
   height: auto;
 `;
 
-// const Content = styled.div`
-//   width: 100%;
-//   height: auto;
-//   margin-top: 70px;
-//   position: relative;
-
-//   @media screen and (max-width: 768px) {
-//     overflow-y: scroll;
-//   }
-// `;
-
 interface ContainerProps {
   children: ReactNode;
 }

@@ -11,18 +11,14 @@ import {
   Talk,
 } from "./SideMenuIcon";
 
-const StyledSideMenu = styled.ul`
+const StyledSideMenu = styled.div`
   width: 100%;
-  height: 100%;
+  height: auto;
   position: fixed;
-  overflow: hidden;
   top: 70px;
-  left: 0;
   background-color: white;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  overflow-y: scroll;
+  border-top: 1px solid #dbdbdb;
+  z-index: 999;
 
   @keyframes smoothAppear {
     from {
@@ -50,7 +46,7 @@ const MenuItem = styled.li<MenuItemProps>`
   align-items: flex-end;
 
   &:first-child {
-    margin-top: 20px;
+    margin-top: 10px;
   }
 `;
 
@@ -74,6 +70,36 @@ const SubTitle = styled.div`
 const Text = styled.div`
   font-size: 16px;
   margin-left: 10px;
+`;
+
+const Links = styled.div`
+  width: 100%;
+  height: 40px;
+  display: flex;
+  border-bottom: 1px solid #dbdbdb;
+`;
+
+const LinkText = styled.div`
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+
+  &:first-child {
+    border-right: 1px solid #dbdbdb;
+  }
+`;
+
+const Menus = styled.ul`
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 20px;
 `;
 
 const SideMenu = () => {
@@ -154,22 +180,30 @@ const SideMenu = () => {
   ];
 
   return (
-    <StyledSideMenu>
-      {menus.map((menu) => (
-        <MenuItem key={menu.id} height={(menu.subTitle.length + 1) * 45 + "px"}>
-          <Title>
-            <menu.icon />
-            <Text>{menu.title}</Text>
-          </Title>
-          {menu.subTitle.map((_menu) => (
-            <SubTitle key={_menu.id}>
-              <_menu.icon />
-              <Text>{_menu.title}</Text>
-            </SubTitle>
+    <>
+      <StyledSideMenu>
+        <Links>
+          <LinkText>로그인</LinkText>
+          <LinkText>회원가입</LinkText>
+        </Links>
+        <Menus>
+          {menus.map((menu) => (
+            <MenuItem key={menu.id} height={(menu.subTitle.length + 1) * 45 + "px"}>
+              <Title>
+                <menu.icon />
+                <Text>{menu.title}</Text>
+              </Title>
+              {menu.subTitle.map((_menu) => (
+                <SubTitle key={_menu.id}>
+                  <_menu.icon />
+                  <Text>{_menu.title}</Text>
+                </SubTitle>
+              ))}
+            </MenuItem>
           ))}
-        </MenuItem>
-      ))}
-    </StyledSideMenu>
+        </Menus>
+      </StyledSideMenu>
+    </>
   );
 };
 

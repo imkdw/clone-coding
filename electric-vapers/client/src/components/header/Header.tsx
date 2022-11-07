@@ -13,8 +13,8 @@ const StyledHeader = styled.div`
   position: fixed;
   top: 0;
   z-index: 999;
-  background-color: white;
   border-bottom: 1px solid #dbdbdb;
+  background-color: white;
 `;
 
 const MenuButton = styled.button`
@@ -43,6 +43,7 @@ const Header = () => {
 
   /** 메뉴버튼 클릭시 사이드메뉴 활성화/비활성화 */
   const clickHandler = () => {
+    console.log(document.body.style);
     if (enableSideMenu) {
       setEnableSideMenu(false);
     } else {
