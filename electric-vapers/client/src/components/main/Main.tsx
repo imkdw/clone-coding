@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import SideMenu from "../header/SideMenu";
 import Banner from "./Banner";
 import RecentPost from "./RecentPost";
 
 const StyledMain = styled.div`
   width: 100%;
-  height: auto;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -5,7 +5,7 @@ import Footer from "../footer/Footer";
 
 const StyledContainer = styled.div`
   width: 100%;
-  height: auto;
+  height: 100%;
 `;
 
 interface ContainerProps {

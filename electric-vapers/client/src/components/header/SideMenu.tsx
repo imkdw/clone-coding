@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import {
   Community,
@@ -10,15 +11,17 @@ import {
   Question,
   Talk,
 } from "./SideMenuIcon";
+import { v4 } from "uuid";
+import Header from "./Header";
 
 const StyledSideMenu = styled.div`
   width: 100%;
-  height: auto;
+  height: 100%;
   position: fixed;
-  top: 70px;
   background-color: white;
   border-top: 1px solid #dbdbdb;
   z-index: 999;
+  overflow: scroll;
 
   @keyframes smoothAppear {
     from {
@@ -94,116 +97,119 @@ const LinkText = styled.div`
 
 const Menus = styled.ul`
   width: 100%;
-  height: 100%;
-  overflow: scroll;
+  height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: end;
   gap: 20px;
 `;
 
 const SideMenu = () => {
   const menus = [
     {
-      id: 1,
+      id: v4(),
       icon: Mouth,
       title: "입호흡(MTL)",
       subTitle: [
         {
-          id: "1-1",
+          id: v4(),
           icon: Liquid,
           title: "액상 리뷰",
         },
         {
-          id: "1-2",
+          id: v4(),
           icon: Device,
           title: "기기 리뷰",
         },
       ],
     },
     {
-      id: 2,
+      id: v4(),
       icon: Lung,
       title: "폐호흡(DTL)",
       subTitle: [
         {
-          id: "2-1",
+          id: v4(),
           icon: Liquid,
           title: "액상 리뷰",
         },
         {
-          id: "2-2",
+          id: v4(),
           icon: Device,
           title: "기기 리뷰",
         },
       ],
     },
     {
-      id: 3,
+      id: v4(),
       icon: Community,
       title: "커뮤니티",
       subTitle: [
         {
-          id: "3-1",
+          id: v4(),
           icon: Talk,
           title: "자유게시판",
         },
         {
-          id: "3-2",
+          id: v4(),
           icon: Question,
           title: "질문 / 답변",
         },
         {
-          id: "3-3",
+          id: v4(),
           icon: Liquid,
           title: "액상 리뷰 요청",
         },
         {
-          id: "3-2",
+          id: v4(),
           icon: Device,
           title: "기기 리뷰 요청",
         },
       ],
     },
     {
-      id: 4,
+      id: v4(),
       icon: Notice,
       title: "공지사항",
       subTitle: [],
     },
     {
-      id: 5,
+      id: v4(),
       icon: Need,
       title: "건의사항",
       subTitle: [],
     },
   ];
 
+  const sideMenuRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    console.log(sideMenuRef.current?.offsetHeight);
+  }, [sideMenuRef]);
+
   return (
-    <>
-      <StyledSideMenu>
-        <Links>
-          <LinkText>로그인</LinkText>
-          <LinkText>회원가입</LinkText>
-        </Links>
-        <Menus>
-          {menus.map((menu) => (
-            <MenuItem key={menu.id} height={(menu.subTitle.length + 1) * 45 + "px"}>
-              <Title>
-                <menu.icon />
-                <Text>{menu.title}</Text>
-              </Title>
-              {menu.subTitle.map((_menu) => (
-                <SubTitle key={_menu.id}>
-                  <_menu.icon />
-                  <Text>{_menu.title}</Text>
-                </SubTitle>
-              ))}
-            </MenuItem>
-          ))}
-        </Menus>
-      </StyledSideMenu>
-    </>
+    <StyledSideMenu ref={sideMenuRef}>
+      <Header position="relative" />
+      <Links>
+        <LinkText>로그인</LinkText>
+        <LinkText>회원가입</LinkText>
+      </Links>
+      <Menus>
+        {menus.map((menu) => (
+          <MenuItem key={menu.id} height={(menu.subTitle.length + 1) * 45 + "px"}>
+            <Title>
+              <menu.icon />
+              <Text>{menu.title}</Text>
+            </Title>
+            {menu.subTitle.map((_menu) => (
+              <SubTitle key={_menu.id}>
+                <_menu.icon />
+                <Text>{_menu.title}</Text>
+              </SubTitle>
+            ))}
+          </MenuItem>
+        ))}
+      </Menus>
+    </StyledSideMenu>
   );
 };
 

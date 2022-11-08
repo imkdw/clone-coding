@@ -2,15 +2,15 @@ import styled from "styled-components";
 import Link from "./Links";
 import Logo from "./Logo";
 import Menu from "./Menu";
-import { useState } from "react";
-import SideMenu from "./SideMenu";
+import { showSideMenuState } from "../../recoil/recoil";
+import { useRecoilState } from "recoil";
 
-const StyledHeader = styled.div`
+const StyledHeader = styled.div<{ position?: string }>`
   width: 100%;
   height: 70px;
   display: flex;
   align-items: center;
-  position: fixed;
+  position: ${(props) => props.position || "fixed"};
   top: 0;
   z-index: 999;
   border-bottom: 1px solid #dbdbdb;
@@ -38,22 +38,21 @@ const MenuButtonImage = () => {
   );
 };
 
-const Header = () => {
-  const [enableSideMenu, setEnableSideMenu] = useState(false);
+const Header = ({ position }: { position?: string }) => {
+  const [showSideMenu, setShowSideMenu] = useRecoilState(showSideMenuState);
 
-  /** 메뉴버튼 클릭시 사이드메뉴 활성화/비활성화 */
   const clickHandler = () => {
-    console.log(document.body.style);
-    if (enableSideMenu) {
-      setEnableSideMenu(false);
+    if (showSideMenu) {
+      setShowSideMenu(false);
+      document.body.style.overflowY = "scroll";
     } else {
-      setEnableSideMenu(true);
+      setShowSideMenu(true);
+      document.body.style.overflowY = "hidden";
     }
   };
 
   return (
-    <StyledHeader>
-      {enableSideMenu && <SideMenu />}
+    <StyledHeader position={position}>
       <MenuButton onClick={clickHandler}>
         <MenuButtonImage />
       </MenuButton>
