@@ -13,6 +13,9 @@ import {
 } from "./SideMenuIcon";
 import { v4 } from "uuid";
 import Header from "./Header";
+import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { showSideMenuState } from "../../recoil/recoil";
 
 const StyledSideMenu = styled.div`
   width: 100%;
@@ -82,7 +85,7 @@ const Links = styled.div`
   border-bottom: 1px solid #dbdbdb;
 `;
 
-const LinkText = styled.div`
+const LinkText = styled(Link)`
   width: 50%;
   display: flex;
   align-items: center;
@@ -180,6 +183,18 @@ const SideMenu = () => {
     },
   ];
 
+  const [showSideMenu, setShowSideMenu] = useRecoilState(showSideMenuState);
+
+  const clickHandler = () => {
+    if (showSideMenu) {
+      setShowSideMenu(false);
+      document.body.style.overflowY = "scroll";
+    } else {
+      setShowSideMenu(true);
+      document.body.style.overflowY = "hidden";
+    }
+  };
+
   const sideMenuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -187,11 +202,11 @@ const SideMenu = () => {
   }, [sideMenuRef]);
 
   return (
-    <StyledSideMenu ref={sideMenuRef}>
+    <StyledSideMenu ref={sideMenuRef} onClick={clickHandler}>
       <Header position="relative" />
       <Links>
-        <LinkText>로그인</LinkText>
-        <LinkText>회원가입</LinkText>
+        <LinkText to="/login">로그인</LinkText>
+        <LinkText to="/register">회원가입</LinkText>
       </Links>
       <Menus>
         {menus.map((menu) => (

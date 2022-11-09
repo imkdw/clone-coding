@@ -2,11 +2,16 @@ import styled from "styled-components";
 
 const StyledFooter = styled.div`
   width: 100%;
-  height: 100px;
+  height: 80px;
   background-color: #ececec;
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  position: absolute;
+  top: 100%;
+
+  @media screen and (max-width: 768px) {
+    top: 102%;
+  }
 `;
 
 const TextBox = styled.div`
@@ -21,6 +26,10 @@ const TextBox = styled.div`
 const Text = styled.p`
   font-size: 14px;
   color: #828282;
+
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 
 const Footer = () => {
@@ -28,7 +37,7 @@ const Footer = () => {
     <StyledFooter>
       <TextBox>
         <Text>Repulic of Korea, Electric Vapers</Text>
-        <Text>전자담배를 사용하는 유저들의 모임, 전담유저들(Electric Vapers)</Text>
+        <Text>전자담배를 사용하는 유저들의 모임, 전담유저들 </Text>
         <Text>Contact : imkdw@kakao.com</Text>
       </TextBox>
     </StyledFooter>

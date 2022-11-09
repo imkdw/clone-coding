@@ -29,8 +29,8 @@ const LinkText = styled(Link)`
 const Links = () => {
   return (
     <StyledLink>
-      <LinkText to="#">로그인</LinkText>
-      <LinkText to="#">회원가입</LinkText>
+      <LinkText to="/login">로그인</LinkText>
+      <LinkText to="/register">회원가입</LinkText>
     </StyledLink>
   );
 };

@@ -18,6 +18,11 @@ const GlobalStyle = createGlobalStyle`
   body {
     color: #262626;
     overflow-y: scroll;
+    height: 100vh;
+  }
+
+  #root {
+    height: 100%;
   }
 
   a, a:visited {
@@ -35,6 +40,11 @@ const GlobalStyle = createGlobalStyle`
     background-color: transparent;
     border: none;
     cursor: pointer;
+  }
+
+  input {
+    outline: none;
+    border: none;
   }
 `;
 
