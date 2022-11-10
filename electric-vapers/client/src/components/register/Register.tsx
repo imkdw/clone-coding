@@ -1,3 +1,4 @@
+import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
 
@@ -88,13 +89,29 @@ const FormControl = styled.div`
 `;
 
 const Register = () => {
+  const [account, setAccount] = useState({
+    email: "",
+    password: "",
+    rePassword: "",
+    nickname: "",
+  });
+
   const [emailValid, setEmailValid] = useState({
     valid: true,
     error: "",
   });
 
-  const submitHandler = (event: FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const { email, password, rePassword, nickname } = account;
+    const res = await axios.post("http://localhost:5000/auth/register", {
+      email,
+      password,
+      rePassword,
+      nickname,
+    });
+
+    console.log(res);
   };
 
   const emailCheckHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -115,24 +132,60 @@ const Register = () => {
     }
   };
 
+  const changeAccountHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
+
+    setAccount({
+      ...account,
+      [name]: value,
+    });
+  };
+
   return (
     <StyledRegister>
       <Header>환영합니다!</Header>
       <Form onSubmit={submitHandler}>
         <FormControl>
-          <Input placeholder="이메일" type="text" onChange={emailCheckHandler} />
+          <Input
+            placeholder="이메일"
+            type="text"
+            onChange={(event) => {
+              emailCheckHandler(event);
+              changeAccountHandler(event);
+            }}
+            value={account.email}
+            name="email"
+          />
           <Error>{emailValid.error}</Error>
         </FormControl>
         <FormControl>
-          <Input placeholder="비밀번호" type="password" />
+          <Input
+            placeholder="비밀번호"
+            type="password"
+            onChange={changeAccountHandler}
+            value={account.password}
+            name="password"
+          />
           <Error></Error>
         </FormControl>
         <FormControl>
-          <Input placeholder="비밀번호 재확인" type="password" />
+          <Input
+            placeholder="비밀번호 재확인"
+            type="password"
+            onChange={changeAccountHandler}
+            value={account.rePassword}
+            name="rePassword"
+          />
           <Error></Error>
         </FormControl>
         <FormControl>
-          <Input placeholder="닉네임" type="text" />
+          <Input
+            placeholder="닉네임"
+            type="text"
+            onChange={changeAccountHandler}
+            value={account.nickname}
+            name="nickname"
+          />
           <Error></Error>
         </FormControl>
         <SubmitBtn>회원가입</SubmitBtn>

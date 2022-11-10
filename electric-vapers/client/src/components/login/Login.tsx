@@ -1,5 +1,9 @@
+import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { accessTokenState } from "../../recoil/recoil";
 
 const StyledLogin = styled.div`
   width: 100%;
@@ -88,13 +92,32 @@ const FormControl = styled.div`
 `;
 
 const Login = () => {
+  const [account, setAccount] = useState({
+    email: "",
+    password: "",
+  });
+
   const [emailValid, setEmailValid] = useState({
     valid: true,
     error: "",
   });
 
-  const submitHandler = (event: FormEvent<HTMLFormElement>) => {
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+
+  const navigator = useNavigate();
+
+  const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const { email, password } = account;
+    const res = await axios.post("http://localhost:5000/auth/login", { email, password });
+
+    /** 로그인 성공시 */
+    if (res.status === 200) {
+      const accessToken = res.data.accessToken;
+      localStorage.setItem("accessToken", accessToken);
+      setAccessToken(accessToken);
+      navigator("/");
+    }
   };
 
   const emailCheckHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -115,19 +138,43 @@ const Login = () => {
     }
   };
 
+  const changeAccountHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
+
+    setAccount({
+      ...account,
+      [name]: value,
+    });
+  };
+
   return (
     <StyledLogin>
       <Header>환영합니다!</Header>
       <Form onSubmit={submitHandler}>
         <FormControl>
-          <Input placeholder="이메일" type="text" onChange={emailCheckHandler} />
+          <Input
+            placeholder="이메일"
+            type="text"
+            onChange={(event) => {
+              emailCheckHandler(event);
+              changeAccountHandler(event);
+            }}
+            value={account.email}
+            name="email"
+          />
           <Error>{emailValid.error}</Error>
         </FormControl>
         <FormControl>
-          <Input placeholder="비밀번호" type="password" />
+          <Input
+            placeholder="비밀번호"
+            type="password"
+            onChange={changeAccountHandler}
+            value={account.password}
+            name="password"
+          />
           <Error></Error>
         </FormControl>
-        <SubmitBtn>로그인</SubmitBtn>
+        <SubmitBtn>회원가입</SubmitBtn>
       </Form>
     </StyledLogin>
   );

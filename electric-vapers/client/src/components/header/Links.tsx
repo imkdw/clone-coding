@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { accessTokenState } from "../../recoil/recoil";
 
 const StyledLink = styled.div`
   width: 15%;
@@ -27,10 +29,21 @@ const LinkText = styled(Link)`
 `;
 
 const Links = () => {
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+
   return (
     <StyledLink>
-      <LinkText to="/login">로그인</LinkText>
-      <LinkText to="/register">회원가입</LinkText>
+      {accessToken ? (
+        <>
+          <LinkText to="/login">내 정보</LinkText>
+          <LinkText to="/register">로그아웃</LinkText>
+        </>
+      ) : (
+        <>
+          <LinkText to="/login">로그인</LinkText>
+          <LinkText to="/register">회원가입</LinkText>
+        </>
+      )}
     </StyledLink>
   );
 };
