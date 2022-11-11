@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { accessTokenState } from "../../recoil/recoil";
 
@@ -30,13 +30,22 @@ const LinkText = styled(Link)`
 
 const Links = () => {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const navigator = useNavigate();
+
+  const onLogout = () => {
+    setAccessToken("");
+    localStorage.removeItem("accessToken");
+    navigator("/");
+  };
 
   return (
     <StyledLink>
       {accessToken ? (
         <>
           <LinkText to="/login">내 정보</LinkText>
-          <LinkText to="/register">로그아웃</LinkText>
+          <LinkText to="" onClick={onLogout}>
+            로그아웃
+          </LinkText>
         </>
       ) : (
         <>

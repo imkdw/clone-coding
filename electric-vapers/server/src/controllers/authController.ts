@@ -3,6 +3,7 @@ import { insertUser, getUser } from "../models/authModel";
 import { compareHash, createHash } from "../module/secure";
 import { createToken, decodeToken } from "../module/jwt";
 
+/** 회원가입 */
 export const register = async (req: Request, res: Response, next: NextFunction) => {
   const { email, password, rePassword, nickname } = req.body;
 
@@ -16,6 +17,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
   res.json("hello");
 };
 
+/** 로그인 */
 export const login = async (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
 
@@ -47,9 +49,28 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
   res.json({ accessToken });
 };
 
+/** 사용자가 기존에 로그인한 유저인지 확인 */
 export const checkLoggedIn = async (req: Request, res: Response, next: NextFunction) => {
   const { accessToken } = req.body;
-  const email = decodeToken(accessToken);
-  console.log(email);
-  // const userQuery = await getUser();
+
+  if (!accessToken) {
+    res.status(400).json({ message: "accessToken이 없음" });
+  }
+
+  const decodedToken = decodeToken(accessToken);
+
+  if (decodedToken.email === "" && decodedToken.nickname === "") {
+    res.status(400).json({ message: "토큰이 만료되었거나 변질됨" });
+    return;
+  }
+
+  const email = decodedToken.email;
+  const userQuery = await getUser(email);
+
+  if (userQuery.length === 0) {
+    res.status(400).json({ message: "유저 확인 불가" });
+    return;
+  }
+
+  res.json({ message: `인증성공` });
 };

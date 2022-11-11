@@ -1,21 +1,10 @@
-import { useEffect, useRef } from "react";
 import styled from "styled-components";
-import {
-  Community,
-  Device,
-  Liquid,
-  Lung,
-  Mouth,
-  Need,
-  Notice,
-  Question,
-  Talk,
-} from "./SideMenuIcon";
+import { Community, Device, Liquid, Lung, Mouth, Need, Notice, Question, Talk } from "./SideMenuIcon";
 import { v4 } from "uuid";
 import Header from "./Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { showSideMenuState } from "../../recoil/recoil";
+import { accessTokenState, showSideMenuState } from "../../recoil/recoil";
 
 const StyledSideMenu = styled.div`
   width: 100%;
@@ -184,6 +173,14 @@ const SideMenu = () => {
   ];
 
   const [showSideMenu, setShowSideMenu] = useRecoilState(showSideMenuState);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const navigator = useNavigate();
+
+  const onLogout = () => {
+    setAccessToken("");
+    localStorage.removeItem("accessToken");
+    navigator("/");
+  };
 
   const clickHandler = () => {
     if (showSideMenu) {
@@ -195,18 +192,23 @@ const SideMenu = () => {
     }
   };
 
-  const sideMenuRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    console.log(sideMenuRef.current?.offsetHeight);
-  }, [sideMenuRef]);
-
   return (
-    <StyledSideMenu ref={sideMenuRef} onClick={clickHandler}>
+    <StyledSideMenu onClick={clickHandler}>
       <Header position="relative" />
       <Links>
-        <LinkText to="/login">로그인</LinkText>
-        <LinkText to="/register">회원가입</LinkText>
+        {accessToken ? (
+          <>
+            <LinkText to="/login">내 정보</LinkText>
+            <LinkText to="" onClick={onLogout}>
+              로그아웃
+            </LinkText>
+          </>
+        ) : (
+          <>
+            <LinkText to="/login">로그인</LinkText>
+            <LinkText to="/register">회원가입</LinkText>
+          </>
+        )}
       </Links>
       <Menus>
         {menus.map((menu) => (

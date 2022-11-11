@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import { jwtConfig } from "../config";
 
 export const createToken = (email: string, nickname: string) => {
@@ -9,10 +9,20 @@ export const createToken = (email: string, nickname: string) => {
   }
 };
 
-export const decodeToken = (accessToken: string) => {
-  const { secretKey } = jwtConfig;
+interface decodeTokenReturns extends JwtPayload {
+  email: string;
+  nickname: string;
+}
 
-  if (secretKey) {
-    return jwt.decode(accessToken, secretKey);
+export const decodeToken = (accessToken: string): decodeTokenReturns => {
+  try {
+    const decodedToken = jwt.decode(accessToken) as decodeTokenReturns;
+    return decodedToken;
+  } catch (err: any) {
+    console.error(err.message);
+    return {
+      email: "",
+      nickname: "",
+    };
   }
 };

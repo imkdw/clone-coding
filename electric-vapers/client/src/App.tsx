@@ -18,13 +18,13 @@ const App = () => {
   useEffect(() => {
     const checkLoggedIn = async () => {
       /** accessToken이 상태가 비어있을 경우 */
-      if (accessToken.length === 0) {
+      if (!accessToken) {
         const localStorageAccessToken = localStorage.getItem("accessToken");
 
         /** 로그인이 된 유저로 로컬스토리지에 토큰이 존재하는 경우 */
         if (localStorageAccessToken) {
           const res = await axios.post("http://localhost:5000/auth/check-logged-in", {
-            localStorageAccessToken,
+            accessToken: localStorageAccessToken,
           });
 
           /** 로그인한 유저가 아니거나 토큰이 만료된 경우 */
