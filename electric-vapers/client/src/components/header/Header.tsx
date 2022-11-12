@@ -39,9 +39,15 @@ const MenuButtonImage = () => {
 };
 
 const Header = ({ position }: { position?: string }) => {
+  /** 사이드메뉴 표시여부를 제어하는 전역상태 */
   const [showSideMenu, setShowSideMenu] = useRecoilState(showSideMenuState);
 
   const clickHandler = () => {
+    /**
+     * 사이드메뉴 활성화 여부를 제어하는 핸들러
+     * 기존 활성화시 : 메뉴를 닫고 body에 대해서 Y축을 scroll로 설정
+     * 기존 비활성화시 : 메뉴를 열고 body에 대해서 Y축을 hidden으로 설정
+     */
     if (showSideMenu) {
       setShowSideMenu(false);
       document.body.style.overflowY = "scroll";

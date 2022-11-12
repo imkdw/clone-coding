@@ -10,6 +10,8 @@ import "./App.css";
 import Login from "./components/login/Login";
 import { useEffect } from "react";
 import axios from "axios";
+import LiquidReview from "./components/mtl/LiquidReview";
+import WriteLiquidReview from "./components/mtl/WriteLiquidReview";
 
 const App = () => {
   const [showSideMenu, setShowSideMenu] = useRecoilState(showSideMenuState);
@@ -50,6 +52,8 @@ const App = () => {
           <Route path="/" element={<Main />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/mtl-liquid" element={<LiquidReview />} />
+          <Route path="/mtl-liquid/write" element={<WriteLiquidReview />} />
         </Routes>
       </Container>
       <GlobalStyle />

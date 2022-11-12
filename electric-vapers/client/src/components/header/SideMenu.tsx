@@ -45,7 +45,7 @@ const MenuItem = styled.li<MenuItemProps>`
   }
 `;
 
-const Title = styled.div`
+const Title = styled(Link)`
   width: 95%;
   height: 40px;
   display: flex;
@@ -53,7 +53,7 @@ const Title = styled.div`
   font-weight: bold;
 `;
 
-const SubTitle = styled.div`
+const SubTitle = styled(Link)`
   width: 85%;
   height: 40px;
   display: flex;
@@ -101,16 +101,19 @@ const SideMenu = () => {
       id: v4(),
       icon: Mouth,
       title: "입호흡(MTL)",
+      linkTo: "/mtl-liquid",
       subTitle: [
         {
           id: v4(),
           icon: Liquid,
           title: "액상 리뷰",
+          linkTo: "/mtl-liquid",
         },
         {
           id: v4(),
           icon: Device,
           title: "기기 리뷰",
+          linkTo: "/mtl-device",
         },
       ],
     },
@@ -118,16 +121,19 @@ const SideMenu = () => {
       id: v4(),
       icon: Lung,
       title: "폐호흡(DTL)",
+      linkTo: "/dtl-liquid",
       subTitle: [
         {
           id: v4(),
           icon: Liquid,
           title: "액상 리뷰",
+          linkTo: "/dtl-liquid",
         },
         {
           id: v4(),
           icon: Device,
           title: "기기 리뷰",
+          linkTo: "/dtl-device",
         },
       ],
     },
@@ -135,26 +141,31 @@ const SideMenu = () => {
       id: v4(),
       icon: Community,
       title: "커뮤니티",
+      linkTo: "/community-free",
       subTitle: [
         {
           id: v4(),
           icon: Talk,
           title: "자유게시판",
+          linkTo: "/community-free",
         },
         {
           id: v4(),
           icon: Question,
           title: "질문 / 답변",
+          linkTo: "/community-qna",
         },
         {
           id: v4(),
           icon: Liquid,
           title: "액상 리뷰 요청",
+          linkTo: "/community-req-liquid",
         },
         {
           id: v4(),
           icon: Device,
           title: "기기 리뷰 요청",
+          linkTo: "/community-req-device",
         },
       ],
     },
@@ -163,12 +174,14 @@ const SideMenu = () => {
       icon: Notice,
       title: "공지사항",
       subTitle: [],
+      linkTo: "/notice",
     },
     {
       id: v4(),
       icon: Need,
       title: "건의사항",
       subTitle: [],
+      linkTo: "/need",
     },
   ];
 
@@ -213,12 +226,12 @@ const SideMenu = () => {
       <Menus>
         {menus.map((menu) => (
           <MenuItem key={menu.id} height={(menu.subTitle.length + 1) * 45 + "px"}>
-            <Title>
+            <Title to={menu.linkTo}>
               <menu.icon />
               <Text>{menu.title}</Text>
             </Title>
             {menu.subTitle.map((_menu) => (
-              <SubTitle key={_menu.id}>
+              <SubTitle key={_menu.id} to={_menu.linkTo}>
                 <_menu.icon />
                 <Text>{_menu.title}</Text>
               </SubTitle>

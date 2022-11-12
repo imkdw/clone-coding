@@ -19,14 +19,17 @@ const GlobalStyle = createGlobalStyle`
     color: #262626;
     overflow-y: scroll;
     height: 100vh;
+    scroll-behavior: smooth;
   }
 
   #root {
     height: 100%;
   }
 
-  a, a:visited {
+  a {
     color: #262626;
+  }
+  a, a:visited {
     text-decoration: none;
   }
 

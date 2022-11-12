@@ -52,7 +52,7 @@ const getContent = (title: string | undefined) => {
     case "입호흡(MTL)":
       return (
         <>
-          <DropdownItem to="">액상리뷰</DropdownItem>
+          <DropdownItem to="/mtl-liquid">액상리뷰</DropdownItem>
           <DropdownItem to="">기기리뷰</DropdownItem>
         </>
       );
