@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const StyledHeader = styled.div`
+const StyledHeader = styled.div<{ isEdit: boolean }>`
   width: 100%;
+  height: 150px;
   min-height: 150px;
   display: flex;
   justify-content: space-between;
@@ -10,13 +11,15 @@ const StyledHeader = styled.div`
   margin-top: 70px;
 
   @media screen and (max-width: 768px) {
+    height: ${(props) => (props.isEdit ? "75px" : "150px")};
+    min-height: ${(props) => (props.isEdit ? "75px" : "150px")};
     flex-direction: column;
   }
 `;
 
-const HeaderText = styled.div`
+const HeaderText = styled.div<{ height: string }>`
   width: 50%;
-  height: 50%;
+  height: 100%;
   font-size: 40px;
   color: #0095f6;
   display: flex;
@@ -24,6 +27,8 @@ const HeaderText = styled.div`
 
   @media screen and (max-width: 768px) {
     width: 100%;
+    height: ${(props) => props.height};
+    align-items: flex-end;
     font-size: 30px;
     justify-content: center;
   }
@@ -98,13 +103,17 @@ const Glass = () => {
 };
 
 interface HeaderProps {
-  isEdit?: boolean;
+  isEdit: boolean;
 }
 
 const Header = ({ isEdit }: HeaderProps) => {
   return (
-    <StyledHeader>
-      {isEdit ? <HeaderText>입호흡 - 액상 리뷰 작성</HeaderText> : <HeaderText>입호흡 - 액상 리뷰</HeaderText>}
+    <StyledHeader isEdit={isEdit}>
+      {isEdit ? (
+        <HeaderText height="100%">입호흡 - 액상 리뷰 작성</HeaderText>
+      ) : (
+        <HeaderText height="50%">입호흡 - 액상 리뷰</HeaderText>
+      )}
 
       {!isEdit && (
         <HeaderUtils>

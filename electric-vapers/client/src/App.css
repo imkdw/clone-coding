@@ -2,3 +2,17 @@
   font-family: "Noto Sans", sans-serif;
   font-family: "Noto Sans KR", sans-serif;
 }
+
+.star-ratings {
+  width: 100%;
+  height: 100%;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.star-container {
+  padding: 0 0 0 0 !important;
+  width: 5;
+}

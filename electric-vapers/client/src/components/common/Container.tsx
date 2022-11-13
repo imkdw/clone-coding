@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
 import Header from "../header/Header";
-import Footer from "../footer/Footer";
 
 const StyledContainer = styled.div`
   width: 100%;
@@ -17,7 +16,7 @@ const StyledContainer = styled.div`
 
 const Content = styled.div`
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
   justify-content: center;
 

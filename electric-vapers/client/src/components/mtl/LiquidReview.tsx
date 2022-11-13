@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Header from "./Header";
-import ReviewItem from "./ReviewItem";
+import ReviewItem from "./LiquidReviewItem";
 
 const StyledLiquidReview = styled.div`
   width: 80%;
@@ -65,7 +65,7 @@ const LiquidReview = () => {
 
   return (
     <StyledLiquidReview>
-      <Header />
+      <Header isEdit={false} />
       <ReviewItems>
         <ReviewItem />
         <ReviewItem />

@@ -14,7 +14,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 
   const hashedPassword = await createHash(password);
   await insertUser({ email, hashedPassword, nickname });
-  res.json("hello");
+  res.json("");
 };
 
 /** 로그인 */

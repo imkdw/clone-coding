@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 
 import authRouter from "./routes/authRouter";
+import postRouter from "./routes/postRouter";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/auth", authRouter);
+app.use("/post", postRouter);
 
 app.listen(app.get("port"), () => {
   console.log("SERVER ON", app.get("port"));
