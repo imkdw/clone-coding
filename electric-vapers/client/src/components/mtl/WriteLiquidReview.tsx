@@ -1,6 +1,8 @@
+import axios from "axios";
 import { FormEvent } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { postUrlConfig } from "../../config";
 import { mtlLiquidDataState, uploadImageState } from "../../recoil/recoil";
 import Header from "./Header";
 import Buttons from "./writeReview/Buttons";
@@ -27,13 +29,22 @@ const WriteLiquidReview = () => {
   const [mtlLiquidData, setMtlLiquidData] = useRecoilState(mtlLiquidDataState);
   const [uploadImages, setUploadImages] = useRecoilState(uploadImageState);
 
-  const submitHandler = (event: FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
+    formData.append("postData", JSON.stringify(mtlLiquidData));
     for (let i = 0; i < uploadImages.length; i++) {
-      formData.append("image", uploadImages[i]);
+      formData.append("file", uploadImages[i]);
     }
+
+    const res = await axios.post(postUrlConfig.writeMtlLiquidReview, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    console.log(res);
   };
 
   return (

@@ -18,7 +18,6 @@ export const insertUser = async ({ email, hashedPassword, nickname }: registerPa
   const query = "INSERT INTO users VALUES(?, ?, ?)";
   const values = [email, hashedPassword, nickname];
   const queryResult = await sendQuery(query, values);
-  console.log(queryResult);
   return queryResult;
 };
 

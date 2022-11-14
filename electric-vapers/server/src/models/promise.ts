@@ -1,6 +1,6 @@
 import connection from "../database";
 
-type Data = string[] | number[] | string | number;
+type Data = any | any[];
 export const sendQuery = (query: string, data: Data): Promise<any[]> => {
   return new Promise((res, rej) => {
     if (Array.isArray(data)) {

@@ -105,6 +105,7 @@ const UploadImage = () => {
           return;
         }
 
+        setUploadImages((prevState) => [...prevState, files[i]]);
         const reader = new FileReader();
         reader.onload = (e: any) => {
           setBlobImages((blobImages) => [...blobImages, e.target.result]);
@@ -123,7 +124,7 @@ const UploadImage = () => {
         onChange={imageUploadHandler}
         accept="image/*"
         required
-        name="images"
+        name="file"
       />
       <Title>사진첨부(최대 4장)</Title>
       <Images>

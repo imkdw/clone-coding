@@ -13,7 +13,7 @@ export const accessTokenState = atom({
 });
 
 /** 업로드된 이미지들 */
-export const uploadImageState = atom<(FileList | File)[] | never[]>({
+export const uploadImageState = atom<File[] | never[]>({
   key: "uploadImageState",
   default: [],
   dangerouslyAllowMutability: true,
@@ -21,7 +21,6 @@ export const uploadImageState = atom<(FileList | File)[] | never[]>({
 
 /** 입호흡 리뷰 작성시 데이터 */
 interface IMtlLiquidData {
-  postId: string;
   author: string;
   type: string;
   name: string;
@@ -38,8 +37,7 @@ interface IMtlLiquidData {
 export const mtlLiquidDataState = atom<IMtlLiquidData>({
   key: "mtlLiquidDataState",
   default: {
-    postId: "",
-    author: "",
+    author: "imkdw@kakao.com",
     type: "",
     name: "",
     info: {
