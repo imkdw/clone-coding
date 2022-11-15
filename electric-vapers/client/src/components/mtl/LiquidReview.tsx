@@ -1,4 +1,7 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { urlConfig } from "../../config";
 import Header from "./Header";
 import ReviewItem from "./LiquidReviewItem";
 
@@ -59,22 +62,41 @@ const ArrowUpIcon = () => {
 };
 
 const LiquidReview = () => {
+  const [posts, setPosts] = useState([]);
+
   const clickHandler = () => {
     window.scrollTo(0, 0);
   };
+
+  useEffect(() => {
+    const getPosts = async () => {
+      const res = await axios.get(urlConfig.post.getMtlLiquidReviews);
+
+      if (res.status === 200) {
+        setPosts(res.data.posts);
+      }
+    };
+
+    getPosts();
+  }, []);
 
   return (
     <StyledLiquidReview>
       <Header isEdit={false} />
       <ReviewItems>
-        <ReviewItem />
-        <ReviewItem />
-        <ReviewItem />
-        <ReviewItem />
-        <ReviewItem />
-        <ReviewItem />
-        <ReviewItem />
-        <ReviewItem />
+        {posts.map((post) => {
+          const { postId, name, introduce, volume, nicoVolume, sumbnail } = post;
+          return (
+            <ReviewItem
+              postId={postId}
+              name={name}
+              volume={volume}
+              introduce={introduce}
+              nicoVolume={nicoVolume}
+              sumbnail={sumbnail}
+            />
+          );
+        })}
       </ReviewItems>
       <SetScroll onClick={clickHandler}>
         <ArrowUpIcon />

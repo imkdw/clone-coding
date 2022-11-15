@@ -52,14 +52,25 @@ const LiquidEval = styled.div`
   font-size: 15px;
 `;
 
-const ReviewItem = () => {
+interface postData {
+  postId: string;
+  name: string;
+  introduce: string;
+  volume: string;
+  nicoVolume: string;
+  sumbnail: string;
+}
+
+const ReviewItem = ({ postId, name, introduce, volume, nicoVolume, sumbnail }: postData) => {
   return (
-    <StyledReviewItem to="">
-      <Sumbnail src={liquid} />
+    <StyledReviewItem to="" key={postId}>
+      <Sumbnail src={sumbnail} />
       <LiquidInfo>
-        <LiquidName>갱스터 알로에베라</LiquidName>
-        <LiquidVolumn>용량 : 30ml / 니코틴 : 3mg</LiquidVolumn>
-        <LiquidEval>#시원하고 달달한 청포도맛</LiquidEval>
+        <LiquidName>{name}</LiquidName>
+        <LiquidVolumn>
+          용량 : {volume} / 니코틴 : {nicoVolume}
+        </LiquidVolumn>
+        <LiquidEval>#{introduce}</LiquidEval>
       </LiquidInfo>
     </StyledReviewItem>
   );

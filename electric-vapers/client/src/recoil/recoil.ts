@@ -34,6 +34,7 @@ interface IMtlLiquidData {
   };
 }
 
+/** 입호흡 리뷰 작성 데이터 */
 export const mtlLiquidDataState = atom<IMtlLiquidData>({
   key: "mtlLiquidDataState",
   default: {

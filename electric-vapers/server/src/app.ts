@@ -25,7 +25,7 @@ const storage = multer.memoryStorage();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: "1mb" }));
 app.use(morgan("dev"));
-app.use(multer({ storage }).fields([{ name: "file", maxCount: 4 }]));
+app.use(multer({ storage }).fields([{ name: "file", maxCount: 8 }]));
 
 /** 라우터 설정 */
 app.use("/auth", authRouter);

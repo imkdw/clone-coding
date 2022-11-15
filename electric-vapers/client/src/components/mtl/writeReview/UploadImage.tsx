@@ -86,6 +86,7 @@ const UploadImage = () => {
   const uploadRef = useRef<HTMLInputElement | null>(null);
 
   const clickInputHandler = () => {
+    setUploadImages([]);
     uploadRef.current?.click();
   };
 
