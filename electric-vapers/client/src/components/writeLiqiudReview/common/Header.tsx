@@ -104,15 +104,16 @@ const Glass = () => {
 
 interface HeaderProps {
   isEdit: boolean;
+  title: string;
 }
 
-const Header = ({ isEdit }: HeaderProps) => {
+const Header = ({ isEdit, title }: HeaderProps) => {
   return (
     <StyledHeader isEdit={isEdit}>
       {isEdit ? (
-        <HeaderText height="100%">입호흡 - 액상 리뷰 작성</HeaderText>
+        <HeaderText height="100%">{title} - 액상 리뷰 작성</HeaderText>
       ) : (
-        <HeaderText height="50%">입호흡 - 액상 리뷰</HeaderText>
+        <HeaderText height="50%">{title} - 액상 리뷰</HeaderText>
       )}
 
       {!isEdit && (

@@ -112,7 +112,12 @@ const InputWrapper = styled.div`
   justify-content: center;
 `;
 
-const LiquidInfo = () => {
+interface LiquidInfoProps {
+  volume: number[];
+  nicoVolume: number[];
+}
+
+const LiquidInfo = ({ volume, nicoVolume }: LiquidInfoProps) => {
   const [mtlLiquidData, setMtlLiquidData] = useRecoilState(mtlLiquidDataState);
   const { info } = mtlLiquidData;
 
@@ -139,20 +144,25 @@ const LiquidInfo = () => {
           <InfoData>
             <InfoTitle>용량</InfoTitle>
             <InfoSelect onChange={infoChangeHandler} name="volume" value={mtlLiquidData.info.volume}>
-              <InfoOption value="30">30</InfoOption>
+              {volume.map((item) => (
+                <InfoOption value={item}>{item}</InfoOption>
+              ))}
+              {/* <InfoOption value="30">30</InfoOption>
               <InfoOption value="60">60</InfoOption>
               <InfoOption value="100">100</InfoOption>
               <InfoOption value="120">120</InfoOption>
-              <InfoOption value="200">200</InfoOption>
+              <InfoOption value="200">200</InfoOption> */}
             </InfoSelect>
             <InfoUnit>ml</InfoUnit>
           </InfoData>
           <InfoData>
             <InfoTitle>니코틴</InfoTitle>
             <InfoSelect onChange={infoChangeHandler} name="nicoVolume" value={mtlLiquidData.info.nicoVolume}>
-              <InfoOption value="3">3</InfoOption>
-              <InfoOption value="6">6</InfoOption>
-              <InfoOption value="9">9</InfoOption>
+              {nicoVolume.map((item) => (
+                <InfoOption value={item}>{item}</InfoOption>
+              ))}
+              {/* <InfoOption value="6">6</InfoOption>
+              <InfoOption value="9">9</InfoOption> */}
             </InfoSelect>
             <InfoUnit>mg</InfoUnit>
           </InfoData>

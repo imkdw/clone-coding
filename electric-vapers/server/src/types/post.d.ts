@@ -11,4 +11,5 @@ export interface mtlLiquidData {
   score: {
     [key: string]: number;
   };
+  division: string;
 }

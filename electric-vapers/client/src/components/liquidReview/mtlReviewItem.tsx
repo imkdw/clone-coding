@@ -61,7 +61,7 @@ interface postData {
   sumbnail: string;
 }
 
-const ReviewItem = ({ postId, name, introduce, volume, nicoVolume, sumbnail }: postData) => {
+const MtlReviewItem = ({ postId, name, introduce, volume, nicoVolume, sumbnail }: postData) => {
   return (
     <StyledReviewItem to="" key={postId}>
       <Sumbnail src={sumbnail} />
@@ -76,4 +76,4 @@ const ReviewItem = ({ postId, name, introduce, volume, nicoVolume, sumbnail }: p
   );
 };
 
-export default ReviewItem;
+export default MtlReviewItem;

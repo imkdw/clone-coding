@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { urlConfig } from "../../config";
-import Header from "./Header";
-import ReviewItem from "./LiquidReviewItem";
+import Header from "../writeLiqiudReview/common/Header";
+import MtlReviewItem from "./mtlReviewItem";
 
 const StyledLiquidReview = styled.div`
   width: 80%;
@@ -61,7 +61,7 @@ const ArrowUpIcon = () => {
   );
 };
 
-const LiquidReview = () => {
+const MtlReview = () => {
   const [posts, setPosts] = useState([]);
 
   const clickHandler = () => {
@@ -82,12 +82,12 @@ const LiquidReview = () => {
 
   return (
     <StyledLiquidReview>
-      <Header isEdit={false} />
+      <Header isEdit={false} title="입호흡" />
       <ReviewItems>
         {posts.map((post) => {
           const { postId, name, introduce, volume, nicoVolume, sumbnail } = post;
           return (
-            <ReviewItem
+            <MtlReviewItem
               postId={postId}
               name={name}
               volume={volume}
@@ -105,4 +105,4 @@ const LiquidReview = () => {
   );
 };
 
-export default LiquidReview;
+export default MtlReview;
