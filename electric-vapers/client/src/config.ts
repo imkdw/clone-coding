@@ -9,8 +9,8 @@ export const urlConfig = {
     checkLoggedIn: "http://localhost/auth/check-logged-in",
   },
   post: {
-    postMtlLiquidReview: "http://localhost:5000/post/mtl-liquid",
+    postLiquidReview: "http://localhost:5000/post/liquid-review",
     getMtlLiquidReviews: "http://localhost:5000/post/mtl-liquid",
-    getMtlLiquidReview: "http://localhost:5000/post/mtl-liquid/:id",
+    getLiquidReview: "http://localhost:5000/post/liquid-review/",
   },
 };

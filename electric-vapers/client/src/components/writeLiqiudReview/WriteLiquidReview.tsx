@@ -25,7 +25,7 @@ const StyledWriteLiquidReview = styled.form`
   }
 `;
 
-const WriteMtlReview = () => {
+const WriteLiquidReview = ({ division }: { division: string }) => {
   const [mtlLiquidData, setMtlLiquidData] = useRecoilState(mtlLiquidDataState);
   const [uploadImages, setUploadImages] = useRecoilState(uploadImageState);
   const navigator = useNavigate();
@@ -34,6 +34,10 @@ const WriteMtlReview = () => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
+
+    setMtlLiquidData((mtlLiquidData) => {
+      return { ...mtlLiquidData, ["division"]: division };
+    });
 
     /** 본문 내용 추가 */
     formData.append("postData", JSON.stringify(mtlLiquidData));
@@ -44,7 +48,7 @@ const WriteMtlReview = () => {
       formData.append("file", uploadImages[i]);
     }
 
-    const res = await axios.post(urlConfig.post.postMtlLiquidReview, formData, {
+    const res = await axios.post(urlConfig.post.postLiquidReview, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -77,10 +81,10 @@ const WriteMtlReview = () => {
 
   return (
     <StyledWriteLiquidReview encType="multipart/form-data" onSubmit={submitHandler} acceptCharset="UTF-8">
-      <Header isEdit={true} title="입호흡" />
+      <Header isEdit={true} title="폐호흡" />
       <ChooseType />
       <LiquidName />
-      <LiquidInfo volume={[30, 60, 100, 120]} nicoVolume={[6, 9]} />
+      <LiquidInfo volume={[60, 100, 120]} nicoVolume={[3, 6, 9]} />
       <UploadImage />
       <FreeWrite />
       <LiquidScore />
@@ -89,4 +93,4 @@ const WriteMtlReview = () => {
   );
 };
 
-export default WriteMtlReview;
+export default WriteLiquidReview;

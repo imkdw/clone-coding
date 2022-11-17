@@ -10,10 +10,9 @@ import "./App.css";
 import Login from "./components/login/Login";
 import { useEffect } from "react";
 import axios from "axios";
-import MtlReview from "./components/liquidReview/mtlReview";
-import WriteMtlReview from "./components/writeLiqiudReview/WriteMtlReview";
-import WriteDtlReview from "./components/writeLiqiudReview/WriteDtlReview";
-import DtlReview from "./components/liquidReview/dtlReview";
+import ReviewInfo from "./components/liquidReview/ReviewInfo";
+import LiquidReview from "./components/liquidReview/LiquidReview";
+import WriteLiquidReview from "./components/writeLiqiudReview/WriteLiquidReview";
 
 const App = () => {
   const [showSideMenu, setShowSideMenu] = useRecoilState(showSideMenuState);
@@ -54,10 +53,11 @@ const App = () => {
           <Route path="/" element={<Main />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/mtl-liquid" element={<MtlReview />} />
-          <Route path="/mtl-liquid/write" element={<WriteMtlReview />} />
-          <Route path="/dtl-liquid" element={<DtlReview />} />
-          <Route path="/dtl-liquid/write" element={<WriteDtlReview />} />
+          <Route path="/mtl-liquid" element={<LiquidReview division="mtl" />} />
+          <Route path="/mtl-liquid/write" element={<WriteLiquidReview division="mtl" />} />
+          <Route path="/dtl-liquid" element={<LiquidReview division="dtl" />} />
+          <Route path="/dtl-liquid/write" element={<WriteLiquidReview division="dtl" />} />
+          <Route path="/liquid-review/:postId" element={<ReviewInfo />} />
         </Routes>
       </Container>
       <GlobalStyle />

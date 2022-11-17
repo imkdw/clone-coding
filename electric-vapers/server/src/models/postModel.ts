@@ -40,8 +40,15 @@ export const getPosts = async (division: string) => {
   return queryResult;
 };
 
-export const getPostImage = async (postId: string) => {
+export const getPostImages = async (postId: string) => {
   const query = `SELECT * FROM liquid_review_images WHERE post_id=?`;
+  const values = [postId];
+  const queryResult = await sendQuery(query, values);
+  return queryResult;
+};
+
+export const getPost = async (postId: string): Promise<OkPacket[]> => {
+  const query = "SELECT * FROM liquid_review WHERE post_id=?";
   const values = [postId];
   const queryResult = await sendQuery(query, values);
   return queryResult;

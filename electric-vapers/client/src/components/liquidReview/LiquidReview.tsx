@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { urlConfig } from "../../config";
 import Header from "../writeLiqiudReview/common/Header";
-import MtlReviewItem from "./mtlReviewItem";
+import ReviewItem from "./ReviewItem";
 
 const StyledLiquidReview = styled.div`
   width: 80%;
@@ -61,7 +61,7 @@ const ArrowUpIcon = () => {
   );
 };
 
-const MtlReview = () => {
+const LiquidReview = ({ division }: { division: string }) => {
   const [posts, setPosts] = useState([]);
 
   const clickHandler = () => {
@@ -82,12 +82,13 @@ const MtlReview = () => {
 
   return (
     <StyledLiquidReview>
-      <Header isEdit={false} title="입호흡" />
+      {division === "mtl" ? <Header isEdit={false} title="입호흡" /> : <Header isEdit={false} title="폐호흡" />}
+
       <ReviewItems>
         {posts.map((post) => {
           const { postId, name, introduce, volume, nicoVolume, sumbnail } = post;
           return (
-            <MtlReviewItem
+            <ReviewItem
               postId={postId}
               name={name}
               volume={volume}
@@ -105,4 +106,4 @@ const MtlReview = () => {
   );
 };
 
-export default MtlReview;
+export default LiquidReview;

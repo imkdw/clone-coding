@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { getUUID } from "../module/secure";
-import { getPostImage, getPosts, insertMtlLiquidImage, insertPost } from "../models/postModel";
+import { getPost, getPostImages, getPosts, insertMtlLiquidImage, insertPost } from "../models/postModel";
 import { uploadImageAndGetUrl } from "../firebase/Storage";
 
 export const getMtlLiquidReviews = async (req: Request, res: Response, next: NextFunction) => {
@@ -21,7 +21,7 @@ export const getMtlLiquidReviews = async (req: Request, res: Response, next: Nex
   /** 포스트의 썸네일 이미지 */
   const postSumbnailQuery = await Promise.all(
     posts.map(async (post) => {
-      return await getPostImage(post.postId);
+      return await getPostImages(post.postId);
     })
   );
 
@@ -62,7 +62,7 @@ export const getDtlLiquidReviews = async (req: Request, res: Response, next: Nex
   /** 포스트의 썸네일 이미지 */
   const postSumbnailQuery = await Promise.all(
     posts.map(async (post) => {
-      return await getPostImage(post.postId);
+      return await getPostImages(post.postId);
     })
   );
 
@@ -85,12 +85,28 @@ export const getDtlLiquidReviews = async (req: Request, res: Response, next: Nex
   res.status(500).json({ message: "Server Internal Error" });
 };
 
-export const getMtlLiquidReview = async (req: Request, res: Response, next: NextFunction) => {};
+export const getLiquidReview = async (req: Request, res: Response, next: NextFunction) => {
+  const { postId } = req.params;
+  const post = await getPost(postId);
 
-export const postMtlLiquidReview = async (req: Request, res: Response, next: NextFunction) => {
+  if (post) {
+    const imageQuery = await getPostImages(postId);
+    const images = await Promise.all(
+      imageQuery.map((image) => {
+        return image.image_url;
+      })
+    );
+
+    res.json({ post, images });
+    return;
+  }
+
+  res.status(400).json({ message: "포스트를 찾을수 없습니다." });
+};
+
+export const postLiquidReview = async (req: Request, res: Response, next: NextFunction) => {
   const postData = JSON.parse(req.body.postData);
   postData.postId = getUUID();
-  postData.division = "mtl";
   const postQuery = await insertPost(postData);
 
   if (postQuery) {

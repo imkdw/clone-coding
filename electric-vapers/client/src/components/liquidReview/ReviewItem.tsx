@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import liquid from "../../assets/liquid.jpg";
-
 const StyledReviewItem = styled(Link)`
   width: 21%;
   height: 400px;
@@ -61,9 +59,9 @@ interface postData {
   sumbnail: string;
 }
 
-const MtlReviewItem = ({ postId, name, introduce, volume, nicoVolume, sumbnail }: postData) => {
+const ReviewItem = ({ postId, name, introduce, volume, nicoVolume, sumbnail }: postData) => {
   return (
-    <StyledReviewItem to="" key={postId}>
+    <StyledReviewItem to={"/liquid-review/" + postId} key={postId}>
       <Sumbnail src={sumbnail} />
       <LiquidInfo>
         <LiquidName>{name}</LiquidName>
@@ -76,4 +74,4 @@ const MtlReviewItem = ({ postId, name, introduce, volume, nicoVolume, sumbnail }
   );
 };
 
-export default MtlReviewItem;
+export default ReviewItem;
