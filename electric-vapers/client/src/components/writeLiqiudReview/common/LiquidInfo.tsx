@@ -1,8 +1,8 @@
 import { ChangeEvent } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { mtlLiquidDataState } from "../../../recoil/recoil";
-import { mtlLiquidData } from "../../../types/mtl";
+import { liquidDataState } from "../../../recoil/recoil";
+import { ILiquidData } from "../../../types/liquid";
 
 const StyledLiquidInfo = styled.div`
   width: 100%;
@@ -118,21 +118,21 @@ interface LiquidInfoProps {
 }
 
 const LiquidInfo = ({ volume, nicoVolume }: LiquidInfoProps) => {
-  const [mtlLiquidData, setMtlLiquidData] = useRecoilState(mtlLiquidDataState);
-  const { info } = mtlLiquidData;
+  const [liquidData, setliquidData] = useRecoilState(liquidDataState);
+  const { info } = liquidData;
 
   const infoChangeHandler = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.currentTarget;
 
-    setMtlLiquidData((mtlLiquidData: any) => {
-      return { ...mtlLiquidData, info: { ...info, [name]: value } };
+    setliquidData((liquidData: any) => {
+      return { ...liquidData, info: { ...info, [name]: value } };
     });
   };
 
   const introChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
-    setMtlLiquidData((mtlLiquidData: any) => {
-      return { ...mtlLiquidData, ["introduce"]: value };
+    setliquidData((liquidData: any) => {
+      return { ...liquidData, ["introduce"]: value };
     });
   };
 
@@ -143,7 +143,7 @@ const LiquidInfo = ({ volume, nicoVolume }: LiquidInfoProps) => {
         <InfoBox>
           <InfoData>
             <InfoTitle>용량</InfoTitle>
-            <InfoSelect onChange={infoChangeHandler} name="volume" value={mtlLiquidData.info.volume}>
+            <InfoSelect onChange={infoChangeHandler} name="volume" value={liquidData.info.volume}>
               {volume.map((item) => (
                 <InfoOption value={item}>{item}</InfoOption>
               ))}
@@ -157,7 +157,7 @@ const LiquidInfo = ({ volume, nicoVolume }: LiquidInfoProps) => {
           </InfoData>
           <InfoData>
             <InfoTitle>니코틴</InfoTitle>
-            <InfoSelect onChange={infoChangeHandler} name="nicoVolume" value={mtlLiquidData.info.nicoVolume}>
+            <InfoSelect onChange={infoChangeHandler} name="nicoVolume" value={liquidData.info.nicoVolume}>
               {nicoVolume.map((item) => (
                 <InfoOption value={item}>{item}</InfoOption>
               ))}
@@ -174,7 +174,7 @@ const LiquidInfo = ({ volume, nicoVolume }: LiquidInfoProps) => {
           <Input
             type="text"
             placeholder="ex) 시원한 청포도를 먹는느낌"
-            value={mtlLiquidData.introduce}
+            value={liquidData.introduce}
             name="introduce"
             onChange={introChangeHandler}
           />

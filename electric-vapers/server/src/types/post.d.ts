@@ -1,8 +1,8 @@
-export interface mtlLiquidData {
+export interface LiquidReviewData {
   postId: string;
   author: string;
   type: string;
-  name: string;
+  title: string;
   info: {
     [key: string]: number;
   };
@@ -12,4 +12,5 @@ export interface mtlLiquidData {
     [key: string]: number;
   };
   division: string;
+  nickname?: string;
 }

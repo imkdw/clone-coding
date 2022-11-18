@@ -52,19 +52,19 @@ const LiquidEval = styled.div`
 
 interface postData {
   postId: string;
-  name: string;
+  title: string;
   introduce: string;
   volume: string;
   nicoVolume: string;
   sumbnail: string;
 }
 
-const ReviewItem = ({ postId, name, introduce, volume, nicoVolume, sumbnail }: postData) => {
+const ReviewItem = ({ postId, title, introduce, volume, nicoVolume, sumbnail }: postData) => {
   return (
     <StyledReviewItem to={"/liquid-review/" + postId} key={postId}>
       <Sumbnail src={sumbnail} />
       <LiquidInfo>
-        <LiquidName>{name}</LiquidName>
+        <LiquidName>{title}</LiquidName>
         <LiquidVolumn>
           용량 : {volume} / 니코틴 : {nicoVolume}
         </LiquidVolumn>

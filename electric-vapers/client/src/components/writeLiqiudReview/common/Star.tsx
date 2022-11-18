@@ -2,7 +2,7 @@ import styled from "styled-components";
 import StarRatings from "react-star-ratings";
 import { useRef, useState } from "react";
 import { useRecoilState } from "recoil";
-import { mtlLiquidDataState } from "../../../recoil/recoil";
+import { liquidDataState } from "../../../recoil/recoil";
 
 const StyledStar = styled.div`
   width: 70%;
@@ -20,7 +20,7 @@ interface IRating {
 
 const Star = ({ title }: { title: string }) => {
   const maxStar = 5;
-  const [mtlLiquidData, setMtlLiquidData] = useRecoilState(mtlLiquidDataState);
+  const [mtlLiquidData, setMtlLiquidData] = useRecoilState(liquidDataState);
   const { score } = mtlLiquidData;
 
   const changeRating = (rating: number) => {

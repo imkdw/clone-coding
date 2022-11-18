@@ -124,7 +124,9 @@ const Header = ({ isEdit, title }: HeaderProps) => {
             </IconBox>
             <Input type="text" placeholder="액상 검색" />
           </SearchBar>
-          <WriteReviewLink to="/mtl-liquid/write">리뷰작성</WriteReviewLink>
+          <WriteReviewLink to={title === "입호흡" ? "/mtl-liquid/write" : "/dtl-liquid/write"}>
+            리뷰작성
+          </WriteReviewLink>
         </HeaderUtils>
       )}
     </StyledHeader>

@@ -23,7 +23,7 @@ export const uploadImageState = atom<File[] | never[]>({
 interface IMtlLiquidData {
   author: string;
   type: string;
-  name: string;
+  title: string;
   info: {
     [key: string]: number;
   };
@@ -35,13 +35,13 @@ interface IMtlLiquidData {
   division: string;
 }
 
-/** 입호흡 리뷰 작성 데이터 */
-export const mtlLiquidDataState = atom<IMtlLiquidData>({
+/** 액상 리뷰 작성 데이터 */
+export const liquidDataState = atom<IMtlLiquidData>({
   key: "mtlLiquidDataState",
   default: {
     author: "imkdw@kakao.com",
     type: "",
-    name: "",
+    title: "",
     info: {
       volume: 30,
       nicoVolume: 3,

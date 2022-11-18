@@ -80,17 +80,19 @@ const LiquidReview = ({ division }: { division: string }) => {
     getPosts();
   }, []);
 
+  console.log(posts);
+
   return (
     <StyledLiquidReview>
       {division === "mtl" ? <Header isEdit={false} title="입호흡" /> : <Header isEdit={false} title="폐호흡" />}
 
       <ReviewItems>
         {posts.map((post) => {
-          const { postId, name, introduce, volume, nicoVolume, sumbnail } = post;
+          const { postId, title, introduce, volume, nicoVolume, sumbnail } = post;
           return (
             <ReviewItem
               postId={postId}
-              name={name}
+              title={title}
               volume={volume}
               introduce={introduce}
               nicoVolume={nicoVolume}

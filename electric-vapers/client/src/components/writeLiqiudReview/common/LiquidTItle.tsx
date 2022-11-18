@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { mtlLiquidDataState } from "../../../recoil/recoil";
+import { liquidDataState } from "../../../recoil/recoil";
 
 const StyleLiquidName = styled.div`
   width: 100%;
@@ -40,20 +40,22 @@ const Input = styled.input`
 `;
 
 const LiquidName = () => {
-  const [mtlLiquidData, setMtlLiquidData] = useRecoilState(mtlLiquidDataState);
+  const [liquidData, setLiquidData] = useRecoilState(liquidDataState);
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
-    setMtlLiquidData((mtlLiquidData) => {
-      return { ...mtlLiquidData, ["name"]: value };
+    setLiquidData((liquidData) => {
+      return { ...liquidData, ["title"]: value };
     });
+
+    console.log(liquidData);
   };
 
   return (
     <StyleLiquidName>
       <Title>액상 이름은?</Title>
       <InputWrapper>
-        <Input type="text" placeholder="ex) 갱스터 알로에베라" onChange={changeHandler} value={mtlLiquidData.name} />
+        <Input type="text" placeholder="ex) 갱스터 알로에베라" onChange={changeHandler} value={liquidData.title} />
       </InputWrapper>
     </StyleLiquidName>
   );

@@ -1,4 +1,4 @@
-export interface mtlLiquidData {
+export interface ILiquidData {
   postId: string;
   author: string;
   type: string;
