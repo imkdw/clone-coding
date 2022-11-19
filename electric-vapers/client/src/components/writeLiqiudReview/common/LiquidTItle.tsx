@@ -47,8 +47,6 @@ const LiquidName = () => {
     setLiquidData((liquidData) => {
       return { ...liquidData, ["title"]: value };
     });
-
-    console.log(liquidData);
   };
 
   return (

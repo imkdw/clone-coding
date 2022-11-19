@@ -6,6 +6,7 @@ const connection = mysql.createConnection({
   user: dbConfig.username,
   password: dbConfig.password,
   database: dbConfig.database,
+  dateStrings: true,
 });
 
 export default connection;

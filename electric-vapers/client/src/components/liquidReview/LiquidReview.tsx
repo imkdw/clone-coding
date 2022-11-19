@@ -80,8 +80,6 @@ const LiquidReview = ({ division }: { division: string }) => {
     getPosts();
   }, []);
 
-  console.log(posts);
-
   return (
     <StyledLiquidReview>
       {division === "mtl" ? <Header isEdit={false} title="입호흡" /> : <Header isEdit={false} title="폐호흡" />}

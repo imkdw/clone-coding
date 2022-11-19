@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
@@ -109,14 +109,29 @@ const Login = () => {
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const { email, password } = account;
-    const res = await axios.post("http://localhost:5000/auth/login", { email, password });
 
-    /** 로그인 성공시 */
-    if (res.status === 200) {
-      const accessToken = res.data.accessToken;
-      localStorage.setItem("accessToken", accessToken);
-      setAccessToken(accessToken);
-      navigator("/");
+    try {
+      const res = await axios.post("http://localhost:5000/auth/login", { email, password });
+
+      /** 200 / 로그인 성공시 */
+
+      if (res.status === 200) {
+        const accessToken = res.data.accessToken;
+        localStorage.setItem("accessToken", accessToken);
+        setAccessToken(accessToken);
+        navigator("/");
+      }
+    } catch (err: any) {
+      /** 400 / 이메일이 없거나 비밀번호가 틀린경우 */
+      if (err.response.status === 400) {
+        alert("이메일 또는 비밀번호가 잘못됬습니다.");
+      }
+
+      /** 500 / 서버측 오류 */
+      if (err.response.status === 500) {
+        alert("오류가 발생했습니다. 잠시후 다시 시도해주세요");
+        return;
+      }
     }
   };
 

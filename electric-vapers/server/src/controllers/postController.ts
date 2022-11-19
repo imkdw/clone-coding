@@ -2,12 +2,12 @@ import { Request, Response, NextFunction } from "express";
 import { getUUID } from "../module/secure";
 import { getNickname, getPost, getPostImages, getPosts, insertMtlLiquidImage, insertPost } from "../models/postModel";
 import { uploadImageAndGetUrl } from "../firebase/Storage";
+import { snakeToCamel } from "../module/util";
 
 /**
  * 입호흡 리뷰 목록 가져오기
  */
 export const getMtlLiquidReviews = async (req: Request, res: Response, next: NextFunction) => {
-  /** 전체 포스트목록 조회 */
   const postQuery = await getPosts("mtl");
   const posts = postQuery.map((post) => {
     const { post_id, title, introduce, volume, nico_volume } = post;
@@ -91,16 +91,17 @@ export const getDtlLiquidReviews = async (req: Request, res: Response, next: Nex
 };
 
 /**
- * 모든 리뷰 가져오기
+ * 리뷰 상세정보 가져오기
  */
 export const getLiquidReview = async (req: Request, res: Response, next: NextFunction) => {
   const { postId } = req.params;
-  const post = await getPost(postId);
+  const postQuery = await getPost(postId);
+  console.log(postQuery);
+  const post = {};
 
-  console.log(post);
-  if (post) {
-    const nicknameQuery = await getNickname(post[0].author);
-    post[0].nickname = nicknameQuery[0].nickname;
+  if (postQuery) {
+    const nicknameQuery = await getNickname(postQuery[0].author);
+    postQuery[0].nickname = nicknameQuery[0].nickname;
     const imageQuery = await getPostImages(postId);
     const images = await Promise.all(
       imageQuery.map((image) => {
@@ -108,7 +109,12 @@ export const getLiquidReview = async (req: Request, res: Response, next: NextFun
       })
     );
 
-    res.json({ post: post[0], images });
+    for (const item in postQuery[0]) {
+      const camelItem = snakeToCamel(item);
+      post[camelItem] = postQuery[0][item];
+    }
+
+    res.json({ post, images });
     return;
   }
 
@@ -121,7 +127,6 @@ export const getLiquidReview = async (req: Request, res: Response, next: NextFun
 export const postLiquidReview = async (req: Request, res: Response, next: NextFunction) => {
   const postData = JSON.parse(req.body.postData);
   postData.postId = getUUID();
-  console.log(postData);
   const postQuery = await insertPost(postData);
 
   if (postQuery) {

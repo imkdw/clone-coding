@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FormEvent } from "react";
+import { FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -32,10 +32,6 @@ const WriteLiquidReview = ({ division }: { division: string }) => {
 
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    setLiquidData((liquidData) => {
-      return { ...liquidData, ["division"]: division };
-    });
 
     const formData = new FormData(event.currentTarget);
 
@@ -79,6 +75,12 @@ const WriteLiquidReview = ({ division }: { division: string }) => {
       navigator("/mtl-liquid");
     }
   };
+
+  useEffect(() => {
+    setLiquidData((liquidData) => {
+      return { ...liquidData, ["division"]: division };
+    });
+  }, [division]);
 
   return (
     <StyledWriteLiquidReview encType="multipart/form-data" onSubmit={submitHandler} acceptCharset="UTF-8">

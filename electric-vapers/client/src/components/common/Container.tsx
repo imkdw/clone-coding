@@ -4,7 +4,7 @@ import Header from "../header/Header";
 
 const StyledContainer = styled.div`
   width: 100%;
-  height: 100%;
+  height: auto;
   position: relative;
   display: flex;
   justify-content: center;
