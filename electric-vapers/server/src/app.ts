@@ -9,7 +9,7 @@ import postRouter from "./routes/postRouter";
 dotenv.config();
 
 const app = express();
-app.set("port", process.env.PORT);
+app.set("port", process.env.PORT || 5000);
 
 /** CORS 에러를 방지하기 위한 헤더 설정 */
 app.use((req, res, next) => {
@@ -17,7 +17,6 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
-  // ss
 });
 
 const storage = multer.memoryStorage();
