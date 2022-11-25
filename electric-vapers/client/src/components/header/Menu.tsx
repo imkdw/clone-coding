@@ -24,6 +24,7 @@ const Menu = () => {
         <MenuItem>중고장터</MenuItem>
         <MenuItem>공지사항</MenuItem>
         <MenuItem>건의사항</MenuItem>
+        {/* <MenuItem>건의사항</MenuItem> */}
       </StyledMenu>
     </>
   );
