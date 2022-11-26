@@ -6,6 +6,10 @@ const StyledPostBox = styled.div`
   width: 30%;
   height: 100%;
 
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+  }
+
   @media screen and (max-width: 768px) {
     width: 100%;
   }
@@ -75,12 +79,7 @@ const PostBox = ({ subject }: PostBoxProps) => {
       </PostBoxSubject>
       <PostItems>
         {posts.map((post, index) => (
-          <PostItem
-            key={index}
-            author={post.author}
-            subject={post.subject}
-            createdAt={post.createdAt}
-          />
+          <PostItem key={index} author={post.author} subject={post.subject} createdAt={post.createdAt} />
         ))}
       </PostItems>
     </StyledPostBox>

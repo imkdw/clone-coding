@@ -1,89 +1,97 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { liquidInfoState } from "../../../recoil/recoil";
+import { liquidInfoState, loggedInUserState } from "../../../recoil/recoil";
+import { Button } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const StyledReviewHeader = styled.div`
   width: 100%;
-  height: 130px;
+  height: 180px;
   margin-top: 90px;
   display: flex;
   flex-direction: column;
-`;
-
-const Title = styled.div`
-  width: 100%;
-  height: 80px;
-  display: flex;
   align-items: center;
 `;
 
 const LiquidName = styled.div`
-  width: 90%;
-  height: 80px;
+  width: 100%;
   font-size: 40px;
   display: flex;
+  min-height: 80px;
 
-  @media screen and (max-width: 768px) {
-    width: 80%;
+  @media screen and (max-width: 1024px) {
+    width: 100%;
     font-size: 24px;
     align-items: center;
-  }
-`;
-
-const RecommendButton = styled.button`
-  width: 10%;
-  height: 40px;
-  color: #0095f6;
-  font-weight: bold;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  border: 1px solid #dbdbdb;
-  transition: all 0.3s;
-
-  &:hover {
-    font-weight: bold;
-    background-color: #5ad2ff;
-    color: black;
+    justify-content: center;
   }
 
   @media screen and (max-width: 768px) {
-    width: 20%;
+    width: 100%;
+    font-size: 24px;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
 const HeaderData = styled.div`
   width: 100%;
-  height: 50px;
+  height: 100px;
   color: #828282;
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: 1024px) {
+    text-align: center;
+  }
 
   @media screen and (max-width: 768px) {
     text-align: center;
   }
 `;
 
-const Text = styled.div``;
+const Text = styled.div`
+  width: 100%;
+  height: 50px;
+`;
+
+const Buttons = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: center;
+`;
 
 const ReviewHeader = () => {
   const liquidInfo = useRecoilValue(liquidInfoState);
-  const { title, createdAt, nickname, showCount, recommendCount } = liquidInfo.post;
+  const loggedInUser = useRecoilValue(loggedInUserState);
+  const navigator = useNavigate();
+
+  const modifyHandler = () => {
+    navigator(`/liquid-review/modify/${liquidInfo.post.postId}`);
+  };
+
+  const { title, createdAt, nickname } = liquidInfo.post;
   return (
     <StyledReviewHeader>
-      <Title>
-        <LiquidName>입호흡 - {title}</LiquidName>
-        <RecommendButton>추천</RecommendButton>
-      </Title>
+      <LiquidName>입호흡 - {title}</LiquidName>
       <HeaderData>
         <Text>
-          {nickname} | {createdAt}
+          <p>작성자 : {nickname}</p>
+          <p>작성일 : {createdAt}</p>
         </Text>
-        <Text>
-          조회수 : {showCount}회 | 추천 : {recommendCount}개
-        </Text>
+        {liquidInfo.post.author === loggedInUser.email && (
+          <Buttons>
+            <Button type="primary" onClick={modifyHandler}>
+              수정하기
+            </Button>
+            <Button type="primary" danger>
+              삭제하기
+            </Button>
+          </Buttons>
+        )}
       </HeaderData>
     </StyledReviewHeader>
   );

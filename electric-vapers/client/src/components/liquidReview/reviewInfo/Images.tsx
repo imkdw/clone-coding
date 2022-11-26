@@ -21,7 +21,7 @@ const Image = styled.img`
 `;
 
 const StyledCarousel = styled(Carousel)`
-  width: 700px;
+  width: 500px;
   border-radius: 10px;
 `;
 
@@ -31,8 +31,8 @@ const Images = () => {
   return (
     <StyledImages>
       <StyledCarousel autoPlay>
-        {liquidInfo.images.map((image) => (
-          <Image src={image} />
+        {liquidInfo.images.map((image, index) => (
+          <Image src={image} key={index} />
         ))}
       </StyledCarousel>
     </StyledImages>

@@ -14,7 +14,7 @@ export const accessTokenState = atom<string>({
 });
 
 /** 로그인유저 저장용 */
-export const userState = atom<IUser>({
+export const loggedInUserState = atom<IUser>({
   key: "loggedInUserState",
   default: {
     email: "",
@@ -33,7 +33,7 @@ export const uploadImageState = atom<File[] | never[]>({
 export const liquidDataState = atom<ILiquidReviewData>({
   key: "mtlLiquidDataState",
   default: {
-    author: "imkdw@kakao.com",
+    author: "",
     type: "",
     title: "",
     info: {
@@ -57,23 +57,32 @@ export const liquidInfoState = atom<ILiquidInfo>({
   key: "liquidInfoState",
   default: {
     post: {
+      postId: "",
       author: "",
-      type: "",
-      recommendCount: 0,
-      title: "",
-      volume: "",
       nickname: "",
-      nicoVolume: "",
+      type: "",
+      title: "",
+      info: {
+        volume: 30,
+        nicoVolume: 3,
+      },
       introduce: "",
       content: "",
-      mensol: "",
-      sweet: "",
-      fresh: "",
-      neck: "",
+      score: {
+        sweet: 0,
+        mensol: 0,
+        neck: 0,
+        fresh: 0,
+      },
       division: "",
-      showCount: 0,
       createdAt: "",
     },
     images: [""],
   },
+});
+
+/** 액상 리뷰 댓글 텍스트 */
+export const liquidReviewCommentTextState = atom({
+  key: "liquidReviewCommentTextState",
+  default: "",
 });

@@ -20,6 +20,10 @@ const StyledReviewInfo = styled.div`
   flex-direction: column;
   gap: 30px;
 
+  @media screen and (max-width: 1024px) {
+    width: 95%;
+  }
+
   @media screen and (max-width: 768px) {
     width: 95%;
   }
@@ -32,10 +36,11 @@ const ReviewInfo = () => {
   useEffect(() => {
     const getLiquidReview = async () => {
       const res = await axios.get(urlConfig.post.getLiquidReview + postId);
+      console.log(res.data);
       setLiquidInfo({
         ...liquidInfo,
-        ["post"]: res.data.post,
-        ["images"]: res.data.images,
+        post: res.data.post,
+        images: res.data.images,
       });
     };
 

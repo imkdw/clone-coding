@@ -23,22 +23,21 @@ export interface ILiquidReviewData {
 /** 액상 상세정보 데이터 타입 */
 export interface ILiquidInfo {
   post: {
+    postId: string;
     author: string;
+    nickname: string;
     type: string;
     title: string;
-    volume: string;
-    nicoVolume: string;
+    info: {
+      [key: string]: number;
+    };
     introduce: string;
     content: string;
-    mensol: string;
-    nickname: string;
-    sweet: string;
-    fresh: string;
-    neck: string;
+    score: {
+      [key: string]: number;
+    };
     division: string;
-    showCount: number;
     createdAt: string;
-    recommendCount: number;
   };
   images: string[];
 }

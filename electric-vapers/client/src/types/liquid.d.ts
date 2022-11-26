@@ -12,3 +12,9 @@ export interface ILiquidData {
     [key: string]: number;
   };
 }
+
+export interface ILiquidReviewComment {
+  nickname: string;
+  createdAt: string;
+  text: string;
+}

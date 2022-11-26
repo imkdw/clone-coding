@@ -14,6 +14,10 @@ const StyledReviewItem = styled(Link)`
     transform: scale(1.1);
   }
 
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+  }
+
   @media screen and (max-width: 768px) {
     width: 100%;
   }
@@ -66,9 +70,9 @@ const ReviewItem = ({ postId, title, introduce, volume, nicoVolume, sumbnail }: 
       <LiquidInfo>
         <LiquidName>{title}</LiquidName>
         <LiquidVolumn>
-          용량 : {volume} / 니코틴 : {nicoVolume}
+          용량 : {volume}ml / 니코틴 : {nicoVolume}mg
         </LiquidVolumn>
-        <LiquidEval>#{introduce}</LiquidEval>
+        <LiquidEval># {introduce}</LiquidEval>
       </LiquidInfo>
     </StyledReviewItem>
   );

@@ -1,4 +1,9 @@
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { liquidInfoState, liquidReviewCommentTextState, loggedInUserState } from "../../../../recoil/recoil";
+import { FormEvent, ChangeEvent } from "react";
+import axios from "axios";
+import { urlConfig } from "../../../../config";
 
 const StyeldWriteComment = styled.form`
   width: 90%;
@@ -57,13 +62,58 @@ const SubmitButton = styled.button`
 `;
 
 const WriteComment = () => {
+  const loggedInUser = useRecoilValue(loggedInUserState);
+  const liquidInfo = useRecoilValue(liquidInfoState);
+  const [liquidReviewCommentText, setLiquidReviewCommentText] = useRecoilState(liquidReviewCommentTextState);
+
+  const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (liquidReviewCommentText.length === 0) {
+      alert("댓글을 입력해주세요");
+      return;
+    }
+
+    if (liquidReviewCommentText.length > 50) {
+      alert("최대 50자 까지 작성이 가능합니다.");
+      return;
+    }
+
+    const body = {
+      postId: liquidInfo.post.postId,
+      comment: {
+        author: loggedInUser.email,
+        nickname: loggedInUser.nickname,
+        text: liquidReviewCommentText,
+      },
+    };
+    const res = await axios.post(urlConfig.post.postComment, body);
+
+    if (res.status !== 200) {
+      alert("오류가 발생했습니다. 다시 시도해주세요");
+      return;
+    }
+
+    setLiquidReviewCommentText("");
+  };
+
+  const commentChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.currentTarget;
+    setLiquidReviewCommentText(value);
+  };
+
   return (
-    <StyeldWriteComment>
+    <StyeldWriteComment onSubmit={submitHandler}>
       <NicknameWrapper>
-        <Nickname>초보군붕이</Nickname>
+        <Nickname>{loggedInUser.nickname}</Nickname>
       </NicknameWrapper>
       <InputWrapper>
-        <Input type="text" placeholder="댓글을 입력하세요.." />
+        <Input
+          type="text"
+          placeholder="댓글을 입력하세요.."
+          value={liquidReviewCommentText}
+          onChange={commentChangeHandler}
+        />
         <SubmitButton>댓글입력</SubmitButton>
       </InputWrapper>
     </StyeldWriteComment>

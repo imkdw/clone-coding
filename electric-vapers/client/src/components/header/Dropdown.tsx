@@ -53,14 +53,14 @@ const getContent = (title: string | undefined) => {
       return (
         <>
           <DropdownItem to="/mtl-liquid">액상리뷰</DropdownItem>
-          <DropdownItem to="">기기리뷰</DropdownItem>
+          <DropdownItem to="/mtl-device">기기리뷰</DropdownItem>
         </>
       );
     case "폐호흡(DTL)":
       return (
         <>
-          <DropdownItem to="">액상리뷰</DropdownItem>
-          <DropdownItem to="">기기리뷰</DropdownItem>
+          <DropdownItem to="/dtl-liquid">액상리뷰</DropdownItem>
+          <DropdownItem to="/dtl-device">기기리뷰</DropdownItem>
         </>
       );
     case "커뮤니티":

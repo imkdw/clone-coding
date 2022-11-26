@@ -1,6 +1,15 @@
 import { Request, Response, NextFunction } from "express";
 import { getUUID } from "../module/secure";
-import { getNickname, getPost, getPostImages, getPosts, insertMtlLiquidImage, insertPost } from "../models/postModel";
+import {
+  getNickname,
+  getPost,
+  getPostImages,
+  getPosts,
+  insertMtlLiquidImage,
+  insertPost,
+  selectLiquidReviewComment,
+  writeLiquidReviewComment,
+} from "../models/postModel";
 import { uploadImageAndGetUrl } from "../firebase/Storage";
 import { snakeToCamel } from "../module/util";
 
@@ -93,11 +102,36 @@ export const getDtlLiquidReviews = async (req: Request, res: Response, next: Nex
 /**
  * 리뷰 상세정보 가져오기
  */
+interface IPost {
+  [key: string]: string | number;
+}
+
 export const getLiquidReview = async (req: Request, res: Response, next: NextFunction) => {
+  // postQuery 출력결과
+  /**
+   * [
+  RowDataPacket {
+    post_id: 'f7a2826b-68a5-4278-88fd-3ab4979a137c',
+    author: 'imkdw@kakao.com',
+    type: 'SM',
+    title: '크림 오브더 크랍(크오크)',
+    volume: 30,
+    nico_volume: 9,
+    introduce: '우유의 고소함과 연초의 특유의맛',
+    content: '연초끊을때 좋음',
+    sweet: 5,
+    mensol: 1,
+    neck: 4,
+    fresh: 1,
+    division: 'mtl',
+    created_at: '2022-11-26 16:55:22'
+  }
+  ]
+   */
   const { postId } = req.params;
+
   const postQuery = await getPost(postId);
-  console.log(postQuery);
-  const post = {};
+  const post: IPost = {};
 
   if (postQuery) {
     const nicknameQuery = await getNickname(postQuery[0].author);
@@ -109,12 +143,36 @@ export const getLiquidReview = async (req: Request, res: Response, next: NextFun
       })
     );
 
+    /** snake_case로 작성된 키값을 camelCase로 변경 */
     for (const item in postQuery[0]) {
       const camelItem = snakeToCamel(item);
       post[camelItem] = postQuery[0][item];
     }
 
-    res.json({ post, images });
+    res.json({
+      post: {
+        postId: post.postId,
+        author: post.author,
+        nickname: post.nickname,
+        type: post.type,
+        title: post.title,
+        info: {
+          volume: post.volume,
+          nicoVolume: post.nicoVolume,
+        },
+        introduce: post.introduce,
+        content: post.content,
+        score: {
+          sweet: post.sweet,
+          mensol: post.mensol,
+          neck: post.neck,
+          fresh: post.fresh,
+        },
+        division: post.division,
+        createdAt: post.createdAt,
+      },
+      images,
+    });
     return;
   }
 
@@ -149,4 +207,40 @@ export const postLiquidReview = async (req: Request, res: Response, next: NextFu
   }
 
   res.status(400).json({ message: "error" });
+};
+
+/**
+ * 리뷰 상세정보 댓글 가져오기
+ */
+export const getLiquidReviewComment = async (req: Request, res: Response, next: NextFunction) => {
+  const { postId } = req.params;
+  const commentQuery = await selectLiquidReviewComment(postId);
+  const comments = [];
+
+  /** 댓글이 없는경우 빈배열 반환 */
+  if (commentQuery.length === 0) {
+    res.json([]);
+    return;
+  }
+
+  commentQuery.forEach((comment) => {
+    const commentItem = {};
+    for (const item in comment) {
+      const key = snakeToCamel(item);
+      commentItem[key] = comment[item];
+    }
+    comments.push(commentItem);
+  });
+
+  res.json({ comment: comments });
+};
+
+/**
+ * 리뷰 상세정보 댓글 작성하기
+ */
+export const postLiquidReviewComment = async (req: Request, res: Response, next: NextFunction) => {
+  const { postId, comment } = req.body;
+  const { author, nickname, text } = comment;
+  await writeLiquidReviewComment(postId, author, nickname, text);
+  res.json("");
 };

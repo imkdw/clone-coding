@@ -1,6 +1,6 @@
 import axios from "axios";
 import { FormEvent, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { urlConfig } from "../../config";
@@ -25,7 +25,7 @@ const StyledWriteLiquidReview = styled.form`
   }
 `;
 
-const WriteLiquidReview = ({ division }: { division: string }) => {
+const ModifyLiquidReview = () => {
   const loggedInUser = useRecoilValue(loggedInUserState);
   const [liquidData, setLiquidData] = useRecoilState(liquidDataState);
   const [uploadImages, setUploadImages] = useRecoilState(uploadImageState);
@@ -75,20 +75,14 @@ const WriteLiquidReview = ({ division }: { division: string }) => {
     }
   };
 
-  useEffect(() => {
-    setLiquidData((liquidData) => {
-      return { ...liquidData, division: division, author: loggedInUser.email };
-    });
-  }, [division, loggedInUser.email, setLiquidData]);
-
   return (
     <StyledWriteLiquidReview encType="multipart/form-data" onSubmit={submitHandler} acceptCharset="UTF-8">
-      <Header isEdit={true} title={division === "mtl" ? "입호흡" : "폐호흡"} />
+      <Header isEdit={true} title={liquidData.division === "mtl" ? "입호흡" : "폐호흡"} />
       <ChooseType />
       <LiquidName />
       <LiquidInfo
-        volume={division === "mtl" ? [30, 60, 100, 120] : [60, 100, 120]}
-        nicoVolume={division === "mtl" ? [6, 9] : [3, 6]}
+        volume={liquidData.division === "mtl" ? [30, 60, 100, 120] : [60, 100, 120]}
+        nicoVolume={liquidData.division === "mtl" ? [6, 9] : [3, 6]}
       />
       <UploadImage />
       <FreeWrite />
@@ -98,4 +92,4 @@ const WriteLiquidReview = ({ division }: { division: string }) => {
   );
 };
 
-export default WriteLiquidReview;
+export default ModifyLiquidReview;

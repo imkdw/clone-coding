@@ -23,6 +23,10 @@ const MenuButton = styled.button`
   margin-left: 10px;
   display: none;
 
+  @media screen and (max-width: 1024px) {
+    display: block;
+  }
+
   @media screen and (max-width: 768px) {
     display: block;
   }

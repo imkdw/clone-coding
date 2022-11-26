@@ -70,3 +70,17 @@ export const getNickname = async (email: string): Promise<IGetNicknameReturn[]> 
   const queryResult = await sendQuery(query, values);
   return queryResult;
 };
+
+export const writeLiquidReviewComment = async (postId: string, author: string, nickname: string, text: string) => {
+  const query = "INSERT INTO liquid_review_comment(post_id, author, nickname, text) VALUES(?, ?, ?, ?)";
+  const values = [postId, author, nickname, text];
+  const queryResult = await sendQuery(query, values);
+  return queryResult;
+};
+
+export const selectLiquidReviewComment = async (postId: string) => {
+  const query = "SELECT nickname, created_at, text FROM liquid_review_comment WHERE post_id=?";
+  const values = [postId];
+  const queryResult = await sendQuery(query, values);
+  return queryResult;
+};

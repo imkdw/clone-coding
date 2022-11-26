@@ -9,6 +9,13 @@ const StyledLogo = styled(Link)`
   align-items: center;
   justify-content: center;
 
+  @media screen and (max-width: 1024px) {
+    width: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   @media screen and (max-width: 768px) {
     width: 50%;
     position: absolute;

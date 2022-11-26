@@ -58,7 +58,6 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 
   const nickname = userQuery[0].nickname;
   const accessToken = createToken(email, nickname);
-  console.log(userQuery);
 
   res.json({
     email: userQuery[0].email,
@@ -93,5 +92,8 @@ export const checkLoggedIn = async (req: Request, res: Response, next: NextFunct
     return;
   }
 
-  res.json({ message: `인증성공` });
+  res.json({
+    email: userQuery[0].email,
+    nickname: userQuery[0].nickname,
+  });
 };

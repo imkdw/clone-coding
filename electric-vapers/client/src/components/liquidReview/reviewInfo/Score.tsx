@@ -7,6 +7,11 @@ const StyledScore = styled.div`
   display: flex;
   justify-content: space-between;
 
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    gap: 20px;
+  }
+
   @media screen and (max-width: 768px) {
     flex-direction: column;
     gap: 20px;
@@ -19,6 +24,10 @@ const ScoreItem = styled.div`
   border: 1px solid #dbdbdb;
   border-radius: 10px;
   display: flex;
+
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+  }
 
   @media screen and (max-width: 768px) {
     width: 100%;

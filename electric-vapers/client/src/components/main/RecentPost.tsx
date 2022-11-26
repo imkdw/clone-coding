@@ -8,6 +8,12 @@ const StyledRecentPost = styled.div`
   display: flex;
   justify-content: space-between;
 
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 20px;
+  }
+
   @media screen and (max-width: 768px) {
     flex-direction: column;
     gap: 40px;

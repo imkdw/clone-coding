@@ -7,6 +7,10 @@ const StyledBanner = styled.div`
   height: 450px;
   margin-top: 70px;
 
+  @media screen and (max-width: 1024px) {
+    height: 250px;
+  }
+
   @media screen and (max-width: 768px) {
     height: 250px;
   }

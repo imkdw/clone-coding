@@ -9,6 +9,10 @@ const StyledMenu = styled.ul`
   justify-content: center;
   gap: 40px;
 
+  @media screen and (max-width: 1024px) {
+    display: none;
+  }
+
   @media screen and (max-width: 768px) {
     display: none;
   }

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ILiquidReviewComment } from "../../../../types/liquid";
 
 const StyledCommentItem = styled.li`
   width: 90%;
@@ -38,14 +39,14 @@ const CommentText = styled.div`
   white-space: nowrap;
 `;
 
-const CommentItem = () => {
+const CommentItem = ({ nickname, createdAt, text }: ILiquidReviewComment) => {
   return (
     <StyledCommentItem>
       <NicknameAndDate>
-        <Nickname>초보군붕이</Nickname>
-        <CreatedAt>2022.11.19 15:34</CreatedAt>
+        <Nickname>{nickname}</Nickname>
+        <CreatedAt>{createdAt}</CreatedAt>
       </NicknameAndDate>
-      <CommentText>집가고싶다집가고싶다집가고싶다집가고싶다집가고싶다집가고싶다</CommentText>
+      <CommentText>{text}</CommentText>
     </StyledCommentItem>
   );
 };

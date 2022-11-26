@@ -14,25 +14,25 @@ const Star = ({ title }: { title: string }) => {
   const maxStar = 5;
   const liquidInfo = useRecoilValue(liquidInfoState);
 
-  const getRating = (title: string): string => {
+  const getRating = (title: string): number => {
     switch (title) {
       case "단맛":
-        return liquidInfo.post.sweet;
+        return liquidInfo.post.score.sweet;
       case "멘솔":
-        return liquidInfo.post.mensol;
+        return liquidInfo.post.score.mensol;
       case "목긁음":
-        return liquidInfo.post.neck;
+        return liquidInfo.post.score.neck;
       case "상큼함":
-        return liquidInfo.post.fresh;
+        return liquidInfo.post.score.fresh;
       default:
-        return "0";
+        return 0;
     }
   };
 
   return (
     <StyledStar>
       <StarRatings
-        rating={Number(getRating(title))}
+        rating={getRating(title)}
         starRatedColor="rgb(204, 204, 000)"
         numberOfStars={maxStar}
         name="rating"

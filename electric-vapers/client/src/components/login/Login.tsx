@@ -1,9 +1,9 @@
 import axios, { AxiosError } from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { accessTokenState } from "../../recoil/recoil";
+import { accessTokenState, loggedInUserState } from "../../recoil/recoil";
 
 const StyledLogin = styled.div`
   width: 100%;
@@ -102,7 +102,8 @@ const Login = () => {
     error: "",
   });
 
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const setAccessToken = useSetRecoilState(accessTokenState);
+  const [loggedInUser, setLoggedInUser] = useRecoilState(loggedInUserState);
 
   const navigator = useNavigate();
 
@@ -113,21 +114,24 @@ const Login = () => {
     try {
       const res = await axios.post("http://localhost:5000/auth/login", { email, password });
 
-      /** 200 / 로그인 성공시 */
-
+      /** 200, 로그인 성공시 */
       if (res.status === 200) {
         const accessToken = res.data.accessToken;
         localStorage.setItem("accessToken", accessToken);
         setAccessToken(accessToken);
+        const { email, nickname } = res.data;
+        setLoggedInUser((prevState) => {
+          return { ...prevState, ["email"]: email, ["nickname"]: nickname };
+        });
         navigator("/");
       }
     } catch (err: any) {
-      /** 400 / 이메일이 없거나 비밀번호가 틀린경우 */
+      /** 400, 이메일이 없거나 비밀번호가 틀린경우 */
       if (err.response.status === 400) {
         alert("이메일 또는 비밀번호가 잘못됬습니다.");
       }
 
-      /** 500 / 서버측 오류 */
+      /** 500, 서버측 오류 */
       if (err.response.status === 500) {
         alert("오류가 발생했습니다. 잠시후 다시 시도해주세요");
         return;
