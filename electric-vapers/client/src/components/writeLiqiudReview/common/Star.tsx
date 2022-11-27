@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import StarRatings from "react-star-ratings";
-import { useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { liquidDataState } from "../../../recoil/recoil";
 
@@ -9,14 +8,6 @@ const StyledStar = styled.div`
   height: 100%;
   border-radius: 0 20px 20px 0;
 `;
-
-const HiddenInput = styled.input`
-  display: none;
-`;
-
-interface IRating {
-  [key: string]: number;
-}
 
 const Star = ({ title }: { title: string }) => {
   const maxStar = 5;

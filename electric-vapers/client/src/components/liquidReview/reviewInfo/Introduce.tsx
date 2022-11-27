@@ -25,7 +25,7 @@ const getTypeWord = (type: string) => {
 
 const Introduce = () => {
   const liquidInfo = useRecoilValue(liquidInfoState);
-  const { type, introduce } = liquidInfo.post;
+  const { type, introduce } = liquidInfo.review;
   return (
     <StyledIntroduce>
       #{getTypeWord(type)}액상 #{introduce}

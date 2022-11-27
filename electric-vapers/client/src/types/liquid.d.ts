@@ -14,6 +14,7 @@ export interface ILiquidData {
 }
 
 export interface ILiquidReviewComment {
+  commentId: string;
   nickname: string;
   createdAt: string;
   text: string;

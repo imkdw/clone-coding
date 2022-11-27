@@ -31,18 +31,19 @@ const StyledReviewInfo = styled.div`
 
 const ReviewInfo = () => {
   const [liquidInfo, setLiquidInfo] = useRecoilState(liquidInfoState);
-  const { postId } = useParams();
+  const { reviewId } = useParams();
 
   useEffect(() => {
     const getLiquidReview = async () => {
-      const res = await axios.get(urlConfig.post.getLiquidReview + postId);
-      console.log(res.data);
+      const res = await axios.get(urlConfig.review.getLiquidReview + reviewId);
       setLiquidInfo({
         ...liquidInfo,
-        post: res.data.post,
+        review: res.data.review,
         images: res.data.images,
       });
     };
+
+    window.scrollTo(0, 0);
 
     getLiquidReview();
   }, []);

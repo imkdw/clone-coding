@@ -31,31 +31,38 @@ const ReviewItems = styled.div`
 `;
 
 const LiquidReview = ({ division }: { division: string }) => {
-  const [posts, setPosts] = useState([]);
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    const getPosts = async () => {
-      const res = await axios.get(urlConfig.post.getMtlLiquidReviews);
+    const getreviews = async () => {
+      let url;
+      if (division === "mtl") {
+        url = urlConfig.review.getMtlLiquidReviews;
+      } else {
+        url = urlConfig.review.getDtlLiquidReviews;
+      }
+
+      const res = await axios.get(url);
 
       if (res.status === 200) {
-        setPosts(res.data.posts);
+        setReviews(res.data.reviews);
       }
     };
 
-    getPosts();
-  }, []);
+    getreviews();
+  }, [division]);
 
   return (
     <StyledLiquidReview>
       {division === "mtl" ? <Header isEdit={false} title="입호흡" /> : <Header isEdit={false} title="폐호흡" />}
 
       <ReviewItems>
-        {posts.map((post) => {
-          const { postId, title, introduce, volume, nicoVolume, sumbnail } = post;
+        {reviews.map((review) => {
+          const { reviewId, title, introduce, volume, nicoVolume, sumbnail } = review;
           return (
             <ReviewItem
-              key={postId}
-              postId={postId}
+              key={reviewId}
+              reviewId={reviewId}
               title={title}
               volume={volume}
               introduce={introduce}

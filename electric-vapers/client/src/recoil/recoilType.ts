@@ -22,8 +22,8 @@ export interface ILiquidReviewData {
 
 /** 액상 상세정보 데이터 타입 */
 export interface ILiquidInfo {
-  post: {
-    postId: string;
+  review: {
+    reviewId: string;
     author: string;
     nickname: string;
     type: string;

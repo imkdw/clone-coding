@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { liquidDataState } from "../../../recoil/recoil";
 
@@ -143,12 +143,12 @@ const Smoke = () => {
 };
 
 const ChooseType = () => {
-  const [liquidData, setLiquidData] = useRecoilState(liquidDataState);
+  const setLiquidData = useSetRecoilState(liquidDataState);
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
     setLiquidData((mtlLiquidData: any) => {
-      return { ...mtlLiquidData, ["type"]: value };
+      return { ...mtlLiquidData, type: value };
     });
   };
 

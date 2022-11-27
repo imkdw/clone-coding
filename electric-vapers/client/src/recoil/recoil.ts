@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import { ILiquidReviewComment } from "../types/liquid";
 import { ILiquidInfo, ILiquidReviewData, IUser } from "./recoilType";
 
 /** 사이드메뉴 활성화 제어 */
@@ -8,7 +9,7 @@ export const showSideMenuState = atom<boolean>({
 });
 
 /** 엑세스토큰 저장용 */
-export const accessTokenState = atom<string>({
+export const accessTokenState = atom({
   key: "accessTokenState",
   default: "",
 });
@@ -37,8 +38,8 @@ export const liquidDataState = atom<ILiquidReviewData>({
     type: "",
     title: "",
     info: {
-      volume: 30,
-      nicoVolume: 3,
+      volume: 0,
+      nicoVolume: 0,
     },
     introduce: "",
     content: "",
@@ -56,15 +57,15 @@ export const liquidDataState = atom<ILiquidReviewData>({
 export const liquidInfoState = atom<ILiquidInfo>({
   key: "liquidInfoState",
   default: {
-    post: {
-      postId: "",
+    review: {
+      reviewId: "",
       author: "",
       nickname: "",
       type: "",
       title: "",
       info: {
-        volume: 30,
-        nicoVolume: 3,
+        volume: 0,
+        nicoVolume: 0,
       },
       introduce: "",
       content: "",
@@ -85,4 +86,23 @@ export const liquidInfoState = atom<ILiquidInfo>({
 export const liquidReviewCommentTextState = atom({
   key: "liquidReviewCommentTextState",
   default: "",
+});
+
+/** 액상 리뷰 댓글 */
+export const liquidReviewCommentState = atom<ILiquidReviewComment[]>({
+  key: "liquidReviewCommentState",
+  default: [
+    {
+      commentId: "",
+      nickname: "",
+      createdAt: "",
+      text: "",
+    },
+  ],
+});
+
+/** 로딩 화면 표현 */
+export const isLoadingState = atom({
+  key: "isLoadingState",
+  default: false,
 });

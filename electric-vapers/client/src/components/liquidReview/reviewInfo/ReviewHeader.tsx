@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { liquidInfoState, loggedInUserState } from "../../../recoil/recoil";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { urlConfig } from "../../../config";
 
 const StyledReviewHeader = styled.div`
   width: 100%;
@@ -70,10 +72,24 @@ const ReviewHeader = () => {
   const navigator = useNavigate();
 
   const modifyHandler = () => {
-    navigator(`/liquid-review/modify/${liquidInfo.post.postId}`);
+    navigator(`/liquid-review/modify/${liquidInfo.review.reviewId}`);
   };
 
-  const { title, createdAt, nickname } = liquidInfo.post;
+  const deleteHandler = async () => {
+    const confirm = window.confirm("정말 리뷰를 삭제할건가요??\n리뷰를 삭제하면 복구가 불가능합니다.");
+    if (confirm) {
+      const res = await axios.delete(urlConfig.review.deleteLiquidReview + liquidInfo.review.reviewId);
+
+      if (res.status !== 200) {
+        alert("오류가 발생했습니다. 다시 시도해주세요");
+        return;
+      }
+
+      navigator(-1);
+    }
+  };
+
+  const { title, createdAt, nickname } = liquidInfo.review;
   return (
     <StyledReviewHeader>
       <LiquidName>입호흡 - {title}</LiquidName>
@@ -82,12 +98,12 @@ const ReviewHeader = () => {
           <p>작성자 : {nickname}</p>
           <p>작성일 : {createdAt}</p>
         </Text>
-        {liquidInfo.post.author === loggedInUser.email && (
+        {liquidInfo.review.author === loggedInUser.email && (
           <Buttons>
             <Button type="primary" onClick={modifyHandler}>
               수정하기
             </Button>
-            <Button type="primary" danger>
+            <Button type="primary" onClick={deleteHandler} danger>
               삭제하기
             </Button>
           </Buttons>

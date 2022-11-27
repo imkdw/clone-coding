@@ -1,19 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { urlConfig } from "../../../../config";
-import { liquidInfoState, liquidReviewCommentTextState, loggedInUserState } from "../../../../recoil/recoil";
-import { ILiquidReviewComment } from "../../../../types/liquid";
+import { liquidReviewCommentState, liquidReviewCommentTextState } from "../../../../recoil/recoil";
 import CommentItem from "./CommentItem";
-import WriteComment from "./WrtieComment";
+import WriteComment from "./WriteComment";
 
 const StyledComment = styled.div`
   width: 100%;
   height: auto;
   min-height: 200px;
-  background-color: #fbfbfb;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -38,13 +36,14 @@ const CommentItems = styled.ul`
 `;
 
 const Comment = () => {
-  const [comments, setComments] = useState<ILiquidReviewComment[] | never[]>([]);
+  const [comments, setComments] = useRecoilState(liquidReviewCommentState);
   const liquidReviewCommentText = useRecoilValue(liquidReviewCommentTextState);
-  const { postId } = useParams();
+  const { reviewId } = useParams();
 
   useEffect(() => {
     const getComments = async () => {
-      const res = await axios.get(urlConfig.post.getComment + postId);
+      const res = await axios.get(urlConfig.review.getLiquidReviewComment + reviewId);
+
       if (res.status !== 200) {
         alert("댓글을 불러오지 못했습니다.");
         return;
@@ -64,7 +63,13 @@ const Comment = () => {
       {comments && (
         <CommentItems>
           {comments.map((comment, index) => (
-            <CommentItem key={index} nickname={comment.nickname} createdAt={comment.createdAt} text={comment.text} />
+            <CommentItem
+              key={index}
+              commentId={comment.commentId}
+              nickname={comment.nickname}
+              createdAt={comment.createdAt}
+              text={comment.text}
+            />
           ))}
         </CommentItems>
       )}

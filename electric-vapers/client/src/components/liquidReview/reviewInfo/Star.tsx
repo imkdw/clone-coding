@@ -17,13 +17,13 @@ const Star = ({ title }: { title: string }) => {
   const getRating = (title: string): number => {
     switch (title) {
       case "단맛":
-        return liquidInfo.post.score.sweet;
+        return liquidInfo.review.score.sweet;
       case "멘솔":
-        return liquidInfo.post.score.mensol;
+        return liquidInfo.review.score.mensol;
       case "목긁음":
-        return liquidInfo.post.score.neck;
+        return liquidInfo.review.score.neck;
       case "상큼함":
-        return liquidInfo.post.score.fresh;
+        return liquidInfo.review.score.fresh;
       default:
         return 0;
     }

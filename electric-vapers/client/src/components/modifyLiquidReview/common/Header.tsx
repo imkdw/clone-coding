@@ -133,7 +133,7 @@ const Header = ({ isEdit, title }: HeaderProps) => {
   return (
     <StyledHeader isEdit={isEdit}>
       {isEdit ? (
-        <HeaderText height="100%">{title} - 액상 리뷰 작성</HeaderText>
+        <HeaderText height="100%">{title} - 액상 리뷰 수정</HeaderText>
       ) : (
         <HeaderText height="50%">{title} - 액상 리뷰</HeaderText>
       )}

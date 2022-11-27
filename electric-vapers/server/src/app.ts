@@ -4,7 +4,7 @@ import morgan from "morgan";
 import multer from "multer";
 
 import authRouter from "./routes/authRouter";
-import postRouter from "./routes/postRouter";
+import reviewRouter from "./routes/reviewRouter";
 
 dotenv.config();
 
@@ -29,7 +29,7 @@ app.use(multer({ storage }).fields([{ name: "file", maxCount: 8 }]));
 
 /** 라우터 설정 */
 app.use("/auth", authRouter);
-app.use("/post", postRouter);
+app.use("/review", reviewRouter);
 
 /** 서버 오픈 */
 app.listen(app.get("port"), () => {

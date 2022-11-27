@@ -45,7 +45,7 @@ const FreeWrite = () => {
     const { value } = event.currentTarget;
 
     setLiquidData((mtlLiquidData: any) => {
-      return { ...mtlLiquidData, ["content"]: value };
+      return { ...mtlLiquidData, content: value };
     });
   };
 

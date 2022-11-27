@@ -45,7 +45,7 @@ const LiquidName = () => {
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
     setLiquidData((liquidData) => {
-      return { ...liquidData, ["title"]: value };
+      return { ...liquidData, title: value };
     });
   };
 

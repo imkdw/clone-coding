@@ -36,7 +36,7 @@ const Content = () => {
   return (
     <StyledContent>
       <Title>솔직한 후기!</Title>
-      <TextArea disabled value={liquidInfo.post.content} />
+      <TextArea disabled value={liquidInfo.review.content} />
     </StyledContent>
   );
 };

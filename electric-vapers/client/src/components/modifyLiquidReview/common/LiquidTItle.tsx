@@ -1,7 +1,8 @@
 import { ChangeEvent } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { liquidDataState } from "../../../recoil/recoil";
+import { liquidDataState, liquidInfoState } from "../../../recoil/recoil";
+import { ILiquidInfo } from "../../../recoil/recoilType";
 
 const StyleLiquidName = styled.div`
   width: 100%;
@@ -40,12 +41,14 @@ const Input = styled.input`
 `;
 
 const LiquidName = () => {
-  const [liquidData, setLiquidData] = useRecoilState(liquidDataState);
+  const [liquidInfo, setLiquidInfo] = useRecoilState(liquidInfoState);
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
-    setLiquidData((liquidData) => {
-      return { ...liquidData, ["title"]: value };
+
+    setLiquidInfo((prevState: ILiquidInfo) => {
+      const review = { ...prevState.review };
+      return { ...prevState, review: { ...review, title: value } };
     });
   };
 
@@ -53,7 +56,12 @@ const LiquidName = () => {
     <StyleLiquidName>
       <Title>액상 이름은?</Title>
       <InputWrapper>
-        <Input type="text" placeholder="ex) 갱스터 알로에베라" onChange={changeHandler} value={liquidData.title} />
+        <Input
+          type="text"
+          placeholder="ex) 갱스터 알로에베라"
+          onChange={changeHandler}
+          value={liquidInfo.review.title}
+        />
       </InputWrapper>
     </StyleLiquidName>
   );

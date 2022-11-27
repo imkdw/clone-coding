@@ -29,7 +29,7 @@ const Button = styled.button`
 const Buttons = () => {
   return (
     <StyledButtons>
-      <Button type="submit">작성하기</Button>
+      <Button type="submit">수정하기</Button>
       <Button>취소하기</Button>
     </StyledButtons>
   );

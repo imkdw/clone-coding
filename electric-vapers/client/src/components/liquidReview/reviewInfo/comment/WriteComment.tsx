@@ -20,7 +20,7 @@ const StyeldWriteComment = styled.form`
 
 const NicknameWrapper = styled.div`
   width: 100%;
-  height: 30px;
+  height: 40px;
   border-bottom: 1px solid #dbdbdb;
   display: flex;
   align-items: center;
@@ -42,6 +42,7 @@ const Input = styled.input`
   width: 85%;
   height: 100%;
   font-size: 20px;
+  border-radius: 20px;
 
   @media screen and (max-width: 768px) {
     font-size: 16px;
@@ -57,7 +58,8 @@ const SubmitButton = styled.button`
   border: 1px solid #dbdbdb;
 
   @media screen and (max-width: 768px) {
-    width: 30%;
+    width: 20%;
+    height: 70%;
   }
 `;
 
@@ -80,14 +82,14 @@ const WriteComment = () => {
     }
 
     const body = {
-      postId: liquidInfo.post.postId,
+      reviewId: liquidInfo.review.reviewId,
       comment: {
         author: loggedInUser.email,
         nickname: loggedInUser.nickname,
         text: liquidReviewCommentText,
       },
     };
-    const res = await axios.post(urlConfig.post.postComment, body);
+    const res = await axios.post(urlConfig.review.writeLiquidReviewComment, body);
 
     if (res.status !== 200) {
       alert("오류가 발생했습니다. 다시 시도해주세요");
@@ -105,7 +107,7 @@ const WriteComment = () => {
   return (
     <StyeldWriteComment onSubmit={submitHandler}>
       <NicknameWrapper>
-        <Nickname>{loggedInUser.nickname}</Nickname>
+        <Nickname>닉네임 : {loggedInUser.nickname}</Nickname>
       </NicknameWrapper>
       <InputWrapper>
         <Input

@@ -2,7 +2,6 @@ import { ChangeEvent } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { liquidDataState } from "../../../recoil/recoil";
-import { ILiquidData } from "../../../types/liquid";
 
 const StyledLiquidInfo = styled.div`
   width: 100%;
@@ -132,7 +131,7 @@ const LiquidInfo = ({ volume, nicoVolume }: LiquidInfoProps) => {
   const introChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
     setliquidData((liquidData: any) => {
-      return { ...liquidData, ["introduce"]: value };
+      return { ...liquidData, introduce: value };
     });
   };
 

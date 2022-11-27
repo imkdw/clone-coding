@@ -1,5 +1,5 @@
 export interface LiquidReviewData {
-  postId: string;
+  reviewId: string;
   author: string;
   type: string;
   title: string;

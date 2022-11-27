@@ -12,7 +12,7 @@ const StyledVolume = styled.div`
 
 const Volume = () => {
   const liquidInfo = useRecoilValue(liquidInfoState);
-  const { volume, nicoVolume } = liquidInfo.post.info;
+  const { volume, nicoVolume } = liquidInfo.review.info;
 
   return (
     <StyledVolume>

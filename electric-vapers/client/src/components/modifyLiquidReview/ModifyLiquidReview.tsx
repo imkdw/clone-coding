@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { urlConfig } from "../../config";
-import { liquidDataState, loggedInUserState, uploadImageState } from "../../recoil/recoil";
+import { liquidDataState, liquidInfoState, loggedInUserState, uploadImageState } from "../../recoil/recoil";
 import Buttons from "./common/Buttons";
 import UploadImage from "./common/UploadImage";
 import LiquidScore from "./common/LiquidScore";
@@ -26,63 +26,30 @@ const StyledWriteLiquidReview = styled.form`
 `;
 
 const ModifyLiquidReview = () => {
-  const loggedInUser = useRecoilValue(loggedInUserState);
-  const [liquidData, setLiquidData] = useRecoilState(liquidDataState);
-  const [uploadImages, setUploadImages] = useRecoilState(uploadImageState);
+  const liquidInfo = useRecoilValue(liquidInfoState);
   const navigator = useNavigate();
 
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
-
-    /** 본문 내용 추가 */
-    formData.append("postData", JSON.stringify(liquidData));
-
-    /** 업로드된 이미지 추가 */
-    for (let i = 0; i < uploadImages.length; i++) {
-      formData.append("file", uploadImages[i]);
+    const res = await axios.put(urlConfig.review.modifyLiquidReview + liquidInfo.review.reviewId, liquidInfo.review);
+    if (res.status !== 200) {
+      alert("오류가 발생했습니다. 다시 시도해주세요");
+      navigator(-1);
+      return;
     }
 
-    const res = await axios.post(urlConfig.post.postLiquidReview, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-
-    if (res.status === 200) {
-      setLiquidData({
-        ...liquidData,
-        author: "",
-        type: "",
-        title: "",
-        info: {
-          volume: 30,
-          nicoVolume: 3,
-        },
-        introduce: "",
-        content: "",
-        score: {
-          sweet: 0,
-          mensol: 0,
-          neck: 0,
-          fresh: 0,
-        },
-      });
-
-      setUploadImages([]);
-      navigator("/mtl-liquid");
-    }
+    navigator(-1);
   };
 
   return (
-    <StyledWriteLiquidReview encType="multipart/form-data" onSubmit={submitHandler} acceptCharset="UTF-8">
-      <Header isEdit={true} title={liquidData.division === "mtl" ? "입호흡" : "폐호흡"} />
+    <StyledWriteLiquidReview onSubmit={submitHandler} acceptCharset="UTF-8">
+      <Header isEdit title={liquidInfo.review.division === "mtl" ? "입호흡" : "폐호흡"} />
       <ChooseType />
       <LiquidName />
       <LiquidInfo
-        volume={liquidData.division === "mtl" ? [30, 60, 100, 120] : [60, 100, 120]}
-        nicoVolume={liquidData.division === "mtl" ? [6, 9] : [3, 6]}
+        volume={liquidInfo.review.division === "mtl" ? [30, 60, 100, 120] : [60, 100, 120]}
+        nicoVolume={liquidInfo.review.division === "mtl" ? [6, 9] : [3, 6]}
       />
       <UploadImage />
       <FreeWrite />

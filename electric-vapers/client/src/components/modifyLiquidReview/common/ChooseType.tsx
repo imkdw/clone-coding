@@ -1,8 +1,9 @@
 import { ChangeEvent } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { liquidDataState } from "../../../recoil/recoil";
+import { liquidInfoState } from "../../../recoil/recoil";
 import { Dessert, Drink, Fruit, Smoke } from "./ChooseTypeIcon";
+import { ILiquidInfo } from "../../../recoil/recoilType";
 
 const StyleChooseType = styled.div`
   width: 100%;
@@ -61,19 +62,22 @@ const IconWrapper = styled.div`
 `;
 
 const ChooseType = () => {
-  const [liquidData, setLiquidData] = useRecoilState(liquidDataState);
+  const [liquidInfo, setLiquidInfo] = useRecoilState(liquidInfoState);
+  const { type } = liquidInfo.review;
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
-    setLiquidData((mtlLiquidData: any) => {
-      return { ...mtlLiquidData, ["type"]: value };
+
+    setLiquidInfo((prevState: ILiquidInfo) => {
+      const review = { ...prevState.review };
+      return { ...prevState, review: { ...review, type: value } };
     });
   };
 
   return (
     <StyleChooseType>
       <Type>
-        <Checkbox type="radio" id="fruit" name="type" value="FR" onChange={changeHandler} />
+        <Checkbox type="radio" id="fruit" name="type" value="FR" onChange={changeHandler} checked={type === "FR"} />
         <CheckboxLabel htmlFor="fruit">
           <IconWrapper>
             <Fruit />
@@ -82,7 +86,7 @@ const ChooseType = () => {
         </CheckboxLabel>
       </Type>
       <Type>
-        <Checkbox type="radio" id="dessert" name="type" value="DE" onChange={changeHandler} />
+        <Checkbox type="radio" id="dessert" name="type" value="DE" onChange={changeHandler} checked={type === "DE"} />
         <CheckboxLabel htmlFor="dessert">
           <IconWrapper>
             <Dessert />
@@ -91,7 +95,7 @@ const ChooseType = () => {
         </CheckboxLabel>
       </Type>
       <Type>
-        <Checkbox type="radio" id="drink" name="type" value="DR" onChange={changeHandler} />
+        <Checkbox type="radio" id="drink" name="type" value="DR" onChange={changeHandler} checked={type === "DR"} />
         <CheckboxLabel htmlFor="drink">
           <IconWrapper>
             <Drink />
@@ -100,7 +104,7 @@ const ChooseType = () => {
         </CheckboxLabel>
       </Type>
       <Type>
-        <Checkbox type="radio" id="smoke" name="type" value="SM" onChange={changeHandler} />
+        <Checkbox type="radio" id="smoke" name="type" value="SM" onChange={changeHandler} checked={type === "SM"} />
         <CheckboxLabel htmlFor="smoke">
           <IconWrapper>
             <Smoke />
