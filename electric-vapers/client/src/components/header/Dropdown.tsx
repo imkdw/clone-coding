@@ -53,14 +53,12 @@ const getContent = (title: string | undefined) => {
       return (
         <>
           <DropdownItem to="/mtl-liquid">액상리뷰</DropdownItem>
-          <DropdownItem to="/mtl-device">기기리뷰</DropdownItem>
         </>
       );
     case "폐호흡(DTL)":
       return (
         <>
           <DropdownItem to="/dtl-liquid">액상리뷰</DropdownItem>
-          <DropdownItem to="/dtl-device">기기리뷰</DropdownItem>
         </>
       );
     case "커뮤니티":
@@ -69,7 +67,6 @@ const getContent = (title: string | undefined) => {
           <DropdownItem to="">자유게시판</DropdownItem>
           <DropdownItem to="">질문 / 답변</DropdownItem>
           <DropdownItem to="">액상리뷰 요청</DropdownItem>
-          <DropdownItem to="">기기리뷰 요청</DropdownItem>
         </>
       );
     case "중고장터":

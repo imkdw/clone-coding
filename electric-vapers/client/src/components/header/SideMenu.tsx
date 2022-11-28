@@ -109,12 +109,6 @@ const SideMenu = () => {
           title: "액상 리뷰",
           linkTo: "/mtl-liquid",
         },
-        {
-          id: v4(),
-          icon: Device,
-          title: "기기 리뷰",
-          linkTo: "/mtl-device",
-        },
       ],
     },
     {
@@ -128,12 +122,6 @@ const SideMenu = () => {
           icon: Liquid,
           title: "액상 리뷰",
           linkTo: "/dtl-liquid",
-        },
-        {
-          id: v4(),
-          icon: Device,
-          title: "기기 리뷰",
-          linkTo: "/dtl-device",
         },
       ],
     },
@@ -160,12 +148,6 @@ const SideMenu = () => {
           icon: Liquid,
           title: "액상 리뷰 요청",
           linkTo: "/community-req-liquid",
-        },
-        {
-          id: v4(),
-          icon: Device,
-          title: "기기 리뷰 요청",
-          linkTo: "/community-req-device",
         },
       ],
     },

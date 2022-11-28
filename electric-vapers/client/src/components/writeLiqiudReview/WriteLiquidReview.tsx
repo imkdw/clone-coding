@@ -60,7 +60,6 @@ const WriteLiquidReview = ({ division }: { division: string }) => {
 
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(liquidData);
     setIsLoading(true);
 
     const formData = new FormData(event.currentTarget);
@@ -86,8 +85,8 @@ const WriteLiquidReview = ({ division }: { division: string }) => {
         type: "",
         title: "",
         info: {
-          volume: 30,
-          nicoVolume: 3,
+          volume: 0,
+          nicoVolume: 0,
         },
         introduce: "",
         content: "",
@@ -101,7 +100,12 @@ const WriteLiquidReview = ({ division }: { division: string }) => {
 
       setUploadImages([]);
       setIsLoading(false);
-      navigator("/mtl-liquid");
+      console.log(division);
+      if (division === "mtl") {
+        navigator("/mtl-liquid");
+      } else {
+        navigator("/dtl-liquid");
+      }
     }
   };
 

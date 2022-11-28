@@ -143,8 +143,10 @@ const LiquidInfo = ({ volume, nicoVolume }: LiquidInfoProps) => {
           <InfoData>
             <InfoTitle>용량</InfoTitle>
             <InfoSelect onChange={infoChangeHandler} name="volume" value={liquidData.info.volume}>
-              {volume.map((item) => (
-                <InfoOption value={item}>{item}</InfoOption>
+              {volume.map((item, index) => (
+                <InfoOption value={item} key={index}>
+                  {item}
+                </InfoOption>
               ))}
             </InfoSelect>
             <InfoUnit>ml</InfoUnit>
@@ -152,8 +154,10 @@ const LiquidInfo = ({ volume, nicoVolume }: LiquidInfoProps) => {
           <InfoData>
             <InfoTitle>니코틴</InfoTitle>
             <InfoSelect onChange={infoChangeHandler} name="nicoVolume" value={liquidData.info.nicoVolume}>
-              {nicoVolume.map((item) => (
-                <InfoOption value={item}>{item}</InfoOption>
+              {nicoVolume.map((item, index) => (
+                <InfoOption value={item} key={index}>
+                  {item}
+                </InfoOption>
               ))}
             </InfoSelect>
             <InfoUnit>mg</InfoUnit>
