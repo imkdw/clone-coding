@@ -1,8 +1,7 @@
 import { ChangeEvent } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { liquidDataState, liquidInfoState } from "../../../recoil/recoil";
-import { ILiquidInfo } from "../../../recoil/recoilType";
+import { liquidDataState } from "../../../../recoil/recoil";
 
 const StyledFreeWrite = styled.div`
   width: 100%;
@@ -40,14 +39,13 @@ const TextArea = styled.textarea`
 `;
 
 const FreeWrite = () => {
-  const [liquidInfo, setLiquidInfo] = useRecoilState(liquidInfoState);
+  const [liquidData, setLiquidData] = useRecoilState(liquidDataState);
 
   const changeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = event.currentTarget;
 
-    setLiquidInfo((prevState: ILiquidInfo) => {
-      const review = { ...prevState.review };
-      return { ...prevState, review: { ...review, content: value } };
+    setLiquidData((mtlLiquidData: any) => {
+      return { ...mtlLiquidData, content: value };
     });
   };
 
@@ -55,7 +53,7 @@ const FreeWrite = () => {
     <StyledFreeWrite>
       <Title>자유롭게 작성!</Title>
       <TextareaWrapper>
-        <TextArea placeholder="자유롭게 작성해주세요!" onChange={changeHandler} value={liquidInfo.review.content} />
+        <TextArea placeholder="자유롭게 작성해주세요!" onChange={changeHandler} value={liquidData.content} />
       </TextareaWrapper>
     </StyledFreeWrite>
   );

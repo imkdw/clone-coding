@@ -11,11 +11,13 @@ import Login from "./components/login/Login";
 import { useEffect } from "react";
 import ReviewInfo from "./components/liquidReview/ReviewInfo";
 import LiquidReview from "./components/liquidReview/LiquidReview";
-import WriteLiquidReview from "./components/writeLiqiudReview/WriteLiquidReview";
+import WriteLiquidReview from "./components/liquidReview/writeReview/WriteLiquidReview";
 import axios from "axios";
 import { urlConfig } from "./config";
-import ModifyLiquidReview from "./components/modifyLiquidReview/ModifyLiquidReview";
+import ModifyLiquidReview from "./components/liquidReview/modifyReview/ModifyLiquidReview";
 import Loading from "./components/common/Loading";
+import FreeBoard from "./components/freeBoard/FreeBoard";
+import WriteFreeBoard from "./components/freeBoard/WriteFreeBoard/WriteFreeBoard";
 
 const App = () => {
   const showSideMenu = useRecoilValue(showSideMenuState);
@@ -79,6 +81,8 @@ const App = () => {
           <Route path="/dtl-liquid/write" element={<WriteLiquidReview division="dtl" />} />
           <Route path="/liquid-review/:reviewId" element={<ReviewInfo />} />
           <Route path="/liquid-review/modify/:postId" element={<ModifyLiquidReview />} />
+          <Route path="/free-board" element={<FreeBoard />} />
+          <Route path="/free-board/write" element={<WriteFreeBoard />} />
         </Routes>
       </Container>
       <GlobalStyle />

@@ -1,9 +1,9 @@
 import { ChangeEvent } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { liquidInfoState } from "../../../recoil/recoil";
+import { liquidInfoState } from "../../../../recoil/recoil";
 import { Dessert, Drink, Fruit, Smoke } from "./ChooseTypeIcon";
-import { ILiquidInfo } from "../../../recoil/recoilType";
+import { ILiquidInfo } from "../../../../recoil/recoilType";
 
 const StyleChooseType = styled.div`
   width: 100%;

@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import StarRatings from "react-star-ratings";
 import { useRecoilState } from "recoil";
-import { liquidDataState } from "../../../recoil/recoil";
+import { liquidDataState, liquidInfoState } from "../../../../recoil/recoil";
+import { ILiquidInfo } from "../../../../recoil/recoilType";
 
 const StyledStar = styled.div`
   width: 70%;
@@ -11,19 +12,21 @@ const StyledStar = styled.div`
 
 const Star = ({ title }: { title: string }) => {
   const maxStar = 5;
-  const [mtlLiquidData, setMtlLiquidData] = useRecoilState(liquidDataState);
-  const { score } = mtlLiquidData;
+  const [liquidInfo, setLiquidInfo] = useRecoilState(liquidInfoState);
 
   const changeRating = (rating: number) => {
-    setMtlLiquidData((mtlLiquidData: any) => {
-      return { ...mtlLiquidData, score: { ...score, [title]: rating } };
+    setLiquidInfo((prevState: ILiquidInfo) => {
+      const review = { ...prevState.review };
+      const score = { ...review.score };
+      score[title] = rating;
+      return { ...prevState, review: { ...review, score: { ...score } } };
     });
   };
 
   return (
     <StyledStar>
       <StarRatings
-        rating={mtlLiquidData.score[title]}
+        rating={liquidInfo.review.score[title]}
         starRatedColor="rgb(204, 204, 000)"
         starHoverColor="rgb(255,255,000)"
         changeRating={(rating: number) => {

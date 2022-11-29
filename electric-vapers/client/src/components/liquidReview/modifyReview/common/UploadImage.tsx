@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { liquidInfoState } from "../../../recoil/recoil";
+import { liquidInfoState } from "../../../../recoil/recoil";
 
 const StyledUploadImage = styled.div`
   width: 100%;

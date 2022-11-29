@@ -3,17 +3,10 @@ import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { urlConfig } from "../../config";
-import { isLoadingState, liquidDataState, loggedInUserState, uploadImageState } from "../../recoil/recoil";
-import Buttons from "./common/Buttons";
-import UploadImage from "./common/UploadImage";
-import LiquidScore from "./common/LiquidScore";
-import Header from "./common/Header";
-import ChooseType from "./common/ChooseType";
-import LiquidName from "./common/LiquidTItle";
-import LiquidInfo from "./common/LiquidInfo";
-import FreeWrite from "./common/FreeWrite";
-import Loading from "../common/Loading";
+import { urlConfig } from "../../../config";
+import { isLoadingState, liquidDataState, loggedInUserState, uploadImageState } from "../../../recoil/recoil";
+import Header from "../Header";
+
 const StyledWriteLiquidReview = styled.form`
   width: 70%;
   height: auto;
@@ -26,37 +19,12 @@ const StyledWriteLiquidReview = styled.form`
   }
 `;
 
-const WriteLiquidReview = ({ division }: { division: string }) => {
+const WriteFreeBoard = () => {
   const loggedInUser = useRecoilValue(loggedInUserState);
   const [liquidData, setLiquidData] = useRecoilState(liquidDataState);
   const [uploadImages, setUploadImages] = useRecoilState(uploadImageState);
   const navigator = useNavigate();
   const setIsLoading = useSetRecoilState(isLoadingState);
-
-  /** 액상 종류와 작성자 이메일 추가 */
-  useEffect(() => {
-    if (division === "mtl") {
-      setLiquidData((liquidData) => {
-        const { info } = liquidData;
-        return {
-          ...liquidData,
-          division: division,
-          author: loggedInUser.email,
-          info: { ...info, volume: 30, nicoVolume: 9 },
-        };
-      });
-    } else {
-      setLiquidData((liquidData) => {
-        const { info } = liquidData;
-        return {
-          ...liquidData,
-          division: division,
-          author: loggedInUser.email,
-          info: { ...info, volume: 60, nicoVolume: 3 },
-        };
-      });
-    }
-  }, [division, loggedInUser.email, setLiquidData]);
 
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -100,30 +68,14 @@ const WriteLiquidReview = ({ division }: { division: string }) => {
 
       setUploadImages([]);
       setIsLoading(false);
-      console.log(division);
-      if (division === "mtl") {
-        navigator("/mtl-liquid");
-      } else {
-        navigator("/dtl-liquid");
-      }
     }
   };
 
   return (
     <StyledWriteLiquidReview encType="multipart/form-data" onSubmit={submitHandler} acceptCharset="UTF-8">
-      <Header isEdit={true} title={division === "mtl" ? "입호흡" : "폐호흡"} />
-      <ChooseType />
-      <LiquidName />
-      <LiquidInfo
-        volume={division === "mtl" ? [30, 60, 100, 120] : [60, 100, 120]}
-        nicoVolume={division === "mtl" ? [6, 9] : [3, 6]}
-      />
-      <UploadImage />
-      <FreeWrite />
-      <LiquidScore />
-      <Buttons />
+      <Header isEdit />
     </StyledWriteLiquidReview>
   );
 };
 
-export default WriteLiquidReview;
+export default WriteFreeBoard;

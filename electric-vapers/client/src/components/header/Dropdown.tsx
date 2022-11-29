@@ -64,17 +64,17 @@ const getContent = (title: string | undefined) => {
     case "커뮤니티":
       return (
         <>
-          <DropdownItem to="">자유게시판</DropdownItem>
-          <DropdownItem to="">질문 / 답변</DropdownItem>
-          <DropdownItem to="">액상리뷰 요청</DropdownItem>
+          <DropdownItem to="/free-board">자유게시판</DropdownItem>
+          <DropdownItem to="/qna">질문 / 답변</DropdownItem>
+          <DropdownItem to="/req-liquid">액상리뷰 요청</DropdownItem>
         </>
       );
     case "중고장터":
       return (
         <>
-          <DropdownItem to="">액상거래</DropdownItem>
-          <DropdownItem to="">기기거래</DropdownItem>
-          <DropdownItem to="">주변부품 거래</DropdownItem>
+          <DropdownItem to="/trade-liquid">액상거래</DropdownItem>
+          <DropdownItem to="/trade-device">기기거래</DropdownItem>
+          <DropdownItem to="/trade-parts">주변부품 거래</DropdownItem>
         </>
       );
     case "공지사항":

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { urlConfig } from "../../config";
-import Header from "../writeLiqiudReview/common/Header";
+import Header from "./writeReview/common/Header";
 import ReviewItem from "./ReviewItem";
 
 const StyledLiquidReview = styled.div`

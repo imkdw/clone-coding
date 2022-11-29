@@ -1,9 +1,9 @@
 import { ChangeEvent } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { liquidDataState, liquidInfoState } from "../../../recoil/recoil";
-import { ILiquidInfo } from "../../../recoil/recoilType";
-import { ILiquidData } from "../../../types/liquid";
+import { liquidDataState, liquidInfoState } from "../../../../recoil/recoil";
+import { ILiquidInfo } from "../../../../recoil/recoilType";
+import { ILiquidData } from "../../../../types/liquid";
 
 const StyledLiquidInfo = styled.div`
   width: 100%;

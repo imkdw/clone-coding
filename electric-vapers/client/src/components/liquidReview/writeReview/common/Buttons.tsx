@@ -1,6 +1,6 @@
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { liquidDataState, uploadImageState } from "../../../recoil/recoil";
+import { liquidDataState, uploadImageState } from "../../../../recoil/recoil";
 
 const StyledButtons = styled.div`
   width: 100%;

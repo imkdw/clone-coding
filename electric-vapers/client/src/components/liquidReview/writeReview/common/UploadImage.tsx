@@ -1,7 +1,7 @@
 import { ChangeEvent, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { uploadImageState } from "../../../recoil/recoil";
+import { uploadImageState } from "../../../../recoil/recoil";
 
 const StyledUploadImage = styled.div`
   width: 100%;
