@@ -65,17 +65,17 @@ interface ContainerProps {
 }
 
 const Container = ({ children }: ContainerProps) => {
-  const clickHandler = () => {
-    window.scrollTo(0, 0);
-  };
+  // const clickHandler = () => {
+  //   window.scrollTo(0, 0);
+  // };
 
   return (
     <StyledContainer>
       <Header />
       <Content>{children}</Content>
-      <SetScroll onClick={clickHandler}>
+      {/* <SetScroll onClick={clickHandler}>
         <ArrowUpIcon />
-      </SetScroll>
+      </SetScroll> */}
     </StyledContainer>
   );
 };

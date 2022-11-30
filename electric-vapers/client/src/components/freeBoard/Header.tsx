@@ -3,22 +3,24 @@ import styled from "styled-components";
 
 const StyledHeader = styled.div<{ isEdit: boolean }>`
   width: 100%;
-  height: 150px;
-  min-height: 150px;
+  height: 130px;
+  min-height: 130px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 70px;
 
   @media screen and (max-width: 1024px) {
-    height: ${(props) => (props.isEdit ? "75px" : "150px")};
-    min-height: ${(props) => (props.isEdit ? "75px" : "150px")};
+    width: 80%;
+    height: ${(props) => (props.isEdit ? "75px" : "130px")};
+    min-height: ${(props) => (props.isEdit ? "75px" : "130px")};
     flex-direction: column;
   }
 
   @media screen and (max-width: 768px) {
-    height: ${(props) => (props.isEdit ? "75px" : "150px")};
-    min-height: ${(props) => (props.isEdit ? "75px" : "150px")};
+    width: 80%;
+    height: ${(props) => (props.isEdit ? "75px" : "130px")};
+    min-height: ${(props) => (props.isEdit ? "75px" : "130px")};
     flex-direction: column;
   }
 `;
@@ -57,10 +59,12 @@ const HeaderUtils = styled.div`
 
   @media screen and (max-width: 1024px) {
     width: 100%;
+    height: 80%;
   }
 
   @media screen and (max-width: 768px) {
     width: 100%;
+    height: 80%;
   }
 `;
 
