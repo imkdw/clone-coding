@@ -1,6 +1,8 @@
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import { freeBoardState } from "../../../recoil/recoil";
 
 const StyledEditor = styled.div`
   width: 100%;
@@ -15,15 +17,19 @@ const Label = styled.label`
 `;
 
 const Editor = () => {
+  const [freeBoard, setFreeBoard] = useRecoilState(freeBoardState);
+
   return (
     <StyledEditor>
       <Label>내용</Label>
       <CKEditor
         editor={ClassicEditor}
-        data="<p></p>"
+        data={freeBoard.content}
         onChange={(event, editor) => {
           const data = editor.getData();
-          console.log(data);
+          setFreeBoard((prevState) => {
+            return { ...prevState, content: data };
+          });
         }}
       />
     </StyledEditor>

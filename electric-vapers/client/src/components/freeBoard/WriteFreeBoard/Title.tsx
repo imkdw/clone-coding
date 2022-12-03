@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { ChangeEvent } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { freeBoardState } from "../../../recoil/recoil";
 
 const StyledTitle = styled.div`
   width: 100%;
@@ -29,11 +32,25 @@ const Input = styled.input`
 `;
 
 const Title = () => {
+  const [freeBoard, setFreeBoard] = useRecoilState(freeBoardState);
+
+  const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setFreeBoard((prevState) => {
+      return { ...prevState, title: event.target.value };
+    });
+  };
+
   return (
     <StyledTitle>
       <Label>제목</Label>
       <InputWrapper>
-        <Input type="text" name="title" />
+        <Input
+          type="text"
+          name="title"
+          value={freeBoard.title}
+          onChange={changeHandler}
+          placeholder="제목을 입력하세요"
+        />
       </InputWrapper>
     </StyledTitle>
   );

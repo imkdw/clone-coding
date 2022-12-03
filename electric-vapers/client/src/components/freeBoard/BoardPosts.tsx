@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import PostItem from "./PostItem";
 import PostTitle from "./PostTitle";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { urlConfig } from "../../config";
 
 const StyledBoardPosts = styled.div`
   width: 80%;
@@ -19,63 +22,28 @@ const PostLists = styled.div`
 `;
 
 const BoardPosts = () => {
-  const postData = [
-    {
-      id: 1,
-      title: "테스트 게시물",
-      author: "dongwoo",
-      createdAt: "2022-11-30",
-    },
-    {
-      id: 2,
-      title: "테스트 게시물",
-      author: "dongwoo",
-      createdAt: "2022-11-30",
-    },
-    {
-      id: 3,
-      title: "테스트 게시물",
-      author: "dongwoo",
-      createdAt: "2022-11-30",
-    },
-    {
-      id: 4,
-      title: "테스트 게시물",
-      author: "dongwoo",
-      createdAt: "2022-11-30",
-    },
-    {
-      id: 5,
-      title: "테스트 게시물",
-      author: "dongwoo",
-      createdAt: "2022-11-30",
-    },
-    {
-      id: 6,
-      title: "테스트 게시물",
-      author: "dongwoo",
-      createdAt: "2022-11-30",
-    },
-    {
-      id: 7,
-      title: "테스트 게시물",
-      author: "dongwoo",
-      createdAt: "2022-11-30",
-    },
-    {
-      id: 8,
-      title: "테스트 게시물",
-      author: "dongwoo",
-      createdAt: "2022-11-30",
-    },
-  ];
+  const [boardData, setBoardData] = useState([]);
+
+  useEffect(() => {
+    const getPosts = async () => {
+      const res = await axios.get(urlConfig.board.readFreeBoard);
+      if (res.status !== 200) {
+        alert("오류가 발생했습니다.");
+        return;
+      }
+
+      setBoardData(res.data);
+    };
+
+    getPosts();
+  }, []);
 
   return (
     <StyledBoardPosts>
       <PostTitle />
       <PostLists>
-        {postData.map((data) => (
-          <PostItem data={data} />
+        {boardData.map((data, index) => (
+          <PostItem data={data} index={index} postLength={boardData.length} />
         ))}
       </PostLists>
     </StyledBoardPosts>

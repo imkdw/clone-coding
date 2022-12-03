@@ -79,16 +79,29 @@ const CreatedAt = styled.div`
   }
 `;
 
-const PostItem = ({ data }: any) => {
-  const { id, title, author, createdAt } = data;
+interface PostItemProps {
+  data: {
+    author: string;
+    boardId: string;
+    title: string;
+    content: string;
+    nickname: string;
+    createdAt: string;
+  };
+  index: number;
+  postLength: number;
+}
+
+const PostItem = ({ data, index, postLength }: PostItemProps) => {
+  const { boardId, title, nickname, createdAt } = data;
   const { offsetWidth } = document.body;
 
   return (
-    <StyledPostItem to="">
-      <TurnNumber>{id}</TurnNumber>
+    <StyledPostItem to={`/free-board/${boardId}`}>
+      <TurnNumber>{postLength - index}</TurnNumber>
       <TitleAndAuthor>
         <Title>{title}</Title>
-        {offsetWidth < 767 ? <Author>작성자 : {author}</Author> : <Author>{author}</Author>}
+        {offsetWidth < 767 ? <Author>작성자 : {nickname}</Author> : <Author>{nickname}</Author>}
       </TitleAndAuthor>
       <CreatedAt>{createdAt}</CreatedAt>
     </StyledPostItem>

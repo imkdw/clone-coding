@@ -5,6 +5,7 @@ import multer from "multer";
 
 import authRouter from "./routes/authRouter";
 import reviewRouter from "./routes/reviewRouter";
+import boardRouter from "./routes/boardRouter";
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.use(multer({ storage }).fields([{ name: "file", maxCount: 8 }]));
 /** 라우터 설정 */
 app.use("/auth", authRouter);
 app.use("/review", reviewRouter);
+app.use("/board", boardRouter);
 
 /** 서버 오픈 */
 app.listen(app.get("port"), () => {

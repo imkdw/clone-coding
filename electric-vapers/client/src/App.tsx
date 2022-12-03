@@ -18,6 +18,7 @@ import ModifyLiquidReview from "./components/liquidReview/modifyReview/ModifyLiq
 import Loading from "./components/common/Loading";
 import FreeBoard from "./components/freeBoard/FreeBoard";
 import WriteFreeBoard from "./components/freeBoard/WriteFreeBoard/WriteFreeBoard";
+import FreeBoardInfo from "./components/freeBoard/Info/FreeBoardInfo";
 
 const App = () => {
   const showSideMenu = useRecoilValue(showSideMenuState);
@@ -83,6 +84,7 @@ const App = () => {
           <Route path="/liquid-review/modify/:postId" element={<ModifyLiquidReview />} />
           <Route path="/free-board" element={<FreeBoard />} />
           <Route path="/free-board/write" element={<WriteFreeBoard />} />
+          <Route path="/free-board/:boardId" element={<FreeBoardInfo />} />
         </Routes>
       </Container>
       <GlobalStyle />

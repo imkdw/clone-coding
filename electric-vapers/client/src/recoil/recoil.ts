@@ -106,3 +106,27 @@ export const isLoadingState = atom({
   key: "isLoadingState",
   default: false,
 });
+
+/** 자유게시판 글 작성 데이터 */
+export const freeBoardState = atom({
+  key: "freeBoardState",
+  default: {
+    author: "",
+    nickname: "",
+    title: "",
+    content: "",
+  },
+});
+
+/** 자유게시판 상세보기 데이터 */
+export const freeBoardDataState = atom({
+  key: "freeBoardData",
+  default: {
+    author: "",
+    boardId: "",
+    content: "",
+    createdAt: "",
+    nickname: "",
+    title: "",
+  },
+});
