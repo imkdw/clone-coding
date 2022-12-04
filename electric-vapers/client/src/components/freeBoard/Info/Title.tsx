@@ -17,6 +17,9 @@ const BoardTitle = styled.div`
   width: 100%;
   height: 50px;
   font-size: 36px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const AuthorAndDate = styled.div`

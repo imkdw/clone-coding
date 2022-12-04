@@ -29,3 +29,32 @@ export const readFreeBoard = async (boardId: string) => {
   const queryResult = sendQuery(query, values);
   return queryResult;
 };
+
+export const writeFreeBoardComment = async (
+  commentId: string,
+  reviewId: string,
+  author: string,
+  nickname: string,
+  text: string
+) => {
+  const query =
+    "INSERT INTO liquid_review_comment(comment_id, review_id, author, nickname, text) VALUES(?, ?, ?, ?, ?)";
+  const values = [commentId, reviewId, author, nickname, text];
+  const queryResult = await sendQuery(query, values);
+  return queryResult;
+};
+
+export const selectFreeBoardComment = async (reviewId: string) => {
+  const query =
+    "SELECT comment_id, nickname, created_at, text FROM liquid_review_comment WHERE review_id=? ORDER BY created_at ASC";
+  const values = [reviewId];
+  const queryResult = await sendQuery(query, values);
+  return queryResult;
+};
+
+export const dropFreeBoardComment = async (commentId: string) => {
+  const query = "DELETE FROM liquid_review_comment WHERE comment_id=?";
+  const values = [commentId];
+  const queryResult = await sendQuery(query, values);
+  return queryResult;
+};

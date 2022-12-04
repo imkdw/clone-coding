@@ -1,19 +1,13 @@
 import axios from "axios";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { urlConfig } from "../../../config";
-import {
-  freeBoardState,
-  isLoadingState,
-  liquidDataState,
-  loggedInUserState,
-  uploadImageState,
-} from "../../../recoil/recoil";
+import { freeBoardState, isLoadingState, loggedInUserState } from "../../../recoil/recoil";
 import Header from "../Header";
 import Buttons from "./Buttons";
-import Editor from "./Editor";
+import ContentEditor from "./ContentEditor";
 import Title from "./Title";
 
 const StyledWriteFreeBoard = styled.form`
@@ -38,7 +32,7 @@ const WriteFreeBoard = () => {
     setFreeBoard((prevState) => {
       return { ...prevState, author: loggedInUser.email, nickname: loggedInUser.nickname };
     });
-  }, []);
+  }, [loggedInUser.email, loggedInUser.nickname, setFreeBoard]);
 
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -64,7 +58,7 @@ const WriteFreeBoard = () => {
     <StyledWriteFreeBoard encType="multipart/form-data" onSubmit={submitHandler} acceptCharset="UTF-8">
       <Header isEdit />
       <Title />
-      <Editor />
+      <ContentEditor />
       <Buttons />
     </StyledWriteFreeBoard>
   );

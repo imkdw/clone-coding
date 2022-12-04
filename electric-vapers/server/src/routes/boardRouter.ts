@@ -6,5 +6,6 @@ const boardRouter = express.Router();
 boardRouter.post("/free", postFreeBoard);
 boardRouter.get("/free", getFreeBoards);
 boardRouter.get("/free/:boardId", getFreeBoard);
+boardRouter.post("/comment/:boardId");
 
 export default boardRouter;

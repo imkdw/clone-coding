@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { urlConfig } from "../../../config";
-import { liquidReviewCommentState, liquidReviewCommentTextState } from "../../../recoil/recoil";
+import { urlConfig } from "../../../../config";
+import { liquidReviewCommentState, liquidReviewCommentTextState } from "../../../../recoil/recoil";
 import CommentItem from "./CommentItem";
 import WriteComment from "./WriteComment";
 
@@ -38,11 +38,11 @@ const CommentItems = styled.ul`
 const Comment = () => {
   const [comments, setComments] = useRecoilState(liquidReviewCommentState);
   const liquidReviewCommentText = useRecoilValue(liquidReviewCommentTextState);
-  const { reviewId } = useParams();
+  const { boardId } = useParams();
 
   useEffect(() => {
     const getComments = async () => {
-      const res = await axios.get(urlConfig.review.getLiquidReviewComment + reviewId);
+      const res = await axios.get(urlConfig.board.getFreeBoardComment + boardId);
 
       if (res.status !== 200) {
         alert("댓글을 불러오지 못했습니다.");

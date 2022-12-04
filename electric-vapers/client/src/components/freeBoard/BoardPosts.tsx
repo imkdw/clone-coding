@@ -21,8 +21,17 @@ const PostLists = styled.div`
   flex-direction: column;
 `;
 
+interface IBoardData {
+  author: string;
+  boardId: string;
+  content: string;
+  createdAt: string;
+  nickname: string;
+  title: string;
+}
+
 const BoardPosts = () => {
-  const [boardData, setBoardData] = useState([]);
+  const [boardData, setBoardData] = useState<IBoardData[] | never[]>([]);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -43,7 +52,7 @@ const BoardPosts = () => {
       <PostTitle />
       <PostLists>
         {boardData.map((data, index) => (
-          <PostItem data={data} index={index} postLength={boardData.length} />
+          <PostItem data={data} index={index} postLength={boardData.length} key={data.boardId} />
         ))}
       </PostLists>
     </StyledBoardPosts>

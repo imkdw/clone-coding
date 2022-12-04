@@ -1,9 +1,9 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { liquidInfoState, liquidReviewCommentTextState, loggedInUserState } from "../../../recoil/recoil";
+import { liquidInfoState, liquidReviewCommentTextState, loggedInUserState } from "../../../../recoil/recoil";
 import { FormEvent, ChangeEvent } from "react";
 import axios from "axios";
-import { urlConfig } from "../../../config";
+import { urlConfig } from "../../../../config";
 
 const StyeldWriteComment = styled.form`
   width: 90%;

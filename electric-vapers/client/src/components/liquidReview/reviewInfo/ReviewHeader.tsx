@@ -1,6 +1,6 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { liquidInfoState, loggedInUserState } from "../../../recoil/recoil";
+import { isLoadingState, liquidInfoState, loggedInUserState } from "../../../recoil/recoil";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -70,6 +70,7 @@ const ReviewHeader = () => {
   const liquidInfo = useRecoilValue(liquidInfoState);
   const loggedInUser = useRecoilValue(loggedInUserState);
   const navigator = useNavigate();
+  const setIsLoading = useSetRecoilState(isLoadingState);
 
   const modifyHandler = () => {
     navigator(`/liquid-review/modify/${liquidInfo.review.reviewId}`);
@@ -78,6 +79,7 @@ const ReviewHeader = () => {
   const deleteHandler = async () => {
     const confirm = window.confirm("정말 리뷰를 삭제할건가요??\n리뷰를 삭제하면 복구가 불가능합니다.");
     if (confirm) {
+      setIsLoading(true);
       const res = await axios.delete(urlConfig.review.deleteLiquidReview + liquidInfo.review.reviewId);
 
       if (res.status !== 200) {
@@ -85,6 +87,7 @@ const ReviewHeader = () => {
         return;
       }
 
+      setIsLoading(false);
       navigator(-1);
     }
   };

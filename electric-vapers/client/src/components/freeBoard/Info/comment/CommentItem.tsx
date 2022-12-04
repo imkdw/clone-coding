@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { ILiquidReviewComment } from "../../../types/liquid";
+import { ILiquidReviewComment } from "../../../../types/liquid";
 import { Button } from "antd";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { liquidInfoState, liquidReviewCommentState, loggedInUserState } from "../../../recoil/recoil";
+import { liquidInfoState, liquidReviewCommentState, loggedInUserState } from "../../../../recoil/recoil";
 import axios from "axios";
-import { urlConfig } from "../../../config";
+import { urlConfig } from "../../../../config";
 import { useNavigate } from "react-router-dom";
 
 const StyledCommentItem = styled.li`

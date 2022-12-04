@@ -65,7 +65,7 @@ const HeaderUtils = styled.div`
 `;
 
 const SearchBar = styled.div`
-  width: 70%;
+  width: 60%;
   height: 50%;
   border-radius: 20px;
   border: 1px solid #dbdbdb;
@@ -103,7 +103,7 @@ const Input = styled.input`
 `;
 
 const WriteReviewLink = styled(Link)`
-  width: 20%;
+  width: 30%;
   height: 50%;
   border: 1px solid #dbdbdb;
   border-radius: 10px;

@@ -20,7 +20,7 @@ export const urlConfig = {
      * deleteLiquidReviewComment: 액상 리뷰 댓글 삭제
      */
     getMtlLiquidReviews: "http://localhost:5000/review/mtl-liquid",
-    getDtlLiquidReviews: "http://localhost:5000/review/dtl-l  iquid",
+    getDtlLiquidReviews: "http://localhost:5000/review/dtl-liquid",
     writeLiquidReview: "http://localhost:5000/review/liquid",
     getLiquidReview: "http://localhost:5000/review/liquid/",
     getLiquidReviewComment: "http://localhost:5000/review/liquid/comment/",
@@ -32,5 +32,7 @@ export const urlConfig = {
   board: {
     writeFreeBoard: "http://localhost:5000/board/free",
     readFreeBoard: "http://localhost:5000/board/free",
+    writeFreeBoardComment: "http://localhost:5000/board/free/comment/",
+    getFreeBoardComment: "http://localhost:5000/board/free/comment/",
   },
 };

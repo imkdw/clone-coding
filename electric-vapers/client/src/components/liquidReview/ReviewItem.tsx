@@ -4,9 +4,8 @@ import styled from "styled-components";
 const StyledReviewItem = styled(Link)`
   width: 21%;
   height: 400px;
-  border: 1px solid #dbdbdb;
   border-radius: 10px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   transition: all 0.5;
 
   &:hover {

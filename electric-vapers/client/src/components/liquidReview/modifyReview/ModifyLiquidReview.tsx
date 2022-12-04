@@ -1,10 +1,10 @@
 import axios from "axios";
-import { FormEvent, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { urlConfig } from "../../../config";
-import { liquidDataState, liquidInfoState, loggedInUserState, uploadImageState } from "../../../recoil/recoil";
+import { isLoadingState, liquidInfoState } from "../../../recoil/recoil";
 import Buttons from "./common/Buttons";
 import UploadImage from "./common/UploadImage";
 import LiquidScore from "./common/LiquidScore";
@@ -28,8 +28,10 @@ const StyledWriteLiquidReview = styled.form`
 const ModifyLiquidReview = () => {
   const liquidInfo = useRecoilValue(liquidInfoState);
   const navigator = useNavigate();
+  const setIsLoading = useSetRecoilState(isLoadingState);
 
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
+    setIsLoading(true);
     event.preventDefault();
 
     const res = await axios.put(urlConfig.review.modifyLiquidReview + liquidInfo.review.reviewId, liquidInfo.review);
@@ -39,6 +41,7 @@ const ModifyLiquidReview = () => {
       return;
     }
 
+    setIsLoading(false);
     navigator(-1);
   };
 

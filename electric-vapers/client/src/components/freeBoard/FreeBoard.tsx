@@ -1,7 +1,4 @@
-import { useEffect } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { freeBoardState, loggedInUserState } from "../../recoil/recoil";
 import BoardPosts from "./BoardPosts";
 import Header from "./Header";
 import FreeBoardPagination from "./Pagination";
@@ -25,7 +22,7 @@ const FreeBoard = () => {
     <StyledLiquidReview>
       <Header isEdit={false} />
       <BoardPosts />
-      <FreeBoardPagination />
+      {/* <FreeBoardPagination />  */}
     </StyledLiquidReview>
   );
 };
