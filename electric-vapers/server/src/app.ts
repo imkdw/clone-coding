@@ -10,11 +10,12 @@ import boardRouter from "./routes/boardRouter";
 dotenv.config();
 
 const app = express();
-app.set("port", process.env.PORT || 5000);
+app.set("port", process.env.PORT);
 
 /** CORS 에러를 방지하기 위한 헤더 설정 */
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Origin", "http://dongeu47.iptime.org:3000");
   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();

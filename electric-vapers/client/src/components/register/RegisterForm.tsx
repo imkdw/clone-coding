@@ -3,6 +3,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { urlConfig } from "../../config";
 import { isLoadingState } from "../../recoil/recoil";
 
 const StyledRegisterForm = styled.form`
@@ -72,7 +73,7 @@ const RegisterForm = () => {
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-    const res = await axios.post("http://localhost:5000/auth/register", {
+    const res = await axios.post(urlConfig.auth.register, {
       email,
       password,
       rePassword,

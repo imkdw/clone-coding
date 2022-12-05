@@ -3,6 +3,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { urlConfig } from "../../config";
 import { accessTokenState, loggedInUserState } from "../../recoil/recoil";
 
 const StyledLoginForm = styled.form`
@@ -73,7 +74,7 @@ const LoginForm = () => {
     const { email, password } = account;
 
     try {
-      const res = await axios.post("http://localhost:5000/auth/login", { email, password });
+      const res = await axios.post(urlConfig.auth.login, { email, password });
 
       /** 200, 로그인 성공시 */
       if (res.status === 200) {
@@ -123,7 +124,7 @@ const LoginForm = () => {
           name="password"
         />
       </FormControl>
-      <SubmitBtn>회원가입</SubmitBtn>
+      <SubmitBtn>로그인</SubmitBtn>
     </StyledLoginForm>
   );
 };
